@@ -1,0 +1,137 @@
+<form [formGroup]="formCreate" novalidate>
+  <mat-card class="card-content">
+    <mat-card-header>
+      <mat-card-title class="title"
+        >{{ 'USER.CREATE.TITLE' | translate }}</mat-card-title
+      >
+    </mat-card-header>
+    <mat-card-content>
+      <div class="row">
+        <div class="col">
+          <mat-form-field class="full-width">
+            <mat-label>{{ 'USER.FORM.NAME.LABEL' | translate }}</mat-label>
+            <input
+              matInput
+              type="text"
+              [placeholder]="'USER.FORM.NAME.PLACEHOLDER' | translate"
+              formControlName="nombre"
+            />
+            @if (errorHandling('nombre')) {
+            <mat-error>{{ errorHandling('nombre') }}</mat-error>
+            }
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <mat-form-field class="full-width">
+            <mat-label>{{ 'USER.FORM.EMAIL.LABEL' | translate }}</mat-label>
+            <input
+              matInput
+              type="text"
+              [placeholder]="'USER.FORM.EMAIL.PLACEHOLDER' | translate"
+              formControlName="correo"
+            />
+            @if (errorHandling('correo')) {
+            <mat-error>{{ errorHandling('correo') }}</mat-error>
+            }
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <mat-form-field class="full-width">
+            <mat-label>{{ 'USER.FORM.PASSWORD.LABEL' | translate }}</mat-label>
+            <input
+              matInput
+              [type]="hide ? 'password' : 'text'"
+              [placeholder]="'USER.FORM.PASSWORD.PLACEHOLDER' | translate"
+              formControlName="contrasenna"
+            />
+            <button
+              mat-icon-button
+              matSuffix
+              (click)="hide = !hide"
+              [attr.aria-label]="'USER.FORM.PASSWORD.HIDE' | translate"
+              [attr.aria-pressed]="hide"
+            >
+              <mat-icon>{{ hide ? 'visibility_off' : 'visibility' }}</mat-icon>
+            </button>
+            <mat-error *ngIf="errorHandling('contrasenna')">
+              {{ errorHandling('contrasenna') }}
+            </mat-error>
+          </mat-form-field>
+
+          <div
+            *ngIf="formCreate.get('contrasenna')?.errors?.['passwordComplexity'] &&
+            (formCreate.get('contrasenna')?.touched || formCreate.get('contrasenna')?.dirty)"
+          >
+            <p
+              *ngIf="!formCreate.get('contrasenna')?.errors?.['passwordComplexity']?.['minLength']"
+            >
+              La contraseña debe tener al menos 8 caracteres.
+            </p>
+            <p
+              *ngIf="!formCreate.get('contrasenna')?.errors?.['passwordComplexity']?.['hasUpperCase']"
+            >
+              Debe incluir al menos una letra mayúscula.
+            </p>
+            <p
+              *ngIf="!formCreate.get('contrasenna')?.errors?.['passwordComplexity']?.['hasLowerCase']"
+            >
+              Debe incluir al menos una letra minúscula.
+            </p>
+            <p
+              *ngIf="!formCreate.get('contrasenna')?.errors?.['passwordComplexity']?.['hasNumber']"
+            >
+              Debe incluir al menos un número.
+            </p>
+            <p
+              *ngIf="!formCreate.get('contrasenna')?.errors?.['passwordComplexity']?.['hasSpecialChar']"
+            >
+              Debe incluir al menos un carácter especial
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col">
+          <mat-form-field class="full-width">
+            <mat-label
+              >{{ 'USER.FORM.CONFIRM_PASSWORD.LABEL' | translate }}</mat-label
+            >
+            <input
+              matInput
+              [type]="hide ? 'password' : 'text'"
+              [placeholder]="'USER.FORM.CONFIRM_PASSWORD.PLACEHOLDER' | translate"
+              formControlName="confirmcontrasenna"
+            />
+            <button
+              mat-icon-button
+              matSuffix
+              (click)="hide = !hide"
+              [attr.aria-label]="'USER.FORM.PASSWORD.HIDE' | translate"
+              [attr.aria-pressed]="hide"
+            >
+              <mat-icon>{{ hide ? 'visibility_off' : 'visibility' }}</mat-icon>
+            </button>
+          </mat-form-field>
+          @if(formCreate.hasError('passwordsMismatch') && formCreate.touched) {
+          <mat-error
+            >{{ 'USER.FORM.CONFIRM_PASSWORD.ERROR' | translate }}</mat-error
+          >
+          }
+        </div>
+      </div>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-stroked-button color="primary" (click)="submitForm()">
+        {{ 'USER.ACTIONS.REGISTER' | translate }}
+      </button>
+      <button mat-stroked-button color="warn" type="reset" (click)="onReset()">
+        {{ 'USER.ACTIONS.CANCEL' | translate }}
+      </button>
+    </mat-card-actions>
+  </mat-card>
+</form>

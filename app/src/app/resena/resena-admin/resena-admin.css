@@ -1,0 +1,43 @@
+/* Asegura que el body y html no tengan márgenes y usen todo el espacio */
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+}
+
+/* El contenedor principal */
+.container {
+  min-height: 100vh;     /* Ocupa todo el alto del viewport */
+  width: 90vw;           /* Ocupa todo el ancho del viewport */
+  padding: 1rem;          /* Espacio interno opcional */
+  background-color: aliceblue;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+}
+
+
+.container h2 {
+  color: black; 
+}
+
+.filtros label {
+  margin-right: 1rem;
+  cursor: pointer;
+  color: black; 
+}
+
+.estado-oculto {
+  color: red;
+  font-weight: bold;
+}
+
+.estado-visible {
+  color: green;
+  font-weight: bold;
+}
+
+mat-icon {
+  vertical-align: middle;
+}

@@ -1,0 +1,89 @@
+/* Fuente base */
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  margin: 0;
+  background-color: #f4f7fa;
+  color: #333;
+}
+
+/* Contenedor principal */
+.about-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2em;
+}
+
+/* Hero */
+.about-hero {
+  text-align: center;
+  padding: 4em 2em;
+  background: linear-gradient(to right, #6a11cb, #2575fc);
+  color: white;
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  margin-bottom: 2em;
+  width: 100%;
+  max-width: 1000px;
+}
+
+.about-hero h1 {
+  font-size: 2.8em;
+  margin: 0;
+}
+
+.about-hero p {
+  font-size: 1.2em;
+  margin-top: 0.5em;
+}
+
+/* Contenido principal */
+.about-content {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2em;
+  width: 100%;
+  max-width: 1000px;
+  color: black
+}
+
+@media (min-width: 768px) {
+  .about-content {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Tarjetas */
+.about-card {
+  background-color: rgb(225, 222, 222);
+  padding: 2em;
+  border-radius: 12px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.08);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.about-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+.about-card h2 {
+  margin-top: 0;
+  font-size: 1.6em;
+  color: #2575fc;
+}
+
+.about-card p,
+.about-card ul {
+  margin-top: 0.8em;
+  font-size: 1em;
+  line-height: 1.6em;
+}
+
+.about-card ul {
+  padding-left: 1.2em;
+}
+
+.about-card li {
+  margin-bottom: 0.4em;
+}

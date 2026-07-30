@@ -1,0 +1,156 @@
+/* Estilos generales para el contenedor principal */
+mat-card {
+  background-color: #fffbfb; /* Fondo oscuro pero no negro puro */
+  color: #191717; /* Texto claro para contraste */
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Encabezado de la tarjeta */
+mat-card-header {
+  border-bottom: 1px solid #444;
+  padding-bottom: 16px;
+  margin-bottom: 16px;
+}
+
+mat-card-title {
+  color: #020202; /* Blanco para títulos */
+  font-size: 1.5rem;
+  font-weight: 500;
+}
+
+mat-card-subtitle {
+  color: #171515; /* Gris claro para subtítulos */
+}
+
+/* Cuadro de información de iconos */
+.icon-info-box {
+  padding: 12px;
+  margin-bottom: 16px;
+  border-radius: 4px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  background: #5e4e4e; /* Fondo más claro que el contenedor principal */
+  border: 1px solid #444;
+
+  .icon-info-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #e0e0e0; /* Texto claro */
+
+    mat-icon {
+      color: #64b5f6; /* Azul claro para iconos */
+    }
+
+    span {
+      font-size: 0.9rem;
+    }
+  }
+}
+
+/* Contenedores de tipo */
+.tipo-container {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #221d1d;
+
+  mat-icon {
+    color: #81c784; /* Verde para iconos de tipo */
+  }
+}
+
+/* Campo de búsqueda */
+.search-field {
+  width: 100%;
+  margin-bottom: 16px;
+
+  .mat-form-field-outline {
+    color: #555; /* Borde más visible */
+  }
+
+  .mat-input-element {
+    color: #ffffff; /* Texto blanco para input */
+  }
+
+  .mat-form-field-label {
+    color: #9e9e9e; /* Color label */
+  }
+
+  .mat-icon {
+    color: #9e9e9e; /* Color icono search */
+  }
+}
+
+/* Tabla */
+.mat-table {
+  background-color: #2d2d2d; /* Igual que el card */
+  
+  .mat-header-cell {
+    color: #bb86fc; /* Morado claro para encabezados */
+    font-size: 0.9rem;
+    font-weight: 500;
+  }
+
+  .mat-cell {
+    color: #e0e0e0; /* Texto claro para celdas */
+    border-bottom-color: #444; /* Líneas divisorias visibles */
+  }
+
+  .mat-row:hover {
+    background-color: #3a3a3a; /* Resaltado al hover */
+  }
+}
+
+/* Columna de acciones */
+.mat-column-acciones {
+  width: 150px;
+  text-align: center;
+
+  button {
+    margin: 0 4px;
+    
+    &.mat-icon-button {
+      background-color: transparent;
+      transition: background-color 0.3s;
+
+      &:hover {
+        background-color: rgba(255, 255, 255, 0.1);
+      }
+    }
+  }
+}
+
+/* Paginador */
+.mat-paginator {
+  background-color: #2d2d2d;
+  color: #000000;
+  border-top: 1px solid #444;
+
+  .mat-paginator-page-size-label {
+    color: #9e9e9e;
+  }
+
+  .mat-select-value {
+    color: #e0e0e0;
+  }
+}
+
+/* Estilos para botones */
+.mat-mini-fab {
+  background-color: #bb86fc; /* Morado para botones principales */
+  color: #121212; /* Texto oscuro para contraste */
+
+  &:hover {
+    background-color: #9a67ea;
+  }
+}
+
+/* Texto de ayuda adicional */
+.helper-text {
+  color: #9e9e9e;
+  font-size: 0.8rem;
+  margin-top: 8px;
+}

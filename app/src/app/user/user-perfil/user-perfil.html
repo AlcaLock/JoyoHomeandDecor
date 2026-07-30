@@ -1,0 +1,60 @@
+<form [formGroup]="formProfile" novalidate>
+  <mat-card class="card-content">
+    <mat-card-header>
+      <mat-card-title class="title"> Perfil de Usuario </mat-card-title>
+    </mat-card-header>
+
+    <mat-card-content>
+      <!-- Información del usuario -->
+      <div class="profile-info">
+        <!-- Nombre -->
+        <div class="row info-row">
+          <div class="col-4 info-label">Nombre:</div>
+          <div class="col-8 info-value">
+            {{ formProfile.get('nombre')?.value }}
+          </div>
+        </div>
+
+        <!-- Correo -->
+        <div class="row info-row">
+          <div class="col-4 info-label">Correo:</div>
+          <div class="col-8 info-value">
+            {{ formProfile.get('correo')?.value }}
+          </div>
+        </div>
+
+        <!-- Rol -->
+        <div class="row info-row">
+          <div class="col-4 info-label">Rol:</div>
+          <div class="col-8 info-value">
+            {{ formProfile.getRawValue().rol }}
+          </div>
+        </div>
+
+        <!-- Último login -->
+        <div class="row info-row">
+          <div class="col-4 info-label">Último login:</div>
+          <div class="col-8 info-value">
+            {{ formProfile.get('ultimoLogin')?.value }}
+          </div>
+        </div>
+
+        <!-- Fecha de creación -->
+        <div class="row info-row">
+          <div class="col-4 info-label">Fecha de creación:</div>
+          <div class="col-8 info-value">
+            {{ formProfile.get('creadoEn')?.value }}
+          </div>
+        </div>
+      </div>
+    </mat-card-content>
+
+    <mat-card-actions align="end">
+      <button mat-stroked-button color="primary" (click)="openUpdateDialog(usuario)">
+        Editar
+      </button>
+
+      <button mat-stroked-button color="warn" (click)="onBack()">Volver</button>
+    </mat-card-actions>
+  </mat-card>
+</form>

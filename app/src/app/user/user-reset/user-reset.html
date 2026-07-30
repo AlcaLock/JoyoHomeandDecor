@@ -1,0 +1,78 @@
+<div class="reset-password-container">
+  <h2 class="reset-title">Cambio de contraseña</h2>
+  <form [formGroup]="formReset" (ngSubmit)="submitForm()" class="form reset-form">
+    
+    <mat-form-field class="full-width reset-field">
+      <input
+        matInput
+        [type]="hide ? 'password' : 'text'"
+        placeholder='Nueva contraseña'
+        formControlName="nuevaContrasenna"
+      />
+      <button
+        mat-icon-button
+        matSuffix
+        type="button"
+        (click)="hide = !hide"
+        [attr.aria-label]="'USER.FORM.PASSWORD.HIDE' | translate"
+        [attr.aria-pressed]="hide"
+      >
+        <mat-icon>{{ hide ? 'visibility_off' : 'visibility' }}</mat-icon>
+      </button>
+      <mat-error *ngIf="errorHandling('nuevaContrasenna')">
+        {{ errorHandling('nuevaContrasenna') }}
+      </mat-error>
+    </mat-form-field>
+
+    <div
+      class="password-rules"
+      *ngIf="formReset.get('nuevaContrasenna')?.errors?.['passwordComplexity'] &&
+      (formReset.get('nuevaContrasenna')?.touched || formReset.get('nuevaContrasenna')?.dirty)"
+    >
+      <p *ngIf="!formReset.get('nuevaContrasenna')?.errors?.['passwordComplexity']?.['minLength']">
+        La contraseña debe tener al menos 8 caracteres.
+      </p>
+      <p *ngIf="!formReset.get('nuevaContrasenna')?.errors?.['passwordComplexity']?.['hasUpperCase']">
+        Debe incluir al menos una letra mayúscula.
+      </p>
+      <p *ngIf="!formReset.get('nuevaContrasenna')?.errors?.['passwordComplexity']?.['hasLowerCase']">
+        Debe incluir al menos una letra minúscula.
+      </p>
+      <p *ngIf="!formReset.get('nuevaContrasenna')?.errors?.['passwordComplexity']?.['hasNumber']">
+        Debe incluir al menos un número.
+      </p>
+      <p *ngIf="!formReset.get('nuevaContrasenna')?.errors?.['passwordComplexity']?.['hasSpecialChar']">
+        Debe incluir al menos un carácter especial
+      </p>
+    </div>
+
+    <mat-form-field class="full-width reset-field">
+      <mat-label>{{ 'USER.FORM.CONFIRM_PASSWORD.LABEL' | translate }}</mat-label>
+      <input 
+        matInput 
+        [type]="hide ? 'password' : 'text'" 
+        formControlName="confirmContrasenna"
+      />
+      <button
+        mat-icon-button
+        matSuffix
+        type="button"
+        (click)="hide = !hide"
+        [attr.aria-label]="'USER.FORM.PASSWORD.HIDE' | translate"
+        [attr.aria-pressed]="hide"
+      >
+        <mat-icon>{{ hide ? 'visibility_off' : 'visibility' }}</mat-icon>
+      </button>
+    </mat-form-field>
+
+    <button 
+      mat-raised-button 
+      color="primary" 
+      type="submit" 
+      [disabled]="formReset.invalid"
+      class="reset-btn"
+    >
+      {{ 'COMMON.SAVE' | translate }}
+    </button>
+  </form>
+</div>

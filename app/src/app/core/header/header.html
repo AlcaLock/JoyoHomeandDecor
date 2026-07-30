@@ -1,0 +1,105 @@
+<mat-toolbar color="primary-fixed" class="header">
+  <!-- Botón con logo -->
+  <button mat-icon-button [routerLink]="['/inicio']" class="logo-button" [matTooltip]="'TOOLTIP.INICIO' | translate">
+    <img src="logo.png" alt="Logo" class="logo-image" />
+  </button>
+
+  <!-- Menú -->
+  <button [matMenuTriggerFor]="menu1" mat-icon-button class="example-icon" [matTooltip]="'TOOLTIP.MENU' | translate">
+    <mat-icon>menu</mat-icon>
+  </button>
+
+
+  <ng-container *ngIf="isAdmin()">
+  <button mat-icon-button [matTooltip]="'TOOLTIP.MANTENIMIENTOS' | translate" [matMenuTriggerFor]="menu2">
+    <mat-icon>save_as</mat-icon>
+  </button>
+  </ng-container>
+
+  <!-- Menú Principal -->
+   
+  <mat-menu #menu1="matMenu">
+    <button mat-menu-item [routerLink]="['/inicio']" routerLinkActive="active-link">{{ 'MENU.INICIO' | translate }}</button>
+    <button mat-menu-item [routerLink]="['/acercade']" routerLinkActive="active-link">{{ 'MENU.ACERCA_DE' | translate }}</button>
+    <button mat-menu-item [routerLink]="['/producto']" routerLinkActive="active-link">{{ 'MENU.PRODUCTO' | translate }}</button>
+    <button mat-menu-item [routerLink]="['/resena']" routerLinkActive="active-link">{{ 'MENU.RESENA' | translate }}</button>
+    <button mat-menu-item [routerLink]="['/promocion']" routerLinkActive="active-link">{{ 'MENU.PROMOCION' | translate }}</button>
+    <button mat-menu-item [routerLink]="['/pedido']" routerLinkActive="active-link">{{ 'MENU.PEDIDO' | translate }}</button>
+  </mat-menu>
+  
+ <mat-menu #menu2="matMenu">
+  <ng-container *ngIf="isAdmin()">
+    <button mat-menu-item [routerLink]="['/producto/admin']" routerLinkActive="active-link">
+      {{ 'MANTENIMIENTO.PRODUCTO' | translate }}
+    </button>
+    <button mat-menu-item [routerLink]="['/resena/admin']" routerLinkActive="active-link">
+      {{ 'MANTENIMIENTO.RESENA' | translate }}
+    </button>
+    <button mat-menu-item [routerLink]="['/promocion/admin']" routerLinkActive="active-link">
+      {{ 'MANTENIMIENTO.PROMOCION' | translate }}
+    </button>
+    <button mat-menu-item [routerLink]="['/etiqueta/admin']" routerLinkActive="active-link">
+      {{ 'MANTENIMIENTO.ETIQUETA' | translate }}
+    </button>
+    <button mat-menu-item [routerLink]="['/usuario/admin']" routerLinkActive="active-link">
+    {{ 'MANTENIMIENTO.USUARIOS' | translate }}
+    </button>
+
+    <button mat-menu-item [routerLink]="['/productoComponente/admin']" routerLinkActive="active-link">
+      {{ 'MANTENIMIENTO.PRODUCTOCOMPONENTE' | translate }}
+    </button>
+        <button mat-menu-item [routerLink]="['/componente/admin']" routerLinkActive="active-link">
+      Mantenimiento Componente
+    </button>
+  </ng-container>
+</mat-menu>
+
+  <div class="example-spacer"></div>
+  <div class="example-spacer">
+    <!-- Carrito -->
+     
+<ng-container *ngIf="!isAdmin()">
+<button mat-icon-button 
+        matBadgeColor="accent"
+        class="cart-button" 
+        [matBadge]="cartItemCount()"
+        [matBadgeHidden]="cartItemCount() === 0"
+        [routerLink]="['/carrito']"
+        routerLinkActive="active-link"
+        [matTooltip]="'TOOLTIP.CARRITO' | translate">
+  <mat-icon>shopping_cart</mat-icon>
+</button>
+</ng-container>
+
+<!-- Menú de Usuario -->
+<span class="small-text">{{ currentUser()?.correo }}</span>
+<button mat-icon-button [matMenuTriggerFor]="menu3">
+   <mat-icon>person</mat-icon>
+</button>
+
+<mat-menu #menu3="matMenu">
+  <!-- Usuario no autenticado -->
+  <ng-container *ngIf="!isAuntenticated(); else loggedIn">
+    <button mat-menu-item (click)="login()">
+      <mat-icon>person_add</mat-icon>
+      <span>{{ 'USUARIO.LOGIN' | translate }}</span>
+    </button>
+  </ng-container>
+
+  <!-- Usuario autenticado -->
+  <ng-template #loggedIn>
+    <button mat-menu-item (click)="goToViewProfile()">
+      <mat-icon>visibility</mat-icon>
+      <span>Ver mi Perfil</span>
+    </button>
+    
+    <button mat-menu-item (click)="logout()">
+      <mat-icon>person_remove</mat-icon>
+      <span>{{ 'USUARIO.LOGOUT' | translate }}</span>
+    </button>
+  </ng-template>
+</mat-menu>
+
+
+  </div>
+</mat-toolbar>

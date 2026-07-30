@@ -1,0 +1,78 @@
+/* You can add global styles to this file, and also import other style files */
+/* You can add global styles to this file, and also import other style files */
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+.success {
+  background-color: #4CAF50 !important; 
+  color: white !important;
+}
+
+/* Estilos específicos para el DatePicker */
+.mat-datepicker-content {
+  background-color: #424242 !important;  /* Fondo oscuro */
+  color: white !important;               /* Texto blanco */
+  border-radius: 8px !important;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3) !important;
+}
+
+/* Estilos para el calendario dentro del DatePicker */
+.mat-calendar {
+  background-color: #424242 !important;
+  color: white !important;
+}
+
+/* Estilos para las celdas de fecha */
+.mat-calendar-body-cell {
+  color: white !important;
+}
+
+/* Estilo para la fecha seleccionada */
+.mat-calendar-body-selected {
+  background-color: #5ea4a6 !important;  /* Color terciario */
+  color: white !important;
+}
+
+/* Estilo para el rango seleccionado */
+.mat-calendar-body-in-range::before {
+  background-color: rgba(94, 164, 166, 0.2) !important;  /* Terciario con transparencia */
+}
+
+/* Estilo para el header del calendario */
+.mat-calendar-header {
+  background-color: #333 !important;
+  color: white !important;
+}
+
+/* Estilo para los botones de navegación */
+.mat-calendar-previous-button,
+.mat-calendar-next-button {
+  color: white !important;
+}
+
+.info {
+  background-color: #2196F3 !important;
+  color: white !important;
+}
+
+.warning {
+  background-color: #f99f04 !important;
+  color: black !important; 
+}
+
+.error {
+  background-color: #db220d
+ !important; 
+  color: white !important;
+}
+
+
+.mat-mdc-snack-bar-container.success .mat-mdc-button-base,
+.mat-mdc-snack-bar-container.info .mat-mdc-button-base,
+.mat-mdc-snack-bar-container.error .mat-mdc-button-base {
+  color: white !important;
+}
+
+.mat-mdc-snack-bar-container.warning .mat-mdc-button-base {
+  color: black !important;
+}

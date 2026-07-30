@@ -1,0 +1,469 @@
+/* -------------------- CONTENEDOR PRINCIPAL -------------------- */
+.product-container {
+  margin: 20px;
+  border-radius: 8px;
+  width: 50%;
+  max-width: 1200px;
+  padding: 2em;
+  line-height: 1.6em;
+  box-sizing: border-box;
+  background-color: #ffffffe3;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* -------------------- ENCABEZADO DEL PRODUCTO -------------------- */
+.product-header {
+  font-weight: 500;
+  margin-bottom: 1em;
+  text-align: center;
+  background-color: #4CAF50;
+  border-bottom: 1px solid #ddd;
+  padding: 1em;
+  color: white;
+  border-radius: 8px 8px 0 0;
+  max-width: 1000px;
+}
+
+.product-title {
+  font-size: 1.8em;
+  margin: 0;
+}
+
+.product-subtitle {
+  font-size: 1.2em;
+  color: #030303;
+  margin: 0.5em 0 0;
+}
+
+/* -------------------- CONTENIDO PRINCIPAL -------------------- */
+.product-content {
+  display: flex;
+  flex-direction: column;
+  gap: 2em;
+  color: #030303;
+  max-width: 950px;
+}
+
+@media (min-width: 768px) {
+  .product-content {
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 2em;
+  }
+}
+
+/* -------------------- IMAGEN DEL PRODUCTO -------------------- */
+.product-image-container {
+  flex: 1;
+  max-width: 50%;
+  margin-right: 1em;
+}
+
+.product-image-container img {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* -------------------- VISOR DE IMÁGENES -------------------- */
+.product-image-viewer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.main-image img {
+  width: 100%;
+  max-width: 500px;
+  border-radius: 12px;
+  object-fit: contain;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.thumbnails {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 1rem;
+  overflow-x: auto;
+}
+
+.thumbnails img {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 6px;
+  cursor: pointer;
+  border: 2px solid transparent;
+  transition: border-color 0.2s;
+}
+
+.thumbnails img.selected {
+  border-color: #1976d2;
+}
+
+/* -------------------- DETALLES DEL PRODUCTO -------------------- */
+.product-details-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+  background-color: rgb(237, 229, 229);
+  padding: 1em;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.section-title {
+  font-weight: 600;
+  font-size: 1.4em;
+  color: #333333;
+}
+
+.description, .price-info, .stock-info, .rating-info, .tags-info,
+.components-info, .customizations-info, .promotions-info {
+  margin-bottom: 1em;
+  color: black;
+}
+
+.price {
+  font-weight: 900;
+  font-size: 2em;
+  color: #FFC107;
+}
+
+/* -------------------- ESTRELLAS / RATING -------------------- */
+.rating-info {
+  min-width: 280px;
+  margin-bottom: 30%;
+  padding-left: 25px;
+}
+
+.stars {
+  display: flex;
+  gap: 0.2em;
+}
+
+.stars mat-icon {
+  cursor: pointer;
+  color: #fbc02d;
+  transition: color 0.2s ease;
+}
+
+.stars mat-icon.selected {
+  color: #fbc02d;
+}
+
+.star-filled {
+  color: #ffd700;
+}
+
+.star-empty {
+  color: #ccc;
+}
+
+/* -------------------- PROMOCIONES -------------------- */
+.promo-badge {
+  background: #ff5722;
+  color: white;
+  padding: 5px 10px;
+  border-radius: 4px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.promo-tag {
+  font-weight: bold;
+}
+
+.promo-expiry {
+  font-size: 0.8em;
+}
+
+textarea{
+  transition: height 0.3s ease;
+  overflow-y: hidden;
+}
+
+.image-promo-badge {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: red;
+  color: white;
+  padding: 5px 10px;
+  border-radius: 50%;
+  font-weight: bold;
+}
+
+.price-container {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.original-price {
+  text-decoration: line-through;
+  color: #999;
+  font-size: 1.1em;
+}
+
+.promo-price {
+  color: #e53935;
+  font-size: 1.5em;
+  font-weight: bold;
+}
+
+.discount-badge {
+  background: #e53935;
+  color: white;
+  padding: 3px 8px;
+  border-radius: 12px;
+  font-size: 0.8em;
+  align-self: flex-start;
+}
+
+.promo-details {
+  margin-top: 20px;
+  padding: 15px;
+  background: #f5f5f5;
+  border-radius: 8px;
+}
+
+.promo-title {
+  color: #ff5722;
+  margin-bottom: 8px;
+}
+
+.promo-description {
+  margin-bottom: 8px;
+}
+
+/* -------------------- RESEÑAS -------------------- */
+.reviews-section {
+  margin-top: 3em;
+  padding: 1em;
+  background: linear-gradient(to right, #f9f9f9, #f0f0f0);
+  border-radius: 10px;
+  box-shadow: inset 0 0 5px rgba(0,0,0,0.05);
+  flex: 1 1 40%;
+  min-width: 30px;
+}
+
+.reviews-section > .section-title {
+  font-size: 1.6em;
+  color: #333;
+  margin-bottom: 1em;
+  border-left: 6px solid #4CAF50;
+  padding-left: 0.5em;
+}
+
+.review-card {
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  margin-bottom: 8px;
+  padding: 8px;
+  transition: transform 0.2s ease, box-shadow 0.3s ease;
+}
+
+.review-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
+}
+
+.review-card mat-card-header {
+  margin-bottom: 0.5em;
+}
+
+.review-card mat-card-title {
+  font-weight: 600;
+  color: #2c3e50;
+}
+
+.review-card mat-card-subtitle {
+  color: #888;
+  font-size: 0.9em;
+}
+
+.review-card mat-card-content p {
+  color: #444;
+  font-size: 1em;
+  margin: 0.5em 0;
+}
+
+.review-card .stars {
+  margin-top: 0.5em;
+}
+
+.scroll-container {
+  max-height: 400px;
+  overflow-y: auto;
+  padding-right: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.scroll-container::-webkit-scrollbar {
+  width: 8px;
+}
+
+.scroll-container::-webkit-scrollbar-thumb {
+  background-color: rgba(100, 100, 100, 0.3);
+  border-radius: 4px;
+}
+
+.no-reviews {
+  color: black;
+  font-style: italic;
+}
+
+/* -------------------- FORMULARIO NUEVA RESEÑA -------------------- */
+.new-review-form {
+  margin-bottom: 2rem;
+  padding: 1rem;
+  background-color: #ffffff;
+  color: #000000;
+  border: 1px solid #201c1c;
+  border-radius: 12px;
+}
+
+.new-review-form h3 {
+  margin-bottom: 1rem;
+  font-size: 1.25rem;
+  color: #333;
+}
+
+textarea {
+  border-color: #030303;
+  padding: 20px;
+  padding-right: 2opx;
+}
+
+.star-rating label {
+  display: block;
+  font-weight: 500;
+  color: #0c0909;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.gray-button {
+  color: #000000;
+  background-color: #afa8a8;
+  border-radius: 4px;
+  padding: 0.5rem 1rem;
+  transition: background-color 0.2s ease;
+}
+
+.gray-button:hover {
+  background-color: #ccc;
+}
+
+.cant-review-message {
+  color: #000000;
+}
+
+/* -------------------- ACCIONES DEL PRODUCTO -------------------- */
+.product-actions {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  padding: 1em;
+  border-top: 1px solid rgba(0, 0, 0, 0.05);
+  margin-top: 1em;
+}
+
+.product-actions button {
+  background-color: #2196F3;
+  color: white;
+  border: none;
+  padding: 0.75em 1.5em;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.product-actions button:hover {
+  background-color: #1976D2;
+}
+
+/* -------------------- LISTAS, FILTROS Y TEXTOS -------------------- */
+.mat-label {
+  color: black;
+}
+
+.mat-chip-listbox {
+  display: flex;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  gap: 0.5em;
+}
+
+.text {
+  text-align: center;
+  margin: auto;
+  color: #6c757d;
+}
+
+.filtro-contenedor {
+  color: black;
+}
+
+.conteo-linea {
+  display: flex;
+  align-items: center;
+  margin-bottom: 4px;
+}
+
+.ranting-valorations {
+  display: flex;
+  gap: 2rem;
+  align-items: flex-start;
+  margin-top: 2rem;
+  flex-wrap: wrap;
+  background-color: #fcf8f8b7;
+  max-width: 1000px;
+}
+
+/* -------------------- ÍCONOS -------------------- */
+mat-icon {
+  font-size: 24px;
+}
+
+/* -------------------- MEDIA QUERIES -------------------- */
+@media (min-width: 768px) {
+  .product-container {
+    width: 80%;
+    max-width: 1000px;
+    padding: 2em;
+  }
+
+  .product-image-container,
+  .product-details-info {
+    flex: 1;
+    max-width: 50%;
+  }
+
+  .product-actions {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .product-actions button {
+    width: 100%;
+  }
+}
+
+@media (min-width: 1024px) {
+  .product-container {
+    width: 95%;
+    max-width: none;
+  }
+}

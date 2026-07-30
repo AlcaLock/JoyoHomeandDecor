@@ -1,0 +1,795 @@
+{
+  "TOOLTIP": {
+    "INICIO": "Inicio",
+    "MENU": "Menú",
+    "MANTENIMIENTOS": "Mantenimientos",
+    "REPORTES": "Reportes",
+    "CARRITO": "Ver carrito"
+  },
+  "MENU": {
+    "INICIO": "Inicio",
+    "ACERCA_DE": "Acerca de",
+    "PRODUCTO": "Producto",
+    "RESENA": "Reseñas",
+    "PROMOCION": "Promociones",
+    "PEDIDO": "Pedido"
+  },
+  "MANTENIMIENTO": {
+    "PRODUCTO": "Producto Mantenimiento",
+    "RESENA": "Reseña Mantenimiento",
+    "PROMOCION": "Promoción Mantenimiento",
+    "ETIQUETA": "Etiqueta Mantenimiento",
+    "PRODUCTOCOMPONENTE": "Producto-Componente Mantenimiento",
+    "USUARIOS": "Usuario Mantenimiento"
+  },
+  "USUARIO": {
+    "UPDATE_PROFILE":"Actualizar Perfil",
+    "LOGIN": "Iniciar sesión",
+    "LOGOUT": "Cerrar sesión",
+    "NAV": {
+      "LOGIN": "Login",
+      "REGISTRAR": "Registrarse",
+      "RESET_PASSWORD":"¿Olvido su contraseña?"
+    }
+  },
+  "home": {
+    "bienvenida": "Bienvenido a",
+    "descripcion1": "Elegancia y funcionalidad para cada rincón de tu hogar.",
+    "descripcion2": "Descubrí nuestras colecciones modernas, clásicas y personalizadas.",
+    "botonCatalogo": "Explorar Catálogo",
+    "botonAsesoria": "Solicitar Asesoría"
+  },
+  "about": {
+    "titulo": "Sobre Nosotros",
+    "subtitulo": "Conectando ideas, creando valor.",
+    "historia": {
+      "titulo": "Nuestra Historia",
+      "descripcion": "Nacimos con la visión de transformar lo ordinario en extraordinario. Desde nuestros inicios, nos hemos enfocado en ofrecer soluciones auténticas, humanas y tecnológicas que generan impacto positivo."
+    },
+    "mision": {
+      "titulo": "Misión",
+      "descripcion": "Inspirar y facilitar el crecimiento sostenible de personas y organizaciones, creando experiencias memorables a través de la innovación, el compromiso y la empatía."
+    },
+    "vision": {
+      "titulo": "Visión",
+      "descripcion": "Ser una referencia de excelencia y creatividad en cada proyecto, siendo reconocidos por nuestra ética, cercanía y pasión por lo que hacemos."
+    },
+    "valores": {
+      "titulo": "Valores",
+      "integridad": "✨ Integridad",
+      "colaboracion": "🤝 Colaboración",
+      "sostenibilidad": "🌱 Sostenibilidad",
+      "innovacion": "🚀 Innovación",
+      "pasion": "❤️ Pasión"
+    }
+  },
+  "productos": {
+    "titulo": "Administración de Productos",
+    "tooltip": {
+      "crear": "Crear producto",
+      "editar": "Editar producto",
+      "detalle": "Ver detalle del producto"
+    },
+    "buscar": "Buscar productos",
+    "placeholderBuscar": "Ej. Laptop",
+    "columnas": {
+      "nombre": "Nombre",
+      "precio": "Precio",
+      "stock": "Stock",
+      "estado": "Estado",
+      "acciones": "Acciones"
+    },
+    "estado": {
+      "activo": "Activo",
+      "inactivo": "Inactivo"
+    }
+  },
+  "product": {
+    "category": "Categoría",
+    "promo_default": "Promoción",
+    "promo_valid_until": "Válida hasta",
+    "description": "Descripción",
+    "price": "Precio",
+    "stock": "Stock disponible",
+    "tags": "Etiquetas",
+    "rating": "Promedio de Valoración",
+    "no_ratings": "No hay valoraciones",
+    "review_singular": "valoración",
+    "review_plural": "valoraciones",
+    "reviews": "Reseñas",
+    "write_review": "Escribe tu reseña",
+    "rating_label": "Valoración",
+    "comment": "Comentario",
+    "submit": "Enviar",
+    "filter_stars": "Filtrar por estrellas",
+    "filter_all": "Todas",
+    "stars": "estrellas",
+    "sort_by": "Ordenar por",
+    "sort_newest": "Más recientes",
+    "sort_oldest": "Más antiguas",
+    "no_reviews": "Este producto no tiene reseñas todavía",
+    "cant_review": "Para poder dejar una reseña, debe haber comprado este producto y no haber reseñado antes",
+    "save": "Ahorras",
+    "hide_review": "Ocultar reseña",
+    "report_review": "Reportar reseña",
+    "back": "Regresar",
+    "product_not_found": "Producto no encontrado",
+    "list_title": "Productos",
+    "filter_name": "Nombre Producto",
+    "promo_type_product": "(Producto)",
+    "promo_type_category": "(Categoría)",
+    "no_description": "Descripción no disponible",
+    "details_button": "Detalles",
+    "no_stock_tooltip": "Sin stock",
+    "add_to_cart_tooltip": "Añadir al carrito",
+    "add_to_cart": "Añadir al carrito",
+    "no_stock": "Sin stock",
+    "no_results": "No se encontraron productos con los filtros aplicados"
+  },
+  "form": {
+    "titulo": "Crear Nuevo Producto",
+    "nombre": {
+      "label": "Nombre del Producto",
+      "error": "El nombre es requerido y debe tener al menos 2 caracteres"
+    },
+    "descripcion": {
+      "label": "Descripción detallada",
+      "error": "La descripción es requerida y debe tener al menos 10 caracteres"
+    },
+    "precio": {
+      "label": "Precio",
+      "error": "El precio es requerido y debe ser mayor o igual a 0"
+    },
+    "stock": {
+      "label": "Stock",
+      "error": "El stock es requerido y debe ser mayor o igual a 0"
+    },
+    "categoria": {
+      "label": "Categoría",
+      "placeholder": "Seleccione una categoría",
+      "error": "Debe seleccionar una categoría"
+    },
+    "etiquetas": {
+      "label": "Etiquetas",
+      "ayuda": "Selecciona múltiples opciones con Ctrl (Windows) o Command (Mac)"
+    },
+    "imagenes": {
+      "label": "Imágenes del Producto",
+      "error": {
+        "required": "Debe subir al menos una imagen del producto",
+        "max": "No se permiten más de 10 imágenes (seleccionadas: {{ count }})"
+      }
+    },
+    "valoracion": {
+      "titulo": "Promedio de Valoración",
+      "sin_valoraciones": "No hay valoraciones",
+      "total": "{{ promedio }} / {{ cantidad }} valoraciones",
+      "contador": "( 0 ) valoraciones"
+    },
+    "botones": {
+      "cancelar": "Cancelar",
+      "guardar": "Guardar Producto"
+    },
+    "errors": {
+      "required": "El comentario es obligatorio",
+      "minlength": "Mínimo 20 caracteres",
+      "maxlength": "Máximo 250 caracteres"
+    }
+  },
+  "etiquetas": {
+    "titulo": "Administrar Etiquetas",
+    "crearBoton": "Crear nueva etiqueta",
+    "nombreLabel": "Nombre",
+    "nombrePlaceholder": "Ej. Oferta, Nuevo, Verano",
+    "errorRequerido": "El nombre es obligatorio",
+    "errorMaximo": "Máximo 30 caracteres permitidos",
+    "actualizar": "Actualizar",
+    "crear": "Crear",
+    "cancelar": "Cancelar",
+    "subtitulo": "Etiquetas existentes",
+    "acciones": "Acciones",
+    "ariaEditar": "Editar etiqueta",
+    "noEtiquetas": "No hay etiquetas registradas."
+  },
+  "pedidos": {
+    "titulo": "Pedidos",
+    "numeroPedido": "Pedido",
+    "cliente": "Cliente",
+    "fecha": "Fecha",
+    "verDetalle": "Ver detalle",
+    "na": "N/A"
+  },
+  "factura": {
+    "volver": "Volver a pedidos",
+    "titulo": "Factura",
+    "numeroPedido": "Pedido N.º",
+    "fechaEmision": "Fecha de emisión:",
+    "cliente": {
+      "titulo": "Información del Cliente",
+      "nombre": "Nombre",
+      "correo": "Correo Electronico",
+      "direccion": "Dirección de Envío"
+    },
+    "productos": {
+      "titulo": "Productos",
+      "producto": "Producto",
+      "cantidad": "Cantidad",
+      "precioUnitario": "Precio Unitario",
+      "subtotal": "Subtotal"
+    },
+    "personalizados": {
+      "titulo": "Productos Personalizados",
+      "nombre": "Nombre",
+      "base": "Costo Base",
+      "cantidad": "Cantidad",
+      "componentes": "Componentes",
+      "totalUnitario": "Total Producto",
+      "subtotal": "Subtotal x Cantidad"
+    },
+    "resumen": {
+      "subtotal": "Subtotal",
+      "impuestos": "Impuestos (13%)",
+      "total": "Total"
+    },
+    "metodoPago": {
+      "titulo": "Método de Pago"
+    }
+  },
+  "promo": {
+    "title": "Administración de Promociones",
+    "create_tooltip": "Crear promoción",
+    "search_label": "Buscar promociones",
+    "search_placeholder": "Ej. Descuento verano",
+    "icon_category": "Aplicación por categoría",
+    "icon_product": "Aplicación a producto específico",
+    "all_products": "Todos los productos",
+    "days": "días",
+    "default_title": "Promoción",
+    "edit_title": "Editar Promoción",
+    "column": {
+      "name": "Nombre",
+      "type": "Tipo",
+      "discount": "Descuento",
+      "status": "Estado",
+      "application": "Aplicación",
+      "actions": "Acciones"
+    },
+    "tooltip": {
+      "details": "Ver detalles",
+      "edit": "Editar promoción",
+      "not_editable": "Promoción finalizada - No editable"
+    },
+    "label_name": "Nombre de la promoción",
+    "label_type": "Tipo de promoción",
+    "label_applies_to": "Aplica a",
+    "label_discount": "Descuento",
+    "label_start_date": "Fecha inicio",
+    "label_end_date": "Fecha fin",
+    "label_category": "Categoría",
+    "label_product": "Producto",
+    "label_discount_type": "Tipo de descuento",
+    "label_discount_value": "Valor del descuento",
+    "label_date_range": "Rango de vigencia",
+    "type_category": "Categoría",
+    "type_product": "Producto",
+    "discount_percentage": "Porcentaje",
+    "discount_fixed_amount": "Monto fijo",
+    "placeholder_start": "Inicio",
+    "placeholder_end": "Fin",
+    "not_specified": "No especificado",
+    "error_required": "Este campo es obligatorio",
+    "error_minlength": "Mínimo {{min}} caracteres",
+    "error_non_negative": "El valor no puede ser negativo",
+    "error_max_100": "El descuento no puede superar el 100%",
+    "error_select_type": "Debe seleccionar un tipo",
+    "error_select_category": "Seleccione una categoría",
+    "error_select_product": "Seleccione un producto",
+    "error_start_date_required": "Fecha inicio falta o es mayor a la fecha fin",
+    "error_end_date_required": "Fecha fin falta o es menor a la fecha inicio",
+    "error_invalid_date_range": "La fecha fin debe ser posterior al inicio",
+    "button_cancel": "Cancelar",
+    "button_update": "Actualizar Promoción",
+    "back_button": "Volver a promociones",
+    "start": "Inicio",
+    "end": "Fin"
+  },
+  "review": {
+    "title": "Gestión de Reseñas",
+    "list": {
+      "title": "Reseñas",
+      "rating_label": "Valoración"
+    },
+    "filter": {
+      "all": "Todas",
+      "visible": "Visibles",
+      "hidden": "Ocultas",
+      "reported": "Reportadas"
+    },
+    "column": {
+      "user": "Usuario",
+      "comment": "Comentario",
+      "reports": "Reportes",
+      "stars": "Estrellas",
+      "date": "Fecha",
+      "status": "Estado",
+      "actions": "Acciones"
+    },
+    "report": {
+      "reason": "Motivo",
+      "status": "Estado",
+      "reported_by": "Reportado por",
+      "unknown": "Desconocido",
+      "na": "N/A",
+      "title": "Reportar Reseña",
+      "reason_label": "Motivo del reporte",
+      "reason_placeholder": "Explica brevemente el motivo del reporte"
+    },
+    "status": {
+      "visible": "Visible",
+      "hidden": "Oculto"
+    },
+    "action": {
+      "hide": "Ocultar",
+      "show": "Mostrar",
+      "moderate": "Moderar"
+    },
+    "detail": {
+      "title": "Detalle de la Reseña",
+      "product": "Producto",
+      "comment": "Comentario",
+      "rating": "Valoración",
+      "back": "Volver"
+    },
+    "moderation": {
+      "title": "Moderar Reseña",
+      "action_label": "Acción",
+      "action": {
+        "delete": "Eliminar reseña",
+        "restore": "Restaurar reseña"
+      },
+      "comment_label": "Comentario de moderación",
+      "comment_placeholder": "Explica por qué estás moderando la reseña"
+    },
+    "errors": {
+      "required": "Este campo es obligatorio",
+      "minlength": "Mínimo 10 caracteres",
+      "maxlength": "Máximo 500 caracteres"
+    }
+  },
+  "buttons": {
+    "cancel": "Cancelar",
+    "apply": "Aplicar",
+    "report": "Reportar",
+    "details": "Detalles",
+    "update": "Actualizar Promoción",
+    "save_promo": "Guardar Promoción"
+  },
+  "promotions": {
+    "title": "Promociones",
+    "start": "Inicio",
+    "end": "Fin",
+    "details_button": "Ver detalles"
+  },
+  "PROMOCION": {
+    "CREAR_TITULO": "Crear Nueva Promoción",
+    "NOMBRE_LABEL": "Nombre de la promoción",
+    "TIPO_LABEL": "Tipo de promoción",
+    "TIPO_CATEGORIA": "Categoría",
+    "TIPO_PRODUCTO": "Producto",
+    "CATEGORIA_LABEL": "Categoría",
+    "PRODUCTO_LABEL": "Producto",
+    "TIPO_DESCUENTO_LABEL": "Tipo de descuento",
+    "DESCUENTO_PORCENTAJE": "Porcentaje",
+    "DESCUENTO_MONTO": "Monto fijo",
+    "VALOR_DESCUENTO": "Valor del descuento",
+    "RANGO_VIGENCIA": "Rango de vigencia",
+    "FECHA_INICIO": "Inicio",
+    "FECHA_FIN": "Fin",
+    "vigenteHasta": "Vigente hasta",
+    "finalizo": "Finalizó",
+    "inicia": "Inicia"
+  },
+  "VALIDACION": {
+    "REQUERIDO": "Este campo es obligatorio",
+    "MIN_3_CARACTERES": "Mínimo 3 caracteres",
+    "SELECCIONAR_TIPO": "Debe seleccionar un tipo",
+    "SELECCIONAR_CATEGORIA": "Seleccione una categoría",
+    "SELECCIONAR_PRODUCTO": "Seleccione un producto",
+    "NO_NEGATIVO": "El valor no puede ser negativo",
+    "NO_SUPERA_100": "El descuento no puede superar el 100%",
+    "FECHA_INICIO_REQ": "Fecha inicio falta o es mayor a la fecha fin",
+    "FECHA_FIN_REQ": "Fecha fin falta o es menor a la fecha inicio",
+    "FECHA_FIN_POSTERIOR": "La fecha fin debe ser posterior al inicio"
+  },
+  "BOTON": {
+    "CANCELAR": "Cancelar",
+    "GUARDAR_PROMOCION": "Guardar Promoción"
+  },
+  "promoDetail": {
+    "back_button": "Volver a promociones",
+    "default_title": "Promoción",
+    "type_label": "Tipo de promoción:",
+    "applies_to_label": "Aplica a:",
+    "discount_label": "Descuento:",
+    "start_date_label": "Fecha inicio:",
+    "end_date_label": "Fecha fin:",
+    "not_specified": "No especificado"
+  },
+
+  "FORM": {
+    "EDITAR_PRODUCTO": "Editar Producto",
+    "ID_PRODUCTO": "ID del Producto",
+    "NOMBRE_PRODUCTO": "Nombre del Producto",
+    "ERROR_NOMBRE": "El nombre es requerido y debe tener al menos 2 caracteres",
+    "DESCRIPCION": "Descripción detallada",
+    "ERROR_DESCRIPCION": "La descripción es requerida y debe tener al menos 10 caracteres",
+    "PRECIO": "Precio",
+    "ERROR_PRECIO": "El precio es requerido y debe ser mayor o igual a 0",
+    "STOCK": "Stock",
+    "ERROR_STOCK": "El stock es requerido y debe ser mayor o igual a 0",
+    "ACTIVO": "Producto activo",
+    "CATEGORIA": "Categoría",
+    "SELECCIONE_CATEGORIA": "Seleccione una categoría",
+    "ERROR_CATEGORIA": "Debe seleccionar una categoría",
+    "ETIQUETAS": "Etiquetas",
+    "MULTIPLE_SELECCION": "Selecciona múltiples opciones manteniendo presionada la tecla Ctrl (Windows) o Command (Mac)",
+    "IMAGENES": "Imágenes del Producto",
+    "ERROR_MAX_IMAGENES": "¡Error! No puedes subir más de {{cantidad}} imágenes a la vez",
+    "RECUPERAR": "Recuperar",
+    "ELIMINAR": "Eliminar",
+    "SE_ELIMINARA": "(Se eliminará al guardar)",
+    "NUEVA": "(Nueva)",
+    "CAMBIOS_PENDIENTES": "Cambios pendientes",
+    "IMAGENES_MARCADAS": "imagen(es) marcadas para eliminar",
+    "Y": "y",
+    "NUEVAS_IMAGENES": "nueva(s) imagen(es)",
+    "NUEVAS_IMAGENES_CONTADOR": "Nuevas imágenes: {{cantidad}}/{{max}}",
+    "PROMEDIO_VALORACION": "Promedio de Valoración",
+    "NO_VALORACIONES": "No hay valoraciones",
+    "VALORACION": "valoración",
+    "VALORACIONES": "valoraciones",
+    "CANCELAR": "Cancelar",
+    "ACTUALIZAR_PRODUCTO": "Actualizar Producto",
+    "ERROR_SIN_IMAGENES": "¡Error! El producto debe tener al menos una imagen"
+  },
+
+  "RELACION": {
+    "TITLE": "Administración de Relaciones Producto-Componente",
+    "CREATE_TOOLTIP": "Crear nueva relación",
+    "SEARCH_LABEL": "Buscar por producto",
+    "SEARCH_PLACEHOLDER": "Ej. Camiseta",
+    "TAMANO": "Tamaño",
+    "COLOR": "Color",
+    "MATERIAL": "Material",
+    "PRODUCTO": "Producto",
+    "COMPONENTE": "Componente",
+    "TIPO": "Tipo",
+    "PRECIO": "Precio Adicional",
+    "FECHA": "Creado",
+    "ACCIONES": "Acciones",
+    "EDIT_TOOLTIP": "Editar relación",
+    "FORM": {
+      "TITLE": "Crear Relación Producto-Componente",
+      "PRODUCTO": "Producto",
+      "SELECT_PRODUCTO": "Seleccione un producto",
+      "TAMANOS": "Tamaños",
+      "SELECT_TAMANOS": "Seleccione tamaños",
+      "COLORES": "Colores",
+      "SELECT_COLORES": "Seleccione colores",
+      "MATERIALES": "Materiales",
+      "SELECT_MATERIALES": "Seleccione materiales",
+      "CONFLICT_MESSAGE": "Existen conflictos con las relaciones seleccionadas",
+      "CANCELAR": "Cancelar",
+      "GUARDAR": "Guardar"
+    }
+  },
+
+  "PAGO": {
+    "TITLE": "Pago con Tarjeta",
+    "TOTAL": "Total a pagar:",
+    "NUMERO_TARJETA": "Número de Tarjeta",
+    "FECHA_EXPIRACION": "Fecha de Expiración (MM/AA)",
+    "CVV": "CVV",
+    "NOMBRE_TITULAR": "Nombre del Titular",
+    "PAGAR": "Pagar",
+    "CANCELAR": "Cancelar",
+    "ERROR": {
+      "NUMERO_REQUIRED": "Número de tarjeta es requerido",
+      "NUMERO_LONGITUD": "La tarjeta debe tener 16 dígitos",
+      "FECHA_REQUIRED": "Fecha de expiración es requerida",
+      "FECHA_INVALIDA": "Fecha inválida (mes debe ser entre 01 y 12)",
+      "FECHA_EXPIRADA": "La tarjeta no puede vencer este año o antes",
+      "CVV_REQUIRED": "CVV es requerido",
+      "CVV_PATTERN": "CVV debe ser 3 o 4 dígitos",
+      "NOMBRE_REQUIRED": "Nombre del titular es requerido"
+    }
+  },
+
+  "PAGO_EFECTIVO": {
+    "TITLE": "Pago en Efectivo",
+    "TOTAL": "Total a pagar:",
+    "MONTO": "Monto entregado",
+    "PLACEHOLDER_MONTO": "Ingrese monto en colones",
+    "VUELTO": "Vuelto a entregar:",
+    "CANCELAR": "Cancelar",
+    "CONFIRMAR": "Confirmar Pago",
+    "ERROR": {
+      "REQUIRED": "El monto es obligatorio",
+      "MIN": "El monto debe ser mayor a 0",
+      "MENOR_TOTAL": "El monto debe ser mayor o igual al total a pagar"
+    }
+  },
+
+  "PRODUCTO_COMPONENTE": {
+    "FORM": {
+      "TITLE": "Crear Relación Producto-Componente",
+      "PRODUCTO": "Producto",
+      "SELECT_PRODUCTO": "Seleccione un producto",
+      "TAMANOS": "Tamaños",
+      "SELECT_TAMANOS": "Seleccione tamaños",
+      "COLORES": "Colores",
+      "SELECT_COLORES": "Seleccione colores",
+      "MATERIALES": "Materiales",
+      "SELECT_MATERIALES": "Seleccione materiales",
+      "CONFLICT_MESSAGE": "Existen conflictos en las relaciones seleccionadas"
+    }
+  },
+  "COMMON": {
+    "CANCEL": "Cancelar",
+    "SAVE": "Guardar"
+  },
+
+  "auth": {
+    "login": {
+      "title": "Login Usuario",
+      "email": {
+        "label": "Email",
+        "placeholder": "Email usuario"
+      },
+      "password": {
+        "label": "Contraseña",
+        "placeholder": "Password usuario",
+        "toggle": "Mostrar u ocultar contraseña"
+      },
+      "submit": "Login",
+      "cancel": "Cancelar"
+    }
+  },
+
+  "USER": {
+    "CREATE": {
+      "TITLE": "Crear Usuario"
+    },
+     "UPDATE": {
+      "TITLE": "Actualizar Usuario"
+    },
+    "FORM": {
+      "NAME": {
+        "LABEL": "Nombre",
+        "PLACEHOLDER": "Nombre usuario"
+      },
+      "EMAIL": {
+        "LABEL": "Correo Electronico",
+        "PLACEHOLDER": "Correo usuario"
+      },
+      "PASSWORD": {
+        "LABEL": "Contraseña",
+        "PLACEHOLDER": "Contraseña usuario",
+        "HIDE": "Ocultar contraseña"
+      },
+      "CONFIRM_PASSWORD": {
+        "LABEL": "Confirmar Contraseña",
+        "PLACEHOLDER": "Confirmar contraseña usuario",
+        "ERROR": "Las contraseñas no coinciden."
+      },
+      "ROLE": {
+        "LABEL": "Rol",
+        "PLACEHOLDER": "Seleccionar rol"
+      },
+      "NEW_PASSWORD": {
+        "LABEL": "Nueva contraseña",
+        "PLACEHOLDER": "Nueva contraseña usuario"
+    }
+  },
+    "ACTIONS": {
+      "REGISTER": "Registrar",
+      "CANCEL": "Cancelar",
+      "UPDATE": "Actualizar"
+    }
+  },
+
+  "PRODUCT": {
+    "IMAGE_ALT": "Imagen del producto",
+    "IMAGE_SELECTED_ALT": "Imagen del producto seleccionado",
+    "QUANTITY": "Cantidad",
+    "SIZE_IMAGE_ALT": "Imagen del tamaño",
+    "COLOR_IMAGE_ALT": "Imagen del color",
+    "MATERIAL_IMAGE_ALT": "Imagen del material",
+    "SELECT_BASE": "Producto a personalizar",
+    "SIZE": "Tamaño",
+    "COLOR": "Color",
+    "MATERIAL": "Material",
+    "NO_OPTIONS": "Sin opciones disponibles",
+    "ERROR_REQUIRED": "Requerido",
+    "ERROR_MIN_1": "Mínimo 1",
+    "ERROR_SELECT_SIZE": "Debes seleccionar un tamaño",
+    "ERROR_SELECT_COLOR": "Debes seleccionar un color",
+    "ERROR_SELECT_MATERIAL": "Debes seleccionar un material",
+    "LOADING_COMPONENTS": "Cargando componentes…",
+    "PRICE_BASE": "Precio base",
+    "FINAL_PRICE": "Precio final (unidad)",
+    "TOTAL_BY_QUANTITY": "Total x cantidad",
+    "CONFIGURATION": "Configuración",
+    "QUANTITY_PLACEHOLDER": "Ingrese la Cantidad"
+  },
+  "BUTTON": {
+    "CANCEL": "Cancelar",
+    "UPDATE": "Actualizar",
+    "ADD_TO_CART": "Agregar al carrito"
+  },
+
+  "CART": {
+    "REGISTRATION_TITLE": "Registro de Pedido",
+    "DATE": "Fecha",
+    "CLIENT": "Cliente",
+    "EMAIL": "Correo",
+    "SHIPPING_ADDRESS": "Dirección de envío detallada",
+    "PAYMENT_METHOD": "Seleccione método de pago",
+    "PAY_CASH": "Efectivo",
+    "PAY_CARD": "Tarjeta",
+    "CURRENT_STATUS": "Estado actual",
+    "PRODUCT": "Producto",
+    "CUSTOM_PRODUCT": "Personalizado",
+    "BASE_PRODUCT": "Producto base",
+    "CONFIGURATION": "Configuración",
+    "BASE_COST": "Costo base",
+    "COMPONENTS": "Componentes",
+    "TOTAL_CUSTOM": "Total personalizado",
+    "NO_DESCRIPTION": "Sin descripción",
+    "UNIT_PRICE": "Precio Unitario",
+    "QUANTITY": "Cantidad",
+    "SUBTOTAL": "Subtotal",
+    "TAX": "Impuesto",
+    "TAXES_13": "Impuestos (13%)",
+    "TOTAL_WITH_TAX": "Total con impuestos",
+    "EMPTY_TITLE": "Tu carrito está vacío",
+    "EMPTY_TEXT": "Agrega productos para comenzar",
+    "VIEW_PRODUCTS": "Ver productos",
+    "SAVE_CART": "Guardar carrito para después",
+    "ADD_CUSTOM_PRODUCT": "Agregar producto personalizado",
+    "CLEAR_CART": "Vaciar carrito",
+    "REGISTER_ORDER": "Registrar Pedido"
+  },
+
+  "NOTIFICATIONS": {
+    "ERROR": "Error",
+    "SUCCESS": "Éxito",
+    "WARNING": "Advertencia",
+    "INFO": "Moderación",
+    "LOAD_PRODUCTS_FAILED": "No se pudieron cargar los productos",
+    "LOAD_COMPONENTS_FAILED": "No se pudieron cargar los componentes",
+    "COMPLETE_FIELDS": "Complete todos los campos requeridos",
+    "LOGIN_REQUIRED": "Debe iniciar sesión para continuar",
+    "STOCK_EMPTY": "El producto base no tiene stock disponible",
+    "PRODUCT_ADDED": "Producto agregado al carrito",
+    "PRODUCT_UPDATED": "Producto actualizado en carrito",
+    "PRODUCT_CREATED_SUC": "Producto \"{{name}}\" creado correctamente",
+    "PRODUCT_CREATION_FAILED": "No se pudo crear el producto",
+    "OPERATION_FAILED": "No se pudo completar la operación",
+    "NO_USER_LOGGED": "No hay usuario logueado",
+    "CART_SYNC_SUCCESS": "Datos sincronizados con el servidor",
+    "CART_LOADED_FROM_CACHE": "Carrito cargado desde caché local",
+    "PRODUCT_NOT_FOUND": "Producto no encontrado",
+    "PRODUCT_OUT_OF_STOCK": "Este producto ya no está disponible",
+    "PRODUCT_CREATED": "Producto \"{{name}}\" e imágenes subidas correctamente",
+    "CUSTOM_PRODUCT_NOT_FOUND": "Producto personalizado no encontrado",
+    "BASE_PRODUCT_OUT_OF_STOCK": "El producto base ya no está disponible",
+    "QUANTITY_INVALID": "Debe escribir un número válido",
+    "QUANTITY_INVALID_GREATER_0": "Debe escribir un número válido mayor o igual a 0",
+    "INSUFFICIENT_STOCK": "No hay tantas unidades,quedan solo",
+    "QUANTITY_UPDATED": "Cantidad y precio actualizado correctamente",
+    "QUANTITY_UPDATE_FAILED": "No se pudo actualizar la cantidad",
+    "PRODUCT_REMOVED": "Producto removido",
+    "PRODUCT_REMOVE_FAILED": "No se pudo eliminar el producto",
+    "CART_CLEARED": "Se eliminaron todos los productos",
+    "CART_CLEAR_FAILED": "No se pudo vaciar el carrito",
+    "SAVE_CART_SUCCESS": "El carrito ahora está pendiente.",
+    "SAVE_CART_FAILED": "No se pudo guardar el carrito",
+    "USER_NOT_FOUND": "Usuario no encontrado",
+    "SHIPPING_REQUIRED": "Debe ingresar la dirección de envío",
+    "EMPTY_CART": "El carrito está vacío",
+    "INVALID_QUANTITY_FOR_PRODUCT": "La cantidad del producto {nombreProducto} no es válida.",
+    "INSUFFICIENT_STOCK_FOR_PRODUCT": "El producto {nombreProducto} solo tiene {stock} unidades disponibles. Ajusta la cantidad antes de continuar.",
+    "INVALID_PAYMENT_METHOD": "Seleccione un método de pago válido",
+    "INVALID_CART": "Carrito inválido",
+    "ORDER_CREATED_SUCCESS": "Pedido creado correctamente",
+    "ORDER_CREATION_FAILED": "No se pudo crear el pedido",
+    "CART_UPDATED": "Carrito actualizado",
+    "CART_LOADED_CACHE": "Carrito cargado desde caché local",
+    "PRODUCT_ADDED_TO_CART": "El producto se agregó al carrito",
+    "ADD_PRODUCT_FAILED": "No se pudo agregar el producto al carrito",
+    "STOCK_EMPTY_BASE": "El producto base ya no está disponible",
+    "CUSTOM_PRODUCT_ADDED": "Producto personalizado agregado",
+    "ADD_CUSTOM_PRODUCT_FAILED": "No se pudo agregar el producto personalizado",
+    "INVALID_QUANTITY": "Debe escribir un número válido",
+    "INVALID_QUANTITY_MIN": "Debe escribir un número válido mayor o igual a 0",
+    "INSUFFICIENT_STOCK_ADJUSTED": "Solo hay {stock} unidades disponibles. Se ajustó automáticamente.",
+    "QUANTITY_PRICE_UPDATED": "Cantidad y precio actualizado correctamente",
+    "UPDATE_QUANTITY_FAILED": "No se pudo actualizar la cantidad",
+    "REMOVE_PRODUCT_FAILED": "No se pudo eliminar el producto",
+    "CLEAR_CART_FAILED": "No se pudo vaciar el carrito",
+    "CART_SAVED": "Carrito guardado",
+    "CART_EMPTY": "El carrito está vacío",
+    "INVALID_PRODUCT_QUANTITY": "La cantidad del producto {{productName}} no es válida.",
+    "INSUFFICIENT_STOCK_PRODUCT": "El producto {{productName}} solo tiene {{stock}} unidades disponibles. Ajusta la cantidad antes de continuar.",
+    "ORDER_CREATED": "Pedido creado correctamente",
+    "ENTER_SHIPPING_ADDRESS": "Ingrese una direccion de envio",
+    "ALL_PRODUCTS_REMOVED": "Se eliminaron todos los productos",
+    "FAILED_TO_REMOVE_PRODUCT": "No se pudo eliminar el producto",
+    "PRODUCT_NO_LONGER_AVAILABLE": "Este producto ya no está disponible",
+    "INVALID_ORDER_AMOUNT": "Enter a valid amount greater than or equal to the order total",
+    "CASH_PAYMENT_ACCEPTED": "Pago en efectivo aceptado",
+    "PAYMENT_ACCEPTED": "Pago aceptado",
+    "STOCK_INSUFFICIENT": "Stock insuficiente",
+    "ONLY_X_UNITS_AVAILABLE": "Solo hay {{stock}} unidades disponibles.",
+    "ADJUSTED_AUTOMATICALLY": "Se ajustó automáticamente.",
+    "PRODUCT_REMOVED_FROM_CART": "Producto removido del carrito",
+    "LABEL_UPDATED": "Etiqueta actualizada exitosamente",
+    "LABEL_ALREADY_EXISTS": "Ya existe una etiqueta con ese nombre",
+    "LABEL_UPDATE_FAILED": "Error al actualizar etiqueta",
+    "LABEL_CREATED": "Etiqueta creada correctamente",
+    "LABEL_CREATION_ERROR": "Error al crear etiqueta",
+    "PROMOTION_UPDATE_FAILED": "No se pudo actualizar la promoción",
+    "PROMOTION_UPDATED": "Promoción actualizada",
+    "PROMOTION_UPDATED_SUCCESS": "Promoción \"{{nombre}}\" actualizada correctamente",
+    "INVALID_FORM": "Formulario Inválido",
+    "COMPLETE_ALL_FIELDS": "Por favor, complete todos los campos requeridos",
+    "LOAD_CATEGORIES_FAILED": "No se pudieron cargar las categorías",
+    "LOAD_PROMOTION_FAILED": "No se pudo cargar la promoción",
+    "LOAD_LABEL_FAILED": "No se pudieron cargar las etiquetas",
+    "CREATE_PROMOTION_FAILED": "No se pudo crear la promoción",
+    "PROMOTION_CREATED": "Promoción creada",
+    "PROMOTION_CREATED_SUCCESS": "Promoción \"{{name}}\" creada correctamente",
+    "CANNOT_EDIT_FINALIZED_PROMOTION": "No se puede editar una promoción finalizada",
+    "SELECT_PRODUCT_AND_COMPONENT": "Seleccione un producto y al menos un componente",
+    "SELECT_AT_LEAST_ONE_COMPONENT": "Seleccione al menos un componente",
+    "RELATIONS_CREATED": "Relaciones creadas correctamente",
+    "RELATIONS_CREATION_FAILED": "Ocurrió un error al crear las relaciones",
+    "USER_CREATED_SUCCESS": "Usuario creado con éxito",
+    "USER_CREATION_FAILED": "Error al crear el usuario",
+    "AUTH_ERROR": "Error de autenticación",
+    "LOGIN_SUCCESS": "Inicio de sesión",
+    "WELCOME": "Bienvenido",
+    "MAX_IMAGES": "No se pueden seleccionar más de 10 imágenes",
+    "ONLY_IMAGES": "Solo se permiten archivos de imagen (JPEG, PNG, GIF, WEBP)",
+    "MAX_IMAGES_PERM": "No se permiten más de 10 imágenes",
+    "PRODUCT_CREATED_IMAGE": "Producto creado pero hubo problemas subiendo las imágenes",
+    "REVIEW_HIDDEN": "Reseña ocultada correctamente",
+    "REVIEW_HIDE_FAILED": "No se pudo ocultar la reseña",
+    "COMPLETE_REVIEW_FIELDS": "Por favor, complete todos los campos para la reseña",
+    "REVIEW_CREATED": "Reseña creada con éxito",
+    "REVIEW_SUBMIT_FAILED": "Error al enviar la reseña",
+    "REVIEW_ALREADY_REPORTED": "Ya has reportado esta reseña.",
+    "CHECK_REVIEW_REPORT_FAILED": "No se pudo verificar si ya reportaste esta reseña.",
+    "REPORT_SENT": "Reporte enviado con éxito",
+    "REPORT_FAILED": "Error al enviar el reporte",
+    "INVALID_PRODUCT_ID": "El producto no tiene un ID válido",
+    "PRODUCT_INACTIVE": "Producto inactivo",
+    "CANNOT_ADD_PRODUCT": "No se puede agregar este producto",
+    "PRODUCT_NOT_AVAILABLE": "Este producto no está disponible",
+    "PRODUCT_ADDEDD": "Producto agregado",
+    "PRODUCT_ADDED_TO_CARTT": "{{nombre}} se añadió al carrito",
+    "CHECK_STOCK_FAILED": "No se pudo verificar el stock del producto",
+    "LOAD_PRODUCT_FAILED": "No se pudo cargar el producto",
+    "MAX_FILES_EXCEEDED": "No puedes subir más de {{max}} imágenes a la vez",
+    "AT_LEAST_ONE_IMAGE_REQUIRED": "El producto debe tener al menos una imagen",
+    "PRODUCT_UPDATED_SUCCESS": "Producto \"{{nombre}}\" e imágenes actualizadas correctamente",
+    "PRODUCT_UPDATED_IMAGES_FAILED": "Producto actualizado pero hubo problemas subiendo las nuevas imágenes",
+    "PRODUCT_UPDATE_FAILED": "No se pudo actualizar el producto"
+  },
+    "ACCESS_DENIED": {
+    "TITLE": "Acceso Denegado",
+    "MESSAGE": "No tienes permisos para acceder a esta página.",
+    "GO_HOME": "Ir al inicio"
+    }
+}

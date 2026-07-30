@@ -1,0 +1,171 @@
+/* Fondo general y tipografía */
+html, body {
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  background-color: #ffffff; /* Fondo blanco total */
+  font-family: 'Roboto', sans-serif;
+  color: #212121; /* Texto gris oscuro por defecto */
+}
+
+mat-form-field input {
+  padding-left: 1rem;
+}
+
+
+/* Contenedor principal */
+.container {
+  max-width: 100%;
+  width: 50vw;
+  margin: 2rem auto;
+  padding: 2rem;
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  box-sizing: border-box;
+}
+
+/* Títulos */
+h2, h3 {
+  color: #212121;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+/* Formulario */
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+mat-form-field.w-full {
+  width: 100%;
+}
+
+mat-error {
+  font-size: 0.875rem;
+  color: #f44336;
+}
+
+/* Botones */
+button[mat-raised-button] {
+  background-color: #e0e0e0;
+  color: #212121;
+  font-weight: 500;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  margin-right: 15px;
+}
+
+button[mat-raised-button]:hover {
+  background-color: #d6d6d6;
+}
+
+button[mat-button] {
+  color: #616161;
+  
+}
+
+button[mat-button]:hover {
+  color: #424242;
+}
+
+.tabla-scroll-container {
+  max-height: 400px;  /* o la altura que prefieras */
+  overflow-y: auto;
+  /* Para que el ancho ocupe todo */
+  width: 100%;
+  /* Opcional: borde o sombra para delimitar el área */
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+
+
+/* Tabla */
+table.mat-table {
+  width: 100%;
+  border-spacing: 0;
+  border-collapse: collapse;
+  font-size: 1rem;
+  background-color: #ffffff;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+th.mat-header-cell {
+  background-color: #f5f5f5;
+  color: #212121;
+  font-weight: 600;
+  text-align: left;
+  padding: 12px 16px;
+  border-bottom: 2px solid #e0e0e0;
+}
+
+td.mat-cell {
+  padding: 12px 16px;
+  color: #424242;
+  border-bottom: 1px solid #eeeeee;
+  background-color: #ffffff;
+}
+.search-field {
+  width: 100%;
+  margin-bottom: 24px;
+  color: black;
+}
+
+tr.mat-row:hover {
+  background-color: #f9f9f9;
+}
+
+td.mat-cell.text-center,
+th.mat-header-cell.text-center {
+  text-align: center;
+}
+
+/* Íconos */
+.mat-icon-button {
+  color: #616161;
+  transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+  border-radius: 4px;
+ 
+}
+
+.mat-icon-button:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+  color: #212121;
+}
+
+/* Mensaje cuando no hay datos */
+p.text-gray-500 {
+  color: #757575;
+  font-style: italic;
+  text-align: center;
+  margin-top: 1rem;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .container {
+    max-width: 90vw;
+    padding: 1rem;
+  }
+
+  .mat-table {
+    display: block;
+    overflow-x: auto;
+  }
+
+  td.mat-cell,
+  th.mat-header-cell {
+    white-space: nowrap;
+  }
+
+  .flex {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+}

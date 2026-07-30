@@ -1,0 +1,127 @@
+<div class="componente-create-container">
+  <div class="form-header">
+    <h1>Crear componente</h1>
+    <button mat-button color="warn" (click)="onCancel()">
+      <mat-icon>arrow_back</mat-icon>
+      Cancelar
+    </button>
+  </div>
+
+  <form
+    [formGroup]="formComponente"
+    (ngSubmit)="onSubmit()"
+    class="componente-form"
+  >
+    <div class="form-row">
+      <!-- Nombre -->
+      <mat-form-field appearance="outline" class="form-field">
+        <mat-label>Nombre</mat-label>
+        <input matInput formControlName="nombre" required />
+        <mat-error *ngIf="formComponente.get('nombre')?.hasError('required')">
+          El nombre es requerido
+        </mat-error>
+        <mat-error *ngIf="formComponente.get('nombre')?.hasError('maxlength')">
+          Máximo 100 caracteres permitidos
+        </mat-error>
+      </mat-form-field>
+
+      <!-- Precio -->
+      <mat-form-field appearance="outline" class="form-field">
+        <mat-label>Precio</mat-label>
+        <input
+          matInput
+          type="number"
+          formControlName="precio"
+          min="0"
+          step="0.01"
+          required
+        />
+        <mat-error *ngIf="formComponente.get('precio')?.hasError('required')">
+          Este campo es requerido
+        </mat-error>
+        <mat-error *ngIf="formComponente.get('precio')?.hasError('min')">
+          El valor mínimo permitido es 0
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="form-row">
+      <!-- Grupo Componente -->
+      <mat-form-field appearance="outline" class="form-field">
+        <mat-label>Grupo</mat-label>
+        <mat-select formControlName="grupoComponenteId" required>
+          <mat-option *ngFor="let grupo of gruposComponente" [value]="grupo.id">
+            {{ grupo.nombre }}
+          </mat-option>
+        </mat-select>
+        <mat-error
+          *ngIf="formComponente.get('grupoComponenteId')?.hasError('required')"
+        >
+          Este campo es requerido
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <!-- Descripción -->
+    <mat-form-field appearance="outline" class="form-field full-width">
+      <mat-label>Descripción</mat-label>
+      <textarea matInput formControlName="descripcion" rows="3"></textarea>
+      <mat-hint
+        >{{ formComponente.get('descripcion')?.value?.length || 0
+        }}/500</mat-hint
+      >
+      <mat-error
+        *ngIf="formComponente.get('descripcion')?.hasError('maxlength')"
+      >
+        Máximo 500 caracteres permitidos
+      </mat-error>
+    </mat-form-field>
+
+    <!-- Imagen -->
+    <div class="form-row">
+      <div class="image-upload-section">
+        <label class="image-upload-label">Imagen</label>
+        <div class="image-upload-container">
+          <input
+            type="file"
+            accept="image/*"
+            (change)="onFileSelected($event)"
+            hidden
+            #fileInput
+          />
+          <button
+            mat-raised-button
+            type="button"
+            (click)="fileInput.click()"
+            class="upload-button"
+          >
+            <mat-icon>cloud_upload</mat-icon>
+            Seleccionar imagen
+          </button>
+
+          <div class="image-preview" *ngIf="imagenPrevisualizacion">
+            <img
+              [src]="imagenPrevisualizacion"
+              alt="Previsualización"
+              class="preview-image"
+            />
+            <span class="image-name"
+              >{{ formComponente.get('imagenUrl')?.value }}</span
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Botones -->
+    <div class="form-actions">
+      <button mat-raised-button type="button" color="warn" (click)="onCancel()">
+        Cancelar
+      </button>
+      <button mat-raised-button type="submit" color="primary">
+        <mat-icon>save</mat-icon>
+        Guardar
+      </button>
+    </div>
+  </form>
+</div>

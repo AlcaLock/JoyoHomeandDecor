@@ -1,0 +1,177 @@
+/* componente-admin.css */
+.componente-admin-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  padding: 20px;
+  box-sizing: border-box;
+  /* Degradado múltiple de 3 colores */
+  background: linear-gradient(135deg, 
+    #ffdaa7 0%, 
+    #ffc87b 50%, 
+    #ffb64c 100%);
+  color: #000000; /* Texto negro para todo el contenedor */
+}
+
+.admin-header {
+  margin-bottom: 20px;
+}
+
+.header-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header-content h1 {
+  margin: 0;
+  color: #000000; /* Texto negro */
+  font-weight: 700; /* Más negrita para mejor contraste */
+  text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.3); /* Sombra blanca sutil para mejorar legibilidad */
+}
+
+.create-button {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #000000; /* Texto negro */
+}
+
+.search-section {
+  margin-bottom: 20px;
+}
+
+.search-field {
+  width: 100%;
+}
+
+/* Estilos para los elementos del formulario con texto negro */
+::ng-deep .search-field .mat-form-field-label {
+  color: #000000 !important;
+}
+
+::ng-deep .search-field .mat-input-element {
+  color: #000000 !important;
+}
+
+::ng-deep .search-field .mat-form-field-outline {
+  color: rgba(0, 0, 0, 0.5) !important;
+}
+
+.icon-info-box {
+  display: flex;
+  justify-content: flex-start;
+  gap: 30px;
+  padding: 15px;
+  margin-bottom: 20px;
+  /* Degradado para la caja de información */
+  background: linear-gradient(90deg, 
+    rgba(255, 255, 255, 0.7) 0%, 
+    rgba(255, 255, 255, 0.5) 50%, 
+    rgba(255, 255, 255, 0.7) 100%);
+  border-radius: 8px;
+  backdrop-filter: blur(5px);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.icon-info-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #000000; /* Texto negro */
+  font-weight: 500;
+}
+
+.table-container {
+  flex: 1;
+  overflow: auto;
+  /* Fondo semitransparente para la tabla */
+  background-color: rgba(255, 255, 255, 0.85);
+  border-radius: 8px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+}
+
+.full-width-table {
+  width: 100%;
+}
+
+/* Estilos para la tabla con texto negro */
+::ng-deep .full-width-table th {
+  color: #000000 !important;
+  font-weight: 600;
+  background-color: rgba(63, 81, 181, 0.1) !important;
+}
+
+::ng-deep .full-width-table td {
+  color: #000000 !important;
+}
+
+.tipo-container {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #000000; /* Texto negro */
+}
+
+.action-button {
+  margin: 0 4px;
+}
+
+/* Estilos para el paginador con texto negro */
+::ng-deep .mat-paginator {
+  color: #000000 !important;
+  background-color: rgba(255, 255, 255, 0.7) !important;
+}
+
+::ng-deep .mat-paginator-page-size-label,
+::ng-deep .mat-paginator-range-label,
+::ng-deep .mat-paginator-navigation-button {
+  color: #000000 !important;
+}
+
+::ng-deep .mat-select-value {
+  color: #000000 !important;
+}
+
+/* Estilos responsivos */
+@media (max-width: 768px) {
+  .componente-admin-container {
+    padding: 10px;
+  }
+  
+  .header-content {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 15px;
+  }
+  
+  .icon-info-box {
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  /* Ocultar columnas en dispositivos móviles */
+  .mat-column-descripcion {
+    display: none;
+  }
+}
+
+/* Ajustar altura de la tabla */
+.mat-table {
+  min-height: 300px;
+}
+
+/* Estilos para el paginador */
+mat-paginator {
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+/* Mejora de contraste para todos los textos */
+* {
+  color: #000000;
+}
+
+/* Iconos con filtro para mejor contraste */
+mat-icon {
+  filter: brightness(0); /* Convierte iconos a negro */
+}

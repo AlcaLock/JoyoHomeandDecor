@@ -1,0 +1,24 @@
+2025-08-26 10:34:51.411 error: 	Asus--Se produjo un error interno del servidor 
+Invalid `this.prisma.componente.update()` invocation in
+C:\Users\Asus\OneDrive\Escritorio\joyohyd\Server\source\controllers\componenteController.ts:184:56
+
+  181   imagenUrl = `http://localhost:3000/images/${req.file.filename}`;
+  182 }
+  183 
+→ 184 const actualizado = await this.prisma.componente.update({
+        where: {
+          id: 15
+        },
+        data: {
+          nombre: "Polinecio 2",
+          descripcion: "Material polinecsio version 2",
+          precio: 3432,
+          grupoComponenteId: "3"
+                             ~~~
+        }
+      })
+
+Argument `grupoComponenteId`: Invalid value provided. Expected Int or IntFieldUpdateOperationsInput, provided String.
+2025-08-26 10:54:04.418 error: 	Asus--ID inválido ID inválido
+2025-08-26 10:54:04.439 error: 	Asus--ID inválido ID inválido
+2025-08-26 10:54:04.466 error: 	Asus--ID inválido ID inválido

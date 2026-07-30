@@ -1,0 +1,218 @@
+<form
+  class="dialog-container"
+  [formGroup]="formPersonalizado"
+  (ngSubmit)="onSubmit()"
+>
+  <mat-card class="product-card" *ngIf="productoBase">
+    <mat-card-header>
+      <div mat-card-avatar class="avatar">
+        <img
+          [src]="getCachedImage(imagenProductoBase, 'product')"
+          (error)="handleImageError($event)"
+          class="producto-imagen"
+          [alt]="'PRODUCT.IMAGE_ALT' | translate"
+        />
+      </div>
+      <mat-card-title>{{ productoBase.nombre }}</mat-card-title>
+      <mat-card-subtitle>{{ productoBase.descripcion }}</mat-card-subtitle>
+    </mat-card-header>
+
+    <mat-card-content>
+      <!-- Selector de producto base -->
+      <div class="row">
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>{{ 'PRODUCT.SELECT_BASE' | translate }}</mat-label>
+          <mat-select
+            [ngModel]="productoBase"
+            (ngModelChange)="onProductoBaseChange($event)"
+            [compareWith]="compareProducto"
+            [ngModelOptions]="{ standalone: true }"
+          >
+            <mat-option *ngFor="let p of productosDisponibles" [value]="p">
+              {{ p.nombre }} — {{ getPrecioCRC(p.precioConPromocion || p.precio) }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <!-- Resumen e imagen principal -->
+      <div class="product-summary">
+        <img
+          [src]="getCachedImage(imagenProductoBase, 'product')"
+          (error)="handleImageError($event)"
+          class="producto-imagen grande"
+          [alt]="'PRODUCT.IMAGE_SELECTED_ALT' | translate"
+        />
+
+        <div class="summary-right">
+          <div class="summary-row">
+            <div class="summary-block">
+              <div class="label">{{ 'PRODUCT.PRICE_BASE' | translate }}</div>
+              <div class="value">
+                {{ getPrecioCRC(productoBase?.precioConPromocion ?? productoBase?.precio ?? 0) }}
+              </div>
+            </div>
+
+            <div class="summary-block">
+              <div class="label">{{ 'PRODUCT.QUANTITY' | translate }}</div>
+              <mat-form-field appearance="outline" class="cantidad-field">
+                <input
+                  matInput
+                  type="number"
+                  min="1"
+                  formControlName="cantidad"
+                  (input)="calcularPrecioFinal()"
+                  [placeholder]="'PRODUCT.QUANTITY_PLACEHOLDER' | translate"
+                  required
+                />
+                <mat-error
+                  *ngIf="formPersonalizado.get('cantidad')?.hasError('required')"
+                >
+                  {{ 'PRODUCT.ERROR_REQUIRED' | translate }}
+                </mat-error>
+                <mat-error
+                  *ngIf="formPersonalizado.get('cantidad')?.hasError('min')"
+                >
+                  {{ 'PRODUCT.ERROR_MIN_1' | translate }}
+                </mat-error>
+              </mat-form-field>
+            </div>
+          </div>
+
+          <mat-divider></mat-divider>
+
+          <div class="price-box">
+            <div class="label">{{ 'PRODUCT.FINAL_PRICE' | translate }}</div>
+            <div class="price-final">{{ getPrecioCRC(precioFinal) }}</div>
+            <div class="total-line">
+              {{ 'PRODUCT.TOTAL_BY_QUANTITY' | translate }}:
+              <strong>{{ getPrecioCRC(precioFinal * (formPersonalizado.get('cantidad')?.value || 1)) }}</strong>
+            </div>
+            <div class="config-summary">
+              {{ 'PRODUCT.CONFIGURATION' | translate }}: {{ 'PRODUCT.SIZE' | translate }}: {{ nombreTamanoSeleccionado }}, {{ 'PRODUCT.COLOR' | translate }}: {{ nombreColorSeleccionado }}, {{ 'PRODUCT.MATERIAL' | translate }}: {{ nombreMaterialSeleccionado }}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <mat-divider class="spacer"></mat-divider>
+
+      <!-- Loading -->
+      <div class="loading-row" *ngIf="loading">
+        <mat-progress-spinner
+          mode="indeterminate"
+          diameter="28"
+        ></mat-progress-spinner>
+        <span>{{ 'PRODUCT.LOADING_COMPONENTS' | translate }}</span>
+      </div>
+
+      <!-- Grid de selects + previsualizaciones -->
+      <div class="components-grid">
+        <!-- Tamaño -->
+        <div class="field-col">
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>{{ 'PRODUCT.SIZE' | translate }}</mat-label>
+            <mat-select
+              formControlName="tamano"
+              (selectionChange)="actualizarImagenTamano($event.value); calcularPrecioFinal()"
+            >
+              <mat-option *ngFor="let t of tamanos" [value]="t.id">
+                {{ t.nombre }} — {{ getPrecioCRC(t.precio) }}
+              </mat-option>
+            </mat-select>
+            <mat-hint *ngIf="tamanos.length === 0">{{ 'PRODUCT.NO_OPTIONS' | translate }}</mat-hint>
+            <mat-error
+              class="error-visible"
+              *ngIf="formPersonalizado.get('tamano')?.hasError('required')"
+            >
+              {{ 'PRODUCT.ERROR_SELECT_SIZE' | translate }}
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="preview-col">
+          <img
+            [src]="getCachedImage(imagenTamano, 'component')"
+            (error)="handleImageError($event)"
+            class="componente-imagen"
+            [alt]="'PRODUCT.SIZE_IMAGE_ALT' | translate"
+          />
+        </div>
+
+        <!-- Color -->
+        <div class="field-col">
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>{{ 'PRODUCT.COLOR' | translate }}</mat-label>
+            <mat-select
+              formControlName="color"
+              (selectionChange)="actualizarImagenColor($event.value); calcularPrecioFinal()"
+            >
+              <mat-option *ngFor="let c of colores" [value]="c.id">
+                {{ c.nombre }} — {{ getPrecioCRC(c.precio) }}
+              </mat-option>
+            </mat-select>
+            <mat-hint *ngIf="colores.length === 0">{{ 'PRODUCT.NO_OPTIONS' | translate }}</mat-hint>
+            <mat-error
+              class="error-visible"
+              *ngIf="formPersonalizado.get('color')?.hasError('required')"
+            >
+              {{ 'PRODUCT.ERROR_SELECT_COLOR' | translate }}
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="preview-col">
+          <img
+            [src]="getCachedImage(imagenColor, 'component')"
+            (error)="handleImageError($event)"
+            class="componente-imagen"
+            [alt]="'PRODUCT.COLOR_IMAGE_ALT' | translate"
+          />
+        </div>
+
+        <!-- Material -->
+        <div class="field-col">
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>{{ 'PRODUCT.MATERIAL' | translate }}</mat-label>
+            <mat-select
+              formControlName="material"
+              (selectionChange)="actualizarImagenMaterial($event.value); calcularPrecioFinal()"
+            >
+              <mat-option *ngFor="let m of materiales" [value]="m.id">
+                {{ m.nombre }} — {{ getPrecioCRC(m.precio) }}
+              </mat-option>
+            </mat-select>
+            <mat-hint *ngIf="materiales.length === 0">{{ 'PRODUCT.NO_OPTIONS' | translate }}</mat-hint>
+            <mat-error
+              class="error-visible"
+              *ngIf="formPersonalizado.get('material')?.hasError('required')"
+            >
+              {{ 'PRODUCT.ERROR_SELECT_MATERIAL' | translate }}
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="preview-col">
+          <img
+            [src]="getCachedImage(imagenMaterial, 'component')"
+            (error)="handleImageError($event)"
+            class="componente-imagen"
+            [alt]="'PRODUCT.MATERIAL_IMAGE_ALT' | translate"
+          />
+        </div>
+      </div>
+    </mat-card-content>
+
+    <mat-divider></mat-divider>
+
+    <mat-card-actions align="end">
+      <button mat-button type="button"(click)="onCancel()">{{ 'BUTTON.CANCEL' | translate }}</button>
+      <button
+        mat-raised-button
+        color="primary"
+        type="submit"
+        [disabled]="loading"
+      >
+        <mat-icon>add_shopping_cart</mat-icon>
+        {{ data.productoPersonalizado ? ('BUTTON.UPDATE' | translate) : ('BUTTON.ADD_TO_CART' | translate) }}
+      </button>
+    </mat-card-actions>
+  </mat-card>
+</form>

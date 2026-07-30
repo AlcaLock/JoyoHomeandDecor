@@ -1,0 +1,11 @@
+2025-07-25 12:56:33.673 error: 	bbarr--Se produjo un error interno del servidor 
+Invalid `this.prisma.producto.findMany()` invocation in
+C:\Users\bbarr\Desktop\joyohyd\Server\source\controllers\productoController.ts:11:50
+
+   8 // Listado de productos
+   9 get = async (request: Request, response: Response, next: NextFunction) => {
+  10   try {
+→ 11     const listado = await this.prisma.producto.findMany(
+Can't reach database server at `localhost:3306`
+
+Please make sure your database server is running at `localhost:3306`.

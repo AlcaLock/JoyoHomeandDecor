@@ -1,0 +1,18 @@
+export const environment = {
+  apiURL: 'http://localhost:3000',
+  endPointProducto: 'producto',
+  endPointResena: 'resena',
+  endPointPromocion: 'promocion',
+  endPointPedido: 'pedido',
+  endPointEtiqueta: 'etiqueta',
+  endPointRol: 'rol',
+  endPointUsuario: 'usuario',
+  endPointCategoria: 'categoria',
+  endPointImagenProducto: 'imagen',
+  endPointCarrito: 'carrito',
+  endPointCarritoProducto: 'carrito-producto',
+  endPointProductoComponente: 'producto-componente',
+  endPointComponente: 'componente',
+  endPointProductoPerzonalizado: 'producto-personalizado',
+  endPointGrupoComponente: 'grupo-componente',
+};

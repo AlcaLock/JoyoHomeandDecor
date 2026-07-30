@@ -1,0 +1,41 @@
+<div class="grid-container">
+  <p>{{ 'review.list.title' | translate }}</p>
+  <!-- Lista de reseñas -->
+  @if (datos) {
+    <div class="reviews-list">
+      @for (review of datos; track review.id) {
+        <mat-card appearance="outlined" class="review-card">
+          <mat-card-header class="card-header-secondary">
+            <mat-card-title-group>
+              <mat-card-title>{{ review.usuario?.nombre }}</mat-card-title>
+              <mat-card-subtitle>{{ review.fecha | date:'fullDate':undefined:currentLang }}</mat-card-subtitle>
+            </mat-card-title-group>
+          </mat-card-header>
+
+          <mat-card-content class="review-content">
+            <div class="review-details">
+              <p class="review-comment">{{ review.comentario }}</p>
+              <div class="review-rating">
+                <p class="section-title">{{ 'review.list.rating_label' | translate }}:</p>
+                <div class="stars">
+                  @for (star of getStars(review.estrellas); track $index) {
+                    <mat-icon [ngClass]="{'star-filled': star, 'star-empty': !star}">
+                      {{ star ? 'star' : 'star_border' }}
+                    </mat-icon>
+                  }
+                </div>
+              </div>
+            </div>
+          </mat-card-content>
+
+          <mat-card-actions class="review-actions">
+            <button mat-button class="bg-primary" (click)="detalleReview(review.id)">
+              <mat-icon>info</mat-icon>
+              <span>{{ 'buttons.details' | translate }}</span>
+            </button>
+          </mat-card-actions>
+        </mat-card>
+      }
+    </div>
+  }
+</div>

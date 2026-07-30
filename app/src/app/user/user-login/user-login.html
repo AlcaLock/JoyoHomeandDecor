@@ -1,0 +1,71 @@
+<form [formGroup]="formulario" novalidate>
+  <mat-card class="card-content">
+    <mat-card-header>
+      <mat-card-title class="title">
+        {{ 'auth.login.title' | translate }}
+      </mat-card-title>
+    </mat-card-header>
+
+    <mat-card-content>
+      <div class="row">
+        <div class="col">
+          <mat-form-field class="full-width">
+            <mat-label>{{ 'auth.login.email.label' | translate }}</mat-label>
+            <input
+              matInput
+              type="text"
+              [placeholder]="'auth.login.email.placeholder' | translate"
+              formControlName="correo"
+            />
+            @if (errorHandling('email')) {
+              <mat-error>
+                {{ errorHandling('email') }}
+              </mat-error>
+            }
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col">
+          <mat-form-field class="full-width">
+            <mat-label>{{ 'auth.login.password.label' | translate }}</mat-label>
+            <input
+              matInput
+              [type]="hide ? 'password' : 'text'"
+              [placeholder]="'auth.login.password.placeholder' | translate"
+              formControlName="contrasenna"
+            />
+            <button
+              mat-icon-button
+              matSuffix
+              (click)="hide = !hide"
+              [attr.aria-label]="'auth.login.password.toggle' | translate"
+              [attr.aria-pressed]="hide"
+            >
+              <mat-icon>{{ hide ? 'visibility_off' : 'visibility' }}</mat-icon>
+            </button>
+            @if (errorHandling('password')) {
+              <mat-error>
+                {{ errorHandling('password') }}
+              </mat-error>
+            }
+          </mat-form-field>
+        </div>
+      </div>
+    </mat-card-content>
+
+    <mat-card-actions>
+      <button matButton="outlined" class="btn-secondary" (click)="submitForm()">
+        {{ 'auth.login.submit' | translate }}
+      </button>
+      <button matButton="outlined" class="btn-tertiary" type="reset" (click)="onReset()">
+        {{ 'auth.login.cancel' | translate }}
+      </button>
+      <button mat-stroked-button class="btn-tertiary" [routerLink]="['/usuario/forgot-password']">
+        {{ 'USUARIO.NAV.RESET_PASSWORD' | translate }}
+      </button>
+    
+    </mat-card-actions>
+  </mat-card>
+</form>

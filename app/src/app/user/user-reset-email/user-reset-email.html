@@ -1,0 +1,40 @@
+<!-- Contenedor principal para centrado y fondo -->
+<div class="wrapper">
+  <section class="card">
+    <h2 class="card__title">Recuperá tu contraseña</h2>
+    <p class="card__subtitle">
+      Te enviaremos un enlace a tu correo para que puedas restablecerla en segundos.
+    </p>
+
+    <form [formGroup]="formEmail" (ngSubmit)="submitEmail()" class="form">
+      <mat-form-field class="full-width">
+        <mat-label>Correo electrónico</mat-label>
+        <input
+          matInput
+          formControlName="correo"
+          type="email"
+          placeholder="tu@email.com"
+          required
+        />
+        <mat-icon matSuffix>mail_outline</mat-icon>
+
+        <mat-error *ngIf="formEmail.get('correo')?.hasError('required')">
+          El correo es obligatorio
+        </mat-error>
+        <mat-error *ngIf="formEmail.get('correo')?.hasError('email')">
+          Debe ser un correo válido
+        </mat-error>
+      </mat-form-field>
+
+      <button
+        mat-raised-button
+        color="primary"
+        type="submit"
+        [disabled]="formEmail.invalid"
+        class="form__submit"
+      >
+        Enviar enlace de recuperación
+      </button>
+    </form>
+  </section>
+</div>

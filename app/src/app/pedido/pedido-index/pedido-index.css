@@ -1,0 +1,105 @@
+/* Contenedor general con fondo profesional */
+.grid-container {
+  min-height: 100vh;
+  padding: 2rem;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Lista de pedidos: 3 columnas exactas */
+.pedidos-list {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  justify-items: center;
+}
+
+/* Tarjeta moderna con brillo, ahora sin bordes redondeados */
+.pedido-card {
+  width: 100%;
+  max-width: 350px;
+  background: rgba(255, 255, 255, 0.08);
+  color: #ecf0f1;
+  padding: 1.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s;
+  backdrop-filter: blur(8px);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+/* Hover mejorado sin redondez */
+.pedido-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 14px 32px rgba(0, 0, 0, 0.3);
+  border-color: #00d2ff;
+}
+
+
+/* Encabezado cuadrado */
+.pedido-card mat-card-header {
+  padding-bottom: 1rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.pedido-card mat-card-title {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin: 0;
+}
+
+.pedido-card mat-card-subtitle {
+  font-size: 1rem;
+  color: #dcdde1;
+  font-weight: 500;
+}
+
+/* Contenido textual */
+.pedido-card mat-card-content p {
+  margin: 0.5rem 0;
+  font-size: 0.95rem;
+  color: #ecf0f1;
+}
+
+/* Acciones cuadradas */
+.pedido-card img {
+  width: 100%;       /* Ocupa todo el ancho del card */
+  height: 180px;     /* Altura fija, ajusta según convenga */
+  object-fit: cover; /* Recorta y mantiene proporción */
+  border-radius: 0;  /* Sin bordes redondeados, para que coincida con diseño */
+  display: block;    /* Evita espacios extra */
+}
+
+
+/* Botón cuadrado con efecto brillante */
+.pedido-card button {
+  background: linear-gradient(90deg, #ac883b, #f7b72c);
+  color: white;
+  padding: 0.6rem 1.2rem;
+  border: none;
+  border-radius: 0; /* Cuadrado */
+  font-weight: 600;
+  font-size: 0.95rem;
+  box-shadow: 0 4px 12px rgba(0, 114, 255, 0.3);
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.pedido-card button:hover {
+  background: linear-gradient(90deg, #9c7d27, #b67e0f);
+  transform: scale(1.03);
+}
+
+/* Responsive: mantiene estructura */
+@media (max-width: 1024px) {
+  .pedidos-list {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .pedidos-list {
+    grid-template-columns: 1fr;
+  }
+}

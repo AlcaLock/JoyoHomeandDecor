@@ -1,0 +1,173 @@
+// Custom Theming for Angular Material
+// For more information: https://material.angular.dev/guide/theming
+@use '@angular/material' as mat;
+@use "./app/styles/theme-colors" as theme;
+@use 'sass:map';
+
+
+html {
+  color-scheme: dark;
+  //small
+  --mat-sys-body-small: 200 0.6rem / 1rem Roboto, sans-serif;
+  --mat-sys-body-small-font: Roboto, sans-serif;
+  --mat-sys-body-small-line-height: 1rem;
+  --mat-sys-body-small-size: 0.6rem;
+  --mat-sys-body-small-tracking: 0.016rem;
+  --mat-sys-body-small-weight: 200;
+  //medium
+  --mat-sys-body-medium: 400 0.875rem / 1.25rem Roboto, sans-serif;
+  --mat-sys-body-medium-font: Roboto, sans-serif;
+  --mat-sys-body-medium-line-height: 1.25rem;
+  --mat-sys-body-medium-size: 0.875rem;
+  --mat-sys-body-medium-tracking: 0.016rem;
+  --mat-sys-body-medium-weight: 400;
+  //large
+  --mat-sys-body-large: 600 1rem / 1.5rem Roboto, sans-serif;
+  --mat-sys-body-large-font: Roboto, sans-serif;
+  --mat-sys-body-large-line-height: 1.5rem;
+  --mat-sys-body-large-size: 1rem;
+  --mat-sys-body-large-tracking: 0.025rem;
+  --mat-sys-body-large-weight: 600;
+
+  
+  /*https://v19.material.angular.dev/components/toolbar/styling*/
+  @include mat.toolbar-overrides((container-background-color: map.get(theme.$primary-palette, 40),
+    ));
+  //Menu desplegable
+  @include mat.menu-overrides((container-color: map.get(theme.$primary-palette, 50),
+    ));
+
+  .footer {
+    @include mat.toolbar-overrides((container-background-color: map.get(theme.$tertiary-palette, 40),
+      ));
+  }
+
+  //desplegable select
+  @include mat.select-overrides((panel-background-color: rgba(0, 0, 0, 0.7)));
+
+  .bg-primary {
+    background-color: #{map.get(theme.$primary-palette, 50)};
+  }
+  
+
+  .bg-secondary {
+    background-color: #{map.get(theme.$secondary-palette, 50)};
+  }
+
+  .bg-tertiary {
+    background-color: #{map.get(theme.$tertiary-palette, 50)};
+  }
+
+  .active-link {
+    background-color: #{map.get(theme.$primary-palette, 10)};
+    color: #{map.get(theme.$secondary-palette, 90)};
+  }
+  .btn-primary {
+    background-color: #{map.get(theme.$primary-palette, 50)};
+    border-radius: 20px;
+  }
+  .btn-secondary {
+    background-color: #{map.get(theme.$secondary-palette, 50)};
+    border-radius: 20px;
+  }
+  .btn-tertiary {
+    background-color: #{map.get(theme.$tertiary-palette, 50)};
+    border-radius: 20px;
+  }
+
+  .card-header-secondary {
+    background-color: #{map.get(theme.$secondary-palette, 60)};
+    color: white;
+    padding-bottom: 0.5em;
+  }
+
+  .ico-primary {
+    @include mat.icon-overrides((color: #{map.get(theme.$primary-palette, 70)},
+      ));
+  }
+
+  .ico-secondary {
+    @include mat.icon-overrides((color: #{map.get(theme.$secondary-palette, 70)},
+      ));
+  }
+
+  .ico-tertiary {
+    @include mat.icon-overrides((color: #{map.get(theme.$tertiary-palette, 70)},
+      ));
+  }
+
+  .primary-title {
+    background-color: #{map.get(theme.$primary-palette, 60)};
+    font-weight: bold;
+  }
+
+  .secondary-title {
+    background-color: #{map.get(theme.$secondary-palette, 60)};
+    font-weight: bold;
+  }
+
+  .tertiary-title {
+    background-color: #{map.get(theme.$tertiary-palette, 60)};
+    font-weight: bold;
+    
+  }
+  .number-cart{
+@include mat.badge-overrides((
+    background-color: #{map.get(theme.$secondary-palette, 50)},
+    line-height: 1em,
+    container-shape: 10px,
+    container-padding:0.2em
+  ));
+  }
+ 
+  .tabla {
+    @include mat.table-overrides((row-item-outline-color:#{map.get(theme.$tertiary-palette, 95)},
+        row-item-label-text-color: white,
+
+      ));
+
+  }
+
+  @include mat.tooltip-overrides((container-color: rgba(0, 0, 0, 0.6),
+      supporting-text-color: white));
+
+  .chip-primary {
+    @include mat.chips-overrides((
+       elevated-container-color:#{map.get(theme.$primary-palette, 70)},
+        hover-state-layer-color:#{map.get(theme.$primary-palette, 50)},
+        label-text-color:white,
+        outline-color: white,
+      ));
+  }
+
+  .chip-secondary {
+    @include mat.chips-overrides((
+      elevated-container-color:#{map.get(theme.$secondary-palette, 60)},
+        hover-state-layer-color:#{map.get(theme.$secondary-palette, 40)},
+        label-text-color:white,
+        outline-color: white,
+      ));
+  }
+  .chip-tertiary {
+    @include mat.chips-overrides((
+      elevated-container-color:#{map.get(theme.$tertiary-palette, 60)},
+        hover-state-layer-color:#{map.get(theme.$tertiary-palette, 40)},
+        label-text-color:white,
+        outline-color: white,
+      ));
+  }
+  @include mat.dialog-overrides((
+    container-color: black,
+    subhead-color: #{map.get(theme.$primary-palette, 80)},
+    subhead-size: 1.5em,
+    supporting-text-color:white,
+    headline-padding: 0.5em,
+    supporting-text-line-height:1.5em,
+    content-padding:1em
+  ));
+ @include mat.form-field-overrides((
+    error-text-color: #e74c3c,
+    filled-error-active-indicator-color:#cb4335,
+    container-text-size:1em,
+  ));
+}

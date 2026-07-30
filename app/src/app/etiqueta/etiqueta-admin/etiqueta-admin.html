@@ -1,0 +1,88 @@
+<div class="container p-4 max-w-md mx-auto">
+  <h2 class="text-2xl font-bold mb-4">{{ 'etiquetas.titulo' | translate }}</h2>
+
+  <!-- Botón para iniciar creación -->
+  <button
+    mat-raised-button
+    color="primary"
+    class="mb-4"
+    (click)="nuevaEtiqueta()"
+    *ngIf="!mostrarFormulario"
+  >
+    {{ 'etiquetas.crearBoton' | translate }}
+  </button>
+
+  <!-- Formulario visible solo si se está creando o editando -->
+  <form
+    *ngIf="mostrarFormulario"
+    [formGroup]="etiquetaForm"
+    (ngSubmit)="guardarEtiqueta()"
+    class="mb-6"
+  >
+    <mat-form-field appearance="outline" class="search-field">
+      <mat-label>{{ 'etiquetas.nombreLabel' | translate }}</mat-label>
+      <input
+        #inputNombre
+        matInput
+        formControlName="nombre"
+        [placeholder]="'etiquetas.nombrePlaceholder' | translate"
+        maxlength="30"
+      />
+      <mat-error *ngIf="etiquetaForm.get('nombre')?.hasError('required')">
+        {{ 'etiquetas.errorRequerido' | translate }}
+      </mat-error>
+      <mat-error *ngIf="etiquetaForm.get('nombre')?.hasError('maxlength')">
+        {{ 'etiquetas.errorMaximo' | translate }}
+      </mat-error>
+    </mat-form-field>
+
+    <div class="flex gap-4">
+      <button
+        mat-raised-button
+        color="primary"
+        type="submit"
+        [disabled]="etiquetaForm.invalid"
+      >
+        {{ editando ? ('etiquetas.actualizar' | translate) : ('etiquetas.crear' | translate) }}
+      </button>
+
+      <button mat-raised-button type="button" (click)="cancelarEdicion()">
+        {{ 'etiquetas.cancelar' | translate }}
+      </button>
+    </div>
+  </form>
+
+  <h3 class="text-xl mb-2">{{ 'etiquetas.subtitulo' | translate }}</h3>
+  <div class="tabla-scroll-container" *ngIf="etiquetas.length > 0">
+    <table mat-table [dataSource]="etiquetas" class="mat-elevation-z2 w-full">
+      <!-- Columna Nombre -->
+      <ng-container matColumnDef="nombre">
+        <th mat-header-cell *matHeaderCellDef>{{ 'etiquetas.nombreLabel' | translate }}</th>
+        <td mat-cell *matCellDef="let etiqueta">{{ etiqueta.nombre }}</td>
+      </ng-container>
+
+      <!-- Columna Acciones -->
+      <ng-container matColumnDef="acciones">
+        <th mat-header-cell *matHeaderCellDef class="text-center">{{ 'etiquetas.acciones' | translate }}</th>
+        <td mat-cell *matCellDef="let etiqueta" class="text-center">
+          <button
+            mat-icon-button
+            color="primary"
+            (click)="editarEtiqueta(etiqueta)"
+            [attr.aria-label]="'etiquetas.ariaEditar' | translate"
+          >
+            <mat-icon>edit</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+
+      <!-- Cabecera y filas -->
+      <tr mat-header-row *matHeaderRowDef="columnas"></tr>
+      <tr mat-row *matRowDef="let row; columns: columnas;"></tr>
+    </table>
+  </div>
+
+  <p *ngIf="etiquetas.length === 0" class="text-gray-500">
+    {{ 'etiquetas.noEtiquetas' | translate }}
+  </p>
+</div>

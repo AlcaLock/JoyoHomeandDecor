@@ -1,0 +1,20 @@
+2025-08-26 12:44:14.964 error: 	Asus--Se produjo un error interno del servidor 
+Invalid `tx.productoComponente.create()` invocation in
+C:\Users\Asus\OneDrive\Escritorio\joyohyd\Server\source\controllers\productoComponenteController.ts:245:47
+
+  242 
+  243 const created = [];
+  244 for (const id_componente of toCreate) {
+→ 245   const c = await tx.productoComponente.create(
+Transaction API error: Transaction already closed: A query cannot be executed on an expired transaction. The timeout for this transaction was 5000 ms, however 5405 ms passed since the start of the transaction. Consider increasing the interactive transaction timeout or doing less work in the transaction.
+2025-08-26 12:44:15.030 error: 	Asus--Se produjo un error interno del servidor 
+Invalid `this.prisma.productoComponente.findMany()` invocation in
+C:\Users\Asus\OneDrive\Escritorio\joyohyd\Server\source\controllers\productoComponenteController.ts:218:68
+
+  215 }
+  216 
+  217 // Obtener relaciones actuales
+→ 218 const existingRelations = await this.prisma.productoComponente.findMany(
+Can't reach database server at `localhost:3306`
+
+Please make sure your database server is running at `localhost:3306`.

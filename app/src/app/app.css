@@ -1,0 +1,7 @@
+.body-container {
+  padding-top: 64px; 
+  padding-bottom: 4.2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

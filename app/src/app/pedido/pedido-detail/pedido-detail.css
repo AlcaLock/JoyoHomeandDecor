@@ -1,0 +1,134 @@
+
+.back-button {
+  position: fixed;
+  top: 70px;
+  left: 16px;
+  z-index: 1000;
+  background-color: #78500b;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  font-weight: bold;
+  gap: 4px;
+}
+.back-button:hover {
+  background-color: #b07613;
+}
+
+
+.invoice-container {
+  width: 100vw;           /* ancho total de la ventana */
+  min-height: 100vh;      /* alto mínimo para cubrir pantalla completa */
+  padding: 10px 120px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  box-sizing: border-box;
+  background-color: #f9f9f9; /* fondo muy suave para separar contenido */
+  color: #222;
+}
+
+.invoice-header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.invoice-header h1 {
+  margin: 0;
+  font-size: 2.5rem;
+}
+
+.client-info {
+  margin-bottom: 30px;
+}
+
+.product-section {
+  margin-bottom: 30px;
+}
+
+.product-section h3 {
+  margin-bottom: 10px;
+  font-weight: 600;
+}
+
+.product-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.product-table th,
+.product-table td {
+  padding: 12px 15px;
+  border-bottom: 1px solid #ddd;
+}
+
+.product-table th {
+  background-color: #eee;
+  text-align: left;
+}
+
+.center {
+  text-align: center;
+}
+
+.right {
+  text-align: right;
+}
+.left{
+    text-align: left;
+}
+
+.custom-product {
+
+  border: 1px solid #ccc;
+  padding: 5px 40px 0px;
+  margin-bottom: 15px;
+  background-color: white;
+  border-radius: 4px;
+
+}
+.total-PP,
+.subtotal-PP {
+  justify-self: end;
+  text-align: right; 
+}
+
+/* Nuevo contenedor que alinea el resumen y método de pago a la derecha */
+.summary-wrapper {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 30px;
+}
+
+.summary-section {
+  width: 320px;
+}
+
+.summary-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.summary-table td {
+  padding: 10px 8px;
+  border-bottom: 1px solid #ddd;
+  text-align: right;
+}
+
+.summary-table td.total {
+  font-weight: bold;
+  font-size: 1.2rem;
+  border-top: 2px solid #333;
+}
+
+.payment-method {
+  margin-top: 20px;
+  font-weight: 600;
+  font-size: 1rem;
+  text-align: right;
+}
+
+
+

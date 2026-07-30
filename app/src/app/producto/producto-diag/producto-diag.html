@@ -1,0 +1,135 @@
+<button mat-icon-button class="close-button" [mat-dialog-close]="true">
+  <mat-icon class="close-icon">close</mat-icon>
+</button>
+
+@if (producto) {
+  <div class="product-header">
+    <h1 class="product-title">{{ producto?.nombre }}</h1>
+    <p class="product-subtitle">{{ 'product.category' | translate }}: {{ producto?.categoria }}</p>
+    
+    <!-- Mostrar etiqueta de promoción si existe -->
+    @if (producto.tienePromocion) {
+      <div class="promo-badge">
+        <span class="promo-tag">{{ producto.promocionActiva?.nombre || ('product.promo_default' | translate) }}</span>
+        <span class="promo-expiry">{{ 'product.promo_valid_until' | translate }}: {{ producto.promocionActiva?.fin | date:'dd/MM/yyyy' }}</span>
+      </div>
+    }
+  </div>
+
+  <div class="product-content">
+    <!-- Imagen Principal + Miniaturas -->
+    <div class="product-image-viewer">
+      <!-- Imagen principal -->
+      <div class="main-image">
+        <img [src]="selectedImage" [alt]="producto.nombre" />
+           @if (producto.tienePromocion) {
+          <div class="image-promo-badge">
+            {{ producto.promocionActiva?.descuento }}
+            {{ producto.promocionActiva?.tipo === 'PORCENTAJE' ? '% OFF' : '₡ OFF' }}
+          </div>
+        }
+      </div>
+
+      <!-- Miniaturas -->
+      <div class="thumbnails">
+        @for (imagen of producto.imagenes; track $index) {
+        <img
+          [src]="imagen.url"
+          [alt]="producto.nombre"
+          [class.selected]="imagen.url === selectedImage"
+          (click)="selectImage(imagen.url)"
+        />
+        }
+      </div>
+    </div>
+
+    <!-- Detalles del Producto -->
+    <div class="product-details-info">
+      <div class="description">
+        <h2 class="section-title">{{ 'product.description' | translate }}</h2>
+        <p>{{ producto.descripcion }}</p>
+      </div>
+
+      <div class="price-info">
+        <h2 class="section-title">{{ 'product.price' | translate }}</h2>
+        <div class="price-container">
+          @if (producto.tienePromocion) {
+            <div class="original-price">
+              {{ getPrecioCRC(producto.precio) }}
+            </div>
+            <div class="promo-price">
+              {{ getPrecioCRC(producto.precioConPromocion) }}
+            </div>
+            <div class="discount-badge">
+              {{ 'product.save' | translate }} {{ 
+                producto.promocionActiva?.tipo === 'PORCENTAJE' 
+                  ? producto.promocionActiva?.descuento + '%' 
+                  : getPrecioCRC(producto.promocionActiva?.descuento)
+              }}
+            </div>
+          } @else {
+            <div class="current-price">
+              {{ getPrecioCRC(producto.precio) }}
+            </div>
+          }
+        </div>
+      </div>
+
+      <div class="stock-info">
+        <h2 class="section-title">{{ 'product.stock' | translate }}</h2>
+        <p>{{ producto.stock }}</p>
+      </div>
+
+      <div class="tags-info">
+        <h2 class="section-title">{{ 'product.tags' | translate }}</h2>
+       <mat-chip-listbox aria-label="Etiquetas">
+          @for (item of producto.etiquetas; track $index) {
+          <mat-chip-option class="chip-tertiary">
+            {{ item.etiqueta.nombre }}
+          </mat-chip-option>
+          }
+        </mat-chip-listbox>
+      </div>
+    </div>
+  </div>
+
+  <div class="ranting-valorations">
+    <!-- Reseñas -->
+    <div class="rating-info">
+      <h2 class="section-title">{{ 'product.rating' | translate }}</h2>
+
+      @if (producto.promedioValoracion === 0) {
+      <p>{{ 'product.no_ratings' | translate }}</p>
+      } @else { @for (star of getStars(producto.promedioValoracion); track
+      $index) {
+      <mat-icon [ngClass]="{'star-filled': star, 'star-empty': !star}">
+        {{ star ? 'star' : 'star_border' }}
+      </mat-icon>
+      }
+      <p>
+        {{ producto.promedioValoracion.toFixed(1) }} / {{
+        producto.resenas.length }} {{ producto.resenas.length !== 1 ?
+        ('product.review_plural' | translate) : ('product.review_singular' | translate) }}
+      </p>
+      <div class="stars"></div>
+
+      <!-- Conteo por estrellas -->
+      <div class="conteo-valoraciones">
+        @for (item of getConteoPorEstrella(); track $index) {
+        <div class="conteo-linea">
+          <div class="stars-small">
+            @for (star of getArray(item.estrellas); track $index) {
+            <mat-icon class="star-filled">star</mat-icon>
+            }
+          </div>
+          <span
+            >( {{ item.cantidad }} ) {{ item.cantidad !== 1 ?
+            ('product.review_plural' | translate) : ('product.review_singular' | translate) }}</span
+          >
+        </div>
+        }
+      </div>
+      }
+    </div>
+  </div>
+}

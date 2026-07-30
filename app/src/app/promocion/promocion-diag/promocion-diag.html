@@ -1,0 +1,41 @@
+<div class="grid-container">
+  <!-- Card de Promoción -->
+  <mat-card
+    appearance="outlined"
+    class="promotion-detail-card"
+    [ngStyle]="{'background-color': promocion?.color}"
+  >
+    <mat-card-header>
+      <h1 class="mat-h1">{{ promocion?.nombre || ('promo.default_title' | translate) }}</h1>
+    </mat-card-header>
+    <mat-card-content>
+      <div class="promotion-info">
+        <div class="promotion-field">
+          <span class="field-label">{{ 'promo.label_type' | translate }}:</span>
+          <span class="field-value">{{ promocion?.tipoPromocion || ('promo.not_specified' | translate) }}</span>
+        </div>
+        <div class="promotion-field">
+          <span class="field-label">{{ 'promo.label_applies_to' | translate }}:</span>
+          <span class="field-value">{{ promocion?.aplica || ('promo.not_specified' | translate) }}</span>
+        </div>
+        <div class="promotion-field">
+          <span class="field-label">{{ 'promo.label_discount' | translate }}:</span>
+          <span class="field-value">
+            {{ promocion?.tipoDescuento === 'PORCENTAJE' ? (promocion.descuento + '%') : getPrecioConSimboloAdelante(promocion.descuento) }}
+          </span>
+        </div>
+        <div class="promotion-field">
+          <span class="field-label">{{ 'promo.label_start_date' | translate }}:</span>
+          <span class="field-value">
+            {{ promocion?.fechaInicio ? (promocion.fechaInicio | date:'fullDate') : ('promo.not_specified' | translate) }}
+          </span>
+        </div>
+        <div class="promotion-field">
+          <span class="field-label">{{ 'promo.label_end_date' | translate }}:</span>
+          <span class="field-value">
+            {{ promocion?.fechaFin ? (promocion.fechaFin | date:'fullDate') : ('promo.not_specified' | translate) }}
+          </span>
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>

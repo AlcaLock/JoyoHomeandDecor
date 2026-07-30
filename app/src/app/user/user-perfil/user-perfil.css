@@ -1,0 +1,153 @@
+/* user-profile.css */
+
+/* Fondo con degradado moderno de 4 colores */
+body {
+  background: linear-gradient(135deg, #bf8385, #d4a89b, #826fae, #ce79b6);
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Roboto', sans-serif;
+}
+
+/* Card del perfil */
+.card-content {
+  width: 100%;
+  max-width: 700px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background: linear-gradient(135deg, #bf8385, #d4a89b, #826fae, #ce79b6);
+  border-radius: 16px;
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card-content:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 16px 32px rgba(0, 0, 0, 0.2);
+}
+
+/* Título */
+.title {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #673ab7; /* Color púrpura más intenso */
+  margin-bottom: 1.5rem;
+  text-align: center;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+/* Contenido del perfil */
+.profile-info {
+  padding: 1rem 0;
+}
+
+/* Cada fila de información */
+.info-row {
+  margin-bottom: 1.2rem;
+  padding: 0.75rem 1rem;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  min-height: 50px;
+  background: rgba(230, 230, 250, 0.3);
+  transition: background 0.3s ease;
+}
+
+.info-row:hover {
+  background: rgba(230, 230, 250, 0.5);
+}
+
+/* Etiquetas */
+.info-label {
+  font-weight: 600;
+  color: #555;
+  font-size: 1rem;
+  padding-right: 1rem;
+  min-width: 120px;
+}
+
+/* Valores */
+.info-value {
+  color: #333;
+  font-size: 1rem;
+  word-break: break-word;
+}
+
+/* Placeholder cuando no hay valor */
+.info-value:empty::before {
+  content: "No disponible";
+  color: #9e9e9e;
+  font-style: italic;
+}
+
+/* Acciones */
+mat-card-actions {
+  padding: 1rem 0 0 0;
+  margin-top: 1rem;
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+}
+
+mat-card-actions button {
+  font-weight: 600;
+  border-radius: 8px;
+  padding: 0.5rem 1.5rem;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+mat-card-actions button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* Colores de botones */
+button[color="primary"] {
+  color: #fff;
+  background-color: #673ab7;
+  border: none;
+}
+
+button[color="primary"]:hover {
+  background-color: #5e35b1;
+}
+
+button[color="warn"] {
+  color: #fff;
+  background-color: #e53935;
+  border: none;
+}
+
+button[color="warn"]:hover {
+  background-color: #d32f2f;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .card-content {
+    margin: 1rem;
+    padding: 1.5rem;
+  }
+
+  .info-row {
+    flex-direction: column;
+    align-items: flex-start;
+    margin-bottom: 1.5rem;
+    padding: 0.5rem 0.75rem;
+  }
+
+  .info-label {
+    margin-bottom: 0.3rem;
+  }
+
+  mat-card-actions {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  mat-card-actions button {
+    width: 100%;
+  }
+}

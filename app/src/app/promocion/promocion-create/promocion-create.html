@@ -1,0 +1,122 @@
+<div class="container">
+  <h2 class="text-center">{{ 'PROMOCION.CREAR_TITULO' | translate }}</h2>
+  <form [formGroup]="promocionForm" (ngSubmit)="onSubmit()">
+
+    <!-- Nombre de la promoción -->
+    <mat-form-field appearance="outline" class="w-full">
+      <mat-label>{{ 'PROMOCION.NOMBRE_LABEL' | translate }}</mat-label>
+      <input matInput formControlName="nombre" required>
+      <mat-error *ngIf="promocionForm.get('nombre')?.hasError('required')">
+        {{ 'VALIDACION.REQUERIDO' | translate }}
+      </mat-error>
+      <mat-error *ngIf="promocionForm.get('nombre')?.hasError('minlength')">
+        {{ 'VALIDACION.MIN_3_CARACTERES' | translate }}
+      </mat-error>
+    </mat-form-field>
+
+    <!-- Tipo de promoción -->
+    <div class="mb-4">
+      <mat-label class="block mb-2">{{ 'PROMOCION.TIPO_LABEL' | translate }}</mat-label>
+      <mat-radio-group formControlName="tipo" class="flex gap-4">
+        <mat-radio-button value="categoria">{{ 'PROMOCION.TIPO_CATEGORIA' | translate }}</mat-radio-button>
+        <mat-radio-button value="producto">{{ 'PROMOCION.TIPO_PRODUCTO' | translate }}</mat-radio-button>
+      </mat-radio-group>
+      <mat-error *ngIf="promocionForm.get('tipo')?.hasError('required')">
+        {{ 'VALIDACION.SELECCIONAR_TIPO' | translate }}
+      </mat-error>
+    </div>
+
+    <!-- Selector de Categoría -->
+    <ng-container *ngIf="promocionForm.get('tipo')?.value === 'categoria'">
+      <mat-form-field appearance="outline" class="w-full">
+        <mat-label>{{ 'PROMOCION.CATEGORIA_LABEL' | translate }}</mat-label>
+        <input type="text" matInput formControlName="categoria"
+               [matAutocomplete]="autoCategoria"
+               (input)="filterCategorias($any($event.target).value)">
+        <mat-autocomplete #autoCategoria="matAutocomplete">
+          <mat-option *ngFor="let categoria of filteredCategorias" [value]="categoria.nombre">
+            {{categoria.nombre}}
+          </mat-option>
+        </mat-autocomplete>
+        <mat-error *ngIf="promocionForm.get('categoria')?.hasError('required')">
+          {{ 'VALIDACION.SELECCIONAR_CATEGORIA' | translate }}
+        </mat-error>
+      </mat-form-field>
+    </ng-container>
+
+    <!-- Selector de Producto -->
+    <ng-container *ngIf="promocionForm.get('tipo')?.value === 'producto'">
+      <mat-form-field appearance="outline" class="w-full">
+        <mat-label>{{ 'PROMOCION.PRODUCTO_LABEL' | translate }}</mat-label>
+        <input type="text" matInput formControlName="producto"
+               [matAutocomplete]="autoProducto"
+               (input)="filterProductos($any($event.target).value)">
+        <mat-autocomplete #autoProducto="matAutocomplete">
+          <mat-option *ngFor="let producto of filteredProductos" [value]="producto.nombre">
+            {{producto.nombre}}
+          </mat-option>
+        </mat-autocomplete>
+        <mat-error *ngIf="promocionForm.get('producto')?.hasError('required')">
+          {{ 'VALIDACION.SELECCIONAR_PRODUCTO' | translate }}
+        </mat-error>
+      </mat-form-field>
+    </ng-container>
+
+    <!-- Tipo de descuento -->
+    <div class="mb-4">
+      <mat-label class="block mb-2">{{ 'PROMOCION.TIPO_DESCUENTO_LABEL' | translate }}</mat-label>
+      <mat-radio-group formControlName="tipoDescuento" class="flex gap-4">
+        <mat-radio-button [value]="TipoDescuento.PORCENTAJE">{{ 'PROMOCION.DESCUENTO_PORCENTAJE' | translate }}</mat-radio-button>
+        <mat-radio-button [value]="TipoDescuento.MONTO_FIJO">{{ 'PROMOCION.DESCUENTO_MONTO' | translate }}</mat-radio-button>
+      </mat-radio-group>
+    </div>
+
+    <!-- Valor del descuento -->
+    <mat-form-field appearance="outline" class="w-full">
+      <mat-label>{{ 'PROMOCION.VALOR_DESCUENTO' | translate }}</mat-label>
+      <input matInput type="number" formControlName="descuento" required>
+      <span matSuffix *ngIf="promocionForm.get('tipoDescuento')?.value === TipoDescuento.PORCENTAJE">%</span>
+      <span matSuffix *ngIf="promocionForm.get('tipoDescuento')?.value === TipoDescuento.MONTO_FIJO">$</span>
+      <mat-error *ngIf="promocionForm.get('descuento')?.hasError('required')">
+        {{ 'VALIDACION.REQUERIDO' | translate }}
+      </mat-error>
+      <mat-error *ngIf="promocionForm.get('descuento')?.hasError('min')">
+        {{ 'VALIDACION.NO_NEGATIVO' | translate }}
+      </mat-error>
+      <mat-error *ngIf="promocionForm.get('descuento')?.hasError('max')">
+        {{ 'VALIDACION.NO_SUPERA_100' | translate }}
+      </mat-error>
+    </mat-form-field>
+
+    <!-- Rango de fechas -->
+    <mat-form-field appearance="outline" class="w-full">
+      <mat-label>{{ 'PROMOCION.RANGO_VIGENCIA' | translate }}</mat-label>
+      <mat-date-range-input [rangePicker]="picker" formGroupName="rangoFechas">
+        <input matStartDate placeholder="{{ 'PROMOCION.FECHA_INICIO' | translate }}" formControlName="inicio" required>
+        <input matEndDate placeholder="{{ 'PROMOCION.FECHA_FIN' | translate }}" formControlName="fin" required>
+      </mat-date-range-input>
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-date-range-picker #picker></mat-date-range-picker>
+
+      <mat-error *ngIf="promocionForm.get('rangoFechas.inicio')?.hasError('required')">
+        {{ 'VALIDACION.FECHA_INICIO_REQ' | translate }}
+      </mat-error>
+      <mat-error *ngIf="promocionForm.get('rangoFechas.fin')?.hasError('required')">
+        {{ 'VALIDACION.FECHA_FIN_REQ' | translate }}
+      </mat-error>
+      <mat-error *ngIf="promocionForm.get('rangoFechas')?.hasError('fechaInvalida')">
+        {{ 'VALIDACION.FECHA_FIN_POSTERIOR' | translate }}
+      </mat-error>
+    </mat-form-field>
+
+    <!-- Botones -->
+    <div class="flex justify-end gap-2 mt-4">
+      <button mat-stroked-button type="button" (click)="onCancel()">
+        {{ 'BOTON.CANCELAR' | translate }}
+      </button>
+      <button mat-raised-button color="primary" type="submit" [disabled]="promocionForm.invalid">
+        {{ 'BOTON.GUARDAR_PROMOCION' | translate }}
+      </button>
+    </div>
+  </form>
+</div>

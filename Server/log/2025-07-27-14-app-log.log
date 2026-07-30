@@ -1,0 +1,23 @@
+2025-07-27 14:08:29.419 error: 	bbarr--ID inválido ID inválido
+2025-07-27 14:10:08.172 error: 	bbarr--ID inválido ID inválido
+2025-07-27 14:23:48.632 error: 	bbarr--ID inválido ID inválido
+2025-07-27 14:34:52.520 error: 	bbarr--ID inválido ID inválido
+2025-07-27 14:36:55.419 error: 	bbarr--ID inválido ID inválido
+2025-07-27 14:49:13.299 error: 	bbarr--Se produjo un error interno del servidor 
+Invalid `this.prisma.resena.update()` invocation in
+C:\Users\bbarr\Desktop\joyohyd\Server\source\controllers\resenaController.ts:313:50
+
+  310 const activo = !estado;
+  311 
+  312 // Actualizar reseña con ambos campos
+→ 313 const actualizada = await this.prisma.resena.update({
+        where: {
+      +   id: Int
+        },
+        data: {
+          oculto: false,
+          activo: true
+        }
+      })
+
+Argument `id` is missing.

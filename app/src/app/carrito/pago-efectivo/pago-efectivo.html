@@ -1,0 +1,50 @@
+<div class="efectivo-container">
+  <h2>{{ 'PAGO_EFECTIVO.TITLE' | translate }}</h2>
+  <form [formGroup]="efectivoForm" (ngSubmit)="onSubmit()">
+    
+    <!-- Total a pagar -->
+    <div class="total-row">
+      <span>{{ 'PAGO_EFECTIVO.TOTAL' | translate }}</span>
+      <span class="total">{{ getPrecioCRC(totalAPagar) }}</span>
+    </div>
+
+    <!-- Monto entregado -->
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>{{ 'PAGO_EFECTIVO.MONTO' | translate }}</mat-label>
+      <input
+        matInput
+        type="number"
+        formControlName="montoEntregado"
+        placeholder="{{ 'PAGO_EFECTIVO.PLACEHOLDER_MONTO' | translate }}"
+        required
+        min="0"
+      />
+      <mat-error *ngIf="efectivoForm.controls['montoEntregado'].hasError('required')">
+        {{ 'PAGO_EFECTIVO.ERROR.REQUIRED' | translate }}
+      </mat-error>
+      <mat-error *ngIf="efectivoForm.controls['montoEntregado'].hasError('min')">
+        {{ 'PAGO_EFECTIVO.ERROR.MIN' | translate }}
+      </mat-error>
+      <mat-error *ngIf="efectivoForm.controls['montoEntregado'].hasError('menorTotal')">
+        {{ 'PAGO_EFECTIVO.ERROR.MENOR_TOTAL' | translate }}
+      </mat-error>
+    </mat-form-field>
+
+    <!-- Vuelto calculado automáticamente -->
+    <div class="vuelto-row" *ngIf="vuelto >= 0">
+      <span>{{ 'PAGO_EFECTIVO.VUELTO' | translate }}</span>
+      <span class="vuelto">{{ getPrecioCRC(vuelto) }}</span>
+    </div>
+
+    <!-- Botones -->
+    <div class="actions">
+      <button mat-stroked-button type="button" (click)="onCancel()">
+        {{ 'PAGO_EFECTIVO.CANCELAR' | translate }}
+      </button>
+      <button mat-raised-button color="primary" type="submit" [disabled]="efectivoForm.invalid">
+        {{ 'PAGO_EFECTIVO.CONFIRMAR' | translate }}
+      </button>
+    </div>
+
+  </form>
+</div>

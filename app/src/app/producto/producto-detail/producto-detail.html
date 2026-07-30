@@ -1,0 +1,296 @@
+<div class="product-container">
+  <!-- =================== CABECERA DEL PRODUCTO =================== -->
+  @if (producto) {
+  <div class="product-header">
+    <h1 class="product-title">{{ producto?.nombre }}</h1>
+    <p class="product-subtitle">{{ 'product.category' | translate }}: {{ producto?.categoria }}</p>
+
+    <!-- Promoción activa -->
+    @if (producto.tienePromocion) {
+    <div class="promo-badge">
+      <span class="promo-tag"
+        >{{ producto.promocionActiva?.nombre || ('product.promo_default' | translate) }}</span
+      >
+      <span class="promo-expiry"
+        >{{ 'product.promo_valid_until' | translate }} {{ producto.promocionActiva?.fin | date:'dd/MM/yyyy' }}</span
+      >
+    </div>
+    }
+  </div>
+
+  <!-- =================== CONTENIDO PRINCIPAL =================== -->
+  <div class="product-content">
+    <!-- ==== IMÁGENES DEL PRODUCTO ==== -->
+    <div class="product-image-viewer">
+      <!-- Imagen principal -->
+      <div class="main-image">
+        <img [src]="selectedImage" [alt]="producto.nombre" />
+        @if (producto.tienePromocion) {
+        <div class="image-promo-badge">
+          {{ producto.promocionActiva?.descuento }}
+          {{ producto.promocionActiva?.tipo === 'PORCENTAJE' ? '% OFF' : '₡ OFF' }}
+        </div>
+        }
+      </div>
+
+      <!-- Miniaturas -->
+      <div class="thumbnails">
+        @for (imagen of producto.imagenes; track $index) {
+        <img
+          [src]="imagen.url"
+          [alt]="producto.nombre"
+          [class.selected]="imagen.url === selectedImage"
+          (click)="selectImage(imagen.url)"
+        />
+        }
+      </div>
+    </div>
+
+    <!-- ==== DETALLES DEL PRODUCTO ==== -->
+    <div class="product-details-info">
+      <!-- Descripción -->
+      <div class="description">
+        <h2 class="section-title">{{ 'product.description' | translate }}</h2>
+        <p>{{ producto.descripcion }}</p>
+      </div>
+
+      <!-- Precio -->
+      <div class="price-info">
+        <h2 class="section-title">{{ 'product.price' | translate }}</h2>
+        <div class="price-container">
+          @if (producto.tienePromocion) {
+          <div class="original-price">{{ getPrecioCRC(producto.precio) }}</div>
+          <div class="promo-price">
+            {{ getPrecioCRC(producto.precioConPromocion) }}
+          </div>
+          <div class="discount-badge">
+            {{ 'product.save' | translate }} {{ producto.promocionActiva?.tipo === 'PORCENTAJE' ?
+            producto.promocionActiva?.descuento + '%' :
+            getPrecioCRC(producto.promocionActiva?.descuento) }}
+          </div>
+          } @else {
+          <div class="current-price">{{ getPrecioCRC(producto.precio) }}</div>
+          }
+        </div>
+      </div>
+
+      <!-- Stock -->
+      <div class="stock-info">
+        <h2 class="section-title">{{ 'product.stock' | translate }}</h2>
+        <p>{{ producto.stock }}</p>
+      </div>
+
+      <!-- Etiquetas -->
+      <div class="tags-info">
+        <h2 class="section-title">{{ 'product.tags' | translate }}</h2>
+        <mat-chip-listbox aria-label="Etiquetas">
+          @for (item of producto.etiquetas; track $index) {
+          <mat-chip-option class="chip-tertiary"
+            >{{ item.etiqueta.nombre }}</mat-chip-option
+          >
+          }
+        </mat-chip-listbox>
+      </div>
+    </div>
+  </div>
+
+  <!-- =================== SECCIÓN VALORACIONES Y RESEÑAS =================== -->
+  <div class="ranting-valorations">
+    <!-- ==== PROMEDIO DE VALORACIÓN ==== -->
+    <div class="rating-info">
+      <h2 class="section-title">{{ 'product.rating' | translate }}</h2>
+
+      @if (producto.promedioValoracion === 0) {
+      <p>{{ 'product.no_ratings' | translate }}</p>
+      } @else { @for (star of getStars(producto.promedioValoracion); track
+      $index) {
+      <mat-icon [ngClass]="{'star-filled': star, 'star-empty': !star}">
+        {{ star ? 'star' : 'star_border' }}
+      </mat-icon>
+      }
+      <p>
+        {{ producto.promedioValoracion.toFixed(1) }} / {{
+        producto.resenas.length }} {{ producto.resenas.length !== 1 ?
+        ('product.review_plural' | translate) : ('product.review_singular' | translate) }}
+      </p>
+
+      <!-- Conteo por estrellas -->
+      <div class="conteo-valoraciones">
+        @for (item of getConteoPorEstrella(); track $index) {
+        <div class="conteo-linea">
+          <div class="stars-small">
+            @for (star of getArray(item.estrellas); track $index) {
+            <mat-icon class="star-filled">star</mat-icon>
+            }
+          </div>
+          <span
+            >( {{ item.cantidad }} ) {{ item.cantidad !== 1 ?
+            ('product.review_plural' | translate) : ('product.review_singular' | translate) }}</span
+          >
+        </div>
+        }
+      </div>
+      }
+    </div>
+
+    <!-- ==== LISTA Y FORMULARIO DE RESEÑAS ==== -->
+    <div class="reviews-section">
+      <!-- Formulario nueva reseña -->
+      <div *ngIf="puedeResenar" class="new-review-form">
+        <h3>{{ 'product.write_review' | translate }}</h3>
+         {{ nombreUsuarioLogueado }}
+        <div class="star-rating full-width">
+          <label>{{ 'product.rating_label' | translate }}</label>
+          <div class="stars">
+            <mat-icon
+              *ngFor="let star of [1, 2, 3, 4, 5]"
+              (click)="nuevaValoracion = star"
+              [ngClass]="{ 'selected': star <= (nuevaValoracion || 0) }"
+            >
+              {{ star <= (nuevaValoracion || 0) ? 'star' : 'star_border' }}
+            </mat-icon>
+          </div>
+        </div>
+
+        <form #comentarioForm="ngForm" (ngSubmit)="enviarComentario()" novalidate>
+          <mat-form-field appearance="fill" class="full-width">
+            <mat-label>{{ 'product.comment' | translate }}</mat-label>
+            <textarea
+              matInput
+              name="comentario"
+              [(ngModel)]="nuevoComentario"
+              required
+              minlength="20"
+              maxlength="250"
+              #comentarioNgModel="ngModel"
+            ></textarea>
+
+            <mat-hint align="end">
+              {{ nuevoComentario.length || 0 }}/250
+            </mat-hint>
+
+            <mat-error *ngIf="comentarioNgModel.errors?.['required']">
+              {{ 'form.errors.required' | translate }}
+            </mat-error>
+            <mat-error *ngIf="comentarioNgModel.errors?.['minlength']">
+              {{ 'form.errors.minlength' | translate }}
+            </mat-error>
+            <mat-error *ngIf="comentarioNgModel.errors?.['maxlength']">
+              {{ 'form.errors.maxlength' | translate }}
+            </mat-error>
+          </mat-form-field>
+
+          <button
+            mat-raised-button
+            type="submit"
+            class="gray-button"
+            [disabled]="comentarioForm.invalid"
+          >
+            {{ 'product.submit' | translate }}
+          </button>
+        </form>
+      </div>
+
+      <!-- Mensaje si no puede reseñar -->
+      <div *ngIf="!puedeResenar" class="cant-review-message">
+        <p>
+          {{ 'product.cant_review' | translate }}
+        </p>
+      </div>
+
+      <!-- Título de reseñas -->
+      <h2 class="section-title">{{ 'product.reviews' | translate }}</h2>
+
+      <!-- Lista de reseñas -->
+      @if (producto.resenas?.length === 0) {
+      <p class="no-reviews">{{ 'product.no_reviews' | translate }}</p>
+      } @else {
+
+      <!-- Filtros -->
+      <div class="filtro-contenedor">
+        <mat-form-field appearance="fill" class="filtro-select">
+          <mat-label>{{ 'product.filter_stars' | translate }}</mat-label>
+          <mat-select [(ngModel)]="filtroEstrellas">
+            <mat-option [value]="null">{{ 'product.filter_all' | translate }}</mat-option>
+            <mat-option *ngFor="let star of [5, 4, 3, 2, 1]" [value]="star">
+              {{ star }} {{ 'product.stars' | translate }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" class="filtro-select">
+          <mat-label>{{ 'product.sort_by' | translate }}</mat-label>
+          <mat-select [(ngModel)]="ordenFecha">
+            <mat-option value="desc">{{ 'product.sort_newest' | translate }}</mat-option>
+            <mat-option value="asc">{{ 'product.sort_oldest' | translate }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <!-- Reseñas -->
+      <div class="scroll-container">
+        @for (review of getResenasFiltradas(); track $index) {
+        <mat-card class="review-card" appearance="outlined">
+          <mat-card-header>
+            <mat-card-title>{{ review.usuario }}</mat-card-title>
+            <mat-card-subtitle
+              >{{ review.fecha | date:'fullDate' }}</mat-card-subtitle
+            >
+          </mat-card-header>
+
+          <mat-card-content>
+            <div class="stars">
+              @for (star of getStars(review.estrellas); track $index) {
+              <mat-icon
+                [ngClass]="{ 'star-filled': star, 'star-empty': !star }"
+              >
+                {{ star ? 'star' : 'star_border' }}
+              </mat-icon>
+              }
+            </div>
+            <p>{{ review.comentario }}</p>
+          </mat-card-content>
+
+          <mat-card-actions>
+            <!-- Solo para administrador --> 
+            <ng-container *ngIf="isAdmin()">
+            <button
+              mat-button
+              class="gray-button"
+              (click)="ocultarResena(review)"
+            >
+              <mat-icon>visibility_off</mat-icon> {{ 'product.hide_review' | translate }}
+            </button>
+            </ng-container>
+            <!-- Para cliente -->
+             <ng-container *ngIf="!isAdmin()">
+            <button
+              mat-button
+              class="gray-button"
+              (click)="abrirFormularioReporteSiNoReportado(review)"
+            >
+              <mat-icon>flag</mat-icon> {{ 'product.report_review' | translate }}
+            </button>
+          </ng-container>
+          </mat-card-actions>
+        </mat-card>
+        }
+      </div>
+      }
+    </div>
+  </div>
+
+  } @else {
+  <!-- =================== CUANDO NO HAY PRODUCTO =================== -->
+  <div class="product-content">
+    <p class="text">{{ 'product.product_not_found' | translate }}</p>
+  </div>
+  }
+
+  <!-- =================== ACCIONES INFERIORES =================== -->
+  <div class="product-actions">
+    <button mat-button class="bg-primary" (click)="goBack()">
+      {{ 'product.back' | translate }}
+    </button>
+  </div>
+</div>

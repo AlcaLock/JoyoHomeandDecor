@@ -1,0 +1,24 @@
+<mat-toolbar layout-align="start center" class="footer">
+  <mat-toolbar-row>
+    <div class="footer-content">
+      <p>Joyo Home & Deco</p>
+      <p>{{ today | date: dateFormat }}</p>
+    </div>
+
+    <div class="language-selector">
+      <button mat-button 
+              (click)="changeLanguage('es')" 
+              [class.active]="currentLanguage === 'es'"
+              aria-label="Cambiar a español">
+        ES
+      </button>
+      <span class="separator">|</span>
+      <button mat-button 
+              (click)="changeLanguage('en')" 
+              [class.active]="currentLanguage === 'en'"
+              aria-label="Change to English">
+        EN
+      </button>
+    </div>
+  </mat-toolbar-row>
+</mat-toolbar>

@@ -1,0 +1,61 @@
+2025-08-25 11:06:07.904 error: 	bbarr--Se produjo un error interno del servidor 
+Invalid `this.prisma.usuario.create()` invocation in
+C:\Users\bbarr\Desktop\joyohyd\Server\source\controllers\usuarioController.ts:97:46
+
+  94 const salt = await bcrypt.genSalt(10);
+  95 const hash = await bcrypt.hash(contrasenna, salt);
+  96 
+→ 97 const user = await this.prisma.usuario.create(
+Unique constraint failed on the constraint: `Usuario_correo_key`
+2025-08-25 11:06:10.869 error: 	bbarr--Se produjo un error interno del servidor 
+Invalid `this.prisma.usuario.create()` invocation in
+C:\Users\bbarr\Desktop\joyohyd\Server\source\controllers\usuarioController.ts:97:46
+
+  94 const salt = await bcrypt.genSalt(10);
+  95 const hash = await bcrypt.hash(contrasenna, salt);
+  96 
+→ 97 const user = await this.prisma.usuario.create(
+Unique constraint failed on the constraint: `Usuario_correo_key`
+2025-08-25 11:06:14.817 error: 	bbarr--Se produjo un error interno del servidor 
+Invalid `this.prisma.usuario.create()` invocation in
+C:\Users\bbarr\Desktop\joyohyd\Server\source\controllers\usuarioController.ts:97:46
+
+  94 const salt = await bcrypt.genSalt(10);
+  95 const hash = await bcrypt.hash(contrasenna, salt);
+  96 
+→ 97 const user = await this.prisma.usuario.create(
+Unique constraint failed on the constraint: `Usuario_correo_key`
+2025-08-25 11:13:34.512 error: 	bbarr--Se produjo un error interno del servidor 
+Invalid `this.prisma.usuario.create()` invocation in
+C:\Users\bbarr\Desktop\joyohyd\Server\source\controllers\usuarioController.ts:97:46
+
+  94 const salt = await bcrypt.genSalt(10);
+  95 const hash = await bcrypt.hash(contrasenna, salt);
+  96 
+→ 97 const user = await this.prisma.usuario.create({
+       data: {
+         nombre: "Bran barra",
+         correo: "bran8907@cliente.com",
+         contrasena: "$2b$10$C.0jsARkVYbl2rVCiTUcLuAScQHLaBb.grc1pf0NVuf9r8Vc1dYzS",
+     +   rol: Rol
+       }
+     })
+
+Argument `rol` is missing.
+2025-08-25 11:14:38.113 error: 	bbarr--Se produjo un error interno del servidor 
+Invalid `this.prisma.usuario.create()` invocation in
+C:\Users\bbarr\Desktop\joyohyd\Server\source\controllers\usuarioController.ts:97:46
+
+  94 const salt = await bcrypt.genSalt(10);
+  95 const hash = await bcrypt.hash(contrasenna, salt);
+  96 
+→ 97 const user = await this.prisma.usuario.create({
+       data: {
+         nombre: "Bran Barra",
+         correo: "Bran8907@cliente.com",
+         contrasena: "$2b$10$lq2annwTI//VlyeVx1R8c.rEhfxb5TzTf79FVSMRnEtjoB2MXZAfa",
+     +   rol: Rol
+       }
+     })
+
+Argument `rol` is missing.

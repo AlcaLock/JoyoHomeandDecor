@@ -1,0 +1,29 @@
+<section class="home-landing">
+  <!-- Imagen de encabezado -->
+  <div class="home-banner">
+    <img src="logo.png" alt="Joyo Home&Decor" class="home-logo" />
+  </div>
+
+  <!-- Contenido principal -->
+  <div class="home-content">
+    <h1 class="home-title">
+      {{ 'home.bienvenida' | translate }}
+      <span>Joyo Home&Decor</span>
+    </h1>
+    <p class="home-subtitle">
+      {{ 'home.descripcion1' | translate }}<br />
+      {{ 'home.descripcion2' | translate }}
+    </p>
+
+    <hr class="divider" />
+
+    <div class="home-actions">
+      <button class="action-btn primary" (click)="productos()">
+        {{ 'home.botonCatalogo' | translate }}
+      </button>
+      <button class="action-btn secondary">
+        {{ 'home.botonAsesoria' | translate }}
+      </button>
+    </div>
+  </div>
+</section>

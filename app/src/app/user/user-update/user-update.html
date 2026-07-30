@@ -1,0 +1,48 @@
+<form [formGroup]="formProfile" novalidate>
+  <mat-card class="card-content">
+    <mat-card-header>
+      <mat-card-title>Editar Perfil</mat-card-title>
+    </mat-card-header>
+
+    <mat-card-content>
+      <!-- Nombre -->
+      <div class="row info-row">
+        <div class="col-4 info-label">Nombre:</div>
+        <div class="col-8 info-value">
+          <mat-form-field appearance="outline" class="full-width">
+            <input matInput formControlName="nombre" placeholder="Ingrese nombre" />
+          </mat-form-field>
+        </div>
+      </div>
+
+      <!-- Correo -->
+      <div class="row info-row">
+        <div class="col-4 info-label">Correo:</div>
+        <div class="col-8 info-value">
+          <mat-form-field appearance="outline" class="full-width">
+            <input matInput formControlName="correo" placeholder="Ingrese correo" />
+          </mat-form-field>
+        </div>
+      </div>
+
+      <!-- Rol (solo lectura) -->
+      <div class="row info-row">
+        <div class="col-4 info-label">Rol:</div>
+        <div class="col-8 info-value">
+          <mat-form-field appearance="outline" class="full-width">
+            <input matInput [value]="formProfile.getRawValue().rol" disabled />
+          </mat-form-field>
+        </div>
+      </div>
+    </mat-card-content>
+
+    <mat-card-actions align="end">
+      <button mat-raised-button color="primary" (click)="onUpdate()">
+        Guardar cambios
+      </button>
+      <button mat-stroked-button color="warn" (click)="onBack()">
+        Volver
+      </button>
+    </mat-card-actions>
+  </mat-card>
+</form>

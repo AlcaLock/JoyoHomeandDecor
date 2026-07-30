@@ -1,0 +1,787 @@
+{
+  "TOOLTIP": {
+    "INICIO": "Home",
+    "MENU": "Menu",
+    "MANTENIMIENTOS": "Maintenance",
+    "REPORTES": "Reports",
+    "CARRITO": "View cart"
+  },
+  "MENU": {
+    "INICIO": "Home",
+    "ACERCA_DE": "About",
+    "PRODUCTO": "Product",
+    "RESENA": "Reviews",
+    "PROMOCION": "Promotions",
+    "PEDIDO": "Order"
+  },
+  "MANTENIMIENTO": {
+    "PRODUCTO": "Product Maintenance",
+    "RESENA": "Review Maintenance",
+    "PROMOCION": "Promotion Maintenance",
+    "ETIQUETA": "Tag Maintenance",
+    "PRODUCTOCOMPONENTE":"Product-Component Maintenance"
+  },
+  "REPORTES": {
+    "X_GENERO": "Video games by Genre",
+    "ORDENES_MES": "Orders grouped by Month",
+    "VENTAS_MES": "Video games sold by Month"
+  },
+  "USUARIO": {
+    "LOGIN": "Log in",
+    "LOGOUT": "Log out",
+    "NAV": {
+      "LOGIN": "Login",
+      "REGISTRAR": "Sign up"
+    }
+  },
+  "home": {
+    "bienvenida": "Welcome to",
+    "descripcion1": "Elegance and functionality for every corner of your home.",
+    "descripcion2": "Discover our modern, classic, and personalized collections.",
+    "botonCatalogo": "Explore Catalog",
+    "botonAsesoria": "Request an Appointment"
+  },
+  "about": {
+    "titulo": "About Us",
+    "subtitulo": "Connecting ideas, creating value.",
+    "historia": {
+      "titulo": "Our History",
+      "descripcion": "We were born with the vision of transforming the ordinary into the extraordinary. Since our beginnings, we have focused on offering authentic, human, and technological solutions that generate a positive impact."
+    },
+    "mision": {
+      "titulo": "Mission",
+      "descripcion": "To inspire and facilitate the sustainable growth of people and organizations, creating memorable experiences through innovation, commitment, and empathy."
+    },
+    "vision": {
+      "titulo": "Vision",
+      "descripcion": "To be a benchmark of excellence and creativity in every project, recognized for our ethics, closeness, and passion for what we do."
+    },
+    "valores": {
+      "titulo": "Values",
+      "integridad": "✨ Integrity",
+      "colaboracion": "🤝 Collaboration",
+      "sostenibilidad": "🌱 Sustainability",
+      "innovacion": "🚀 Innovation",
+      "pasion": "❤️ Passion"
+    }
+  },
+  "productos": {
+    "titulo": "Product Management",
+    "tooltip": {
+      "crear": "Create product",
+      "editar": "Edit product",
+      "detalle": "View product details"
+    },
+    "buscar": "Search products",
+    "placeholderBuscar": "e.g. Laptop",
+    "columnas": {
+      "nombre": "Name",
+      "precio": "Price",
+      "stock": "Stock",
+      "estado": "Status",
+      "acciones": "Actions"
+    },
+    "estado": {
+      "activo": "Active",
+      "inactivo": "Inactive"
+    }
+  },
+  "product": {
+    "category": "Category",
+    "promo_default": "Promotion",
+    "promo_valid_until": "Valid until",
+    "description": "Description",
+    "price": "Price",
+    "stock": "Stock available",
+    "tags": "Tags",
+    "rating": "Average Rating",
+    "no_ratings": "No ratings yet",
+    "review_singular": "rating",
+    "review_plural": "ratings",
+    "reviews": "Reviews",
+    "write_review": "Write your review",
+    "rating_label": "Rating",
+    "comment": "Comment",
+    "submit": "Submit",
+    "filter_stars": "Filter by stars",
+    "filter_all": "All",
+    "stars": "stars",
+    "sort_by": "Sort by",
+    "sort_newest": "Newest",
+    "sort_oldest": "Oldest",
+    "no_reviews": "This product has no reviews yet",
+    "cant_review": "To leave a review, you must have purchased this product and not have reviewed it before",
+    "save": "You save",
+    "hide_review": "Hide review",
+    "report_review": "Report review",
+    "back": "Back",
+    "product_not_found": "Product not found",
+    "list_title": "Products",
+    "filter_name": "Product Name",
+    "promo_type_product": "(Product)",
+    "promo_type_category": "(Category)",
+    "no_description": "Description not available",
+    "details_button": "Details",
+    "no_stock_tooltip": "Out of stock",
+    "add_to_cart_tooltip": "Add to cart",
+    "add_to_cart": "Add to cart",
+    "no_stock": "Out of stock",
+    "no_results": "No products were found with the applied filters"
+  },
+  "form": {
+    "titulo": "Create New Product",
+    "nombre": {
+      "label": "Product Name",
+      "error": "Name is required and must have at least 2 characters"
+    },
+    "descripcion": {
+      "label": "Detailed description",
+      "error": "Description is required and must have at least 10 characters"
+    },
+    "precio": {
+      "label": "Price",
+      "error": "Price is required and must be greater than or equal to 0"
+    },
+    "stock": {
+      "label": "Stock",
+      "error": "Stock is required and must be greater than or equal to 0"
+    },
+    "categoria": {
+      "label": "Category",
+      "placeholder": "Select a category",
+      "error": "You must select a category"
+    },
+    "etiquetas": {
+      "label": "Tags",
+      "ayuda": "Select multiple options with Ctrl (Windows) or Command (Mac)"
+    },
+    "imagenes": {
+      "label": "Product Images",
+      "error": {
+        "required": "You must upload at least one product image",
+        "max": "No more than 10 images are allowed (selected: {{ count }})"
+      }
+    },
+    "valoracion": {
+      "titulo": "Average Rating",
+      "sin_valoraciones": "No ratings",
+      "total": "{{ promedio }} / {{ cantidad }} ratings",
+      "contador": "( 0 ) ratings"
+    },
+    "botones": {
+      "cancelar": "Cancel",
+      "guardar": "Save Product"
+    },
+    "errors": {
+      "required": "Comment is required",
+      "minlength": "Minimum 20 characters",
+      "maxlength": "Maximum 250 characters"
+    }
+  },
+  "etiquetas": {
+    "titulo": "Manage Tags",
+    "crearBoton": "Create new tag",
+    "nombreLabel": "Name",
+    "nombrePlaceholder": "e.g. Offer, New, Summer",
+    "errorRequerido": "Name is required",
+    "errorMaximo": "Maximum 30 characters allowed",
+    "actualizar": "Update",
+    "crear": "Create",
+    "cancelar": "Cancel",
+    "subtitulo": "Existing tags",
+    "acciones": "Actions",
+    "ariaEditar": "Edit tag",
+    "noEtiquetas": "No tags registered."
+  },
+  "pedidos": {
+    "titulo": "Orders",
+    "numeroPedido": "Order",
+    "cliente": "Client",
+    "fecha": "Date",
+    "verDetalle": "View details",
+    "na": "N/A"
+  },
+  "factura": {
+    "volver": "Back to Orders",
+    "titulo": "Invoice",
+    "numeroPedido": "Order No.",
+    "fechaEmision": "Issue date:",
+    "cliente": {
+      "titulo": "Customer Information",
+      "nombre": "Name",
+      "correo": "Email",
+      "direccion": "Shipping Address"
+    },
+    "productos": {
+      "titulo": "Products",
+      "producto": "Product",
+      "cantidad": "Quantity",
+      "precioUnitario": "Unit Price",
+      "subtotal": "Subtotal"
+    },
+    "personalizados": {
+      "titulo": "Custom Products",
+      "nombre": "Name",
+      "base": "Base Cost",
+      "cantidad": "Quantity",
+      "componentes": "Components",
+      "totalUnitario": "Product Total",
+      "subtotal": "Subtotal x Quantity"
+    },
+    "resumen": {
+      "subtotal": "Subtotal",
+      "impuestos": "Taxes (13%)",
+      "total": "Total"
+    },
+    "metodoPago": {
+      "titulo": "Payment Method"
+    }
+  },
+  "promo": {
+    "title": "Promotion Management",
+    "create_tooltip": "Create promotion",
+    "search_label": "Search promotions",
+    "search_placeholder": "e.g. Summer discount",
+    "icon_category": "Application by category",
+    "icon_product": "Specific product application",
+    "all_products": "All products",
+    "days": "days",
+    "default_title": "Promotion",
+    "edit_title": "Edit Promotion",
+    "column": {
+      "name": "Name",
+      "type": "Type",
+      "discount": "Discount",
+      "status": "Status",
+      "application": "Application",
+      "actions": "Actions"
+    },
+    "tooltip": {
+      "details": "View details",
+      "edit": "Edit promotion",
+      "not_editable": "Promotion ended - Not editable"
+    },
+    "label_name": "Promotion name",
+    "label_type": "Promotion type",
+    "label_applies_to": "Applies to",
+    "label_discount": "Discount",
+    "label_start_date": "Start date",
+    "label_end_date": "End date",
+    "label_category": "Category",
+    "label_product": "Product",
+    "label_discount_type": "Discount type",
+    "label_discount_value": "Discount value",
+    "label_date_range": "Validity range",
+    "type_category": "Category",
+    "type_product": "Product",
+    "discount_percentage": "Percentage",
+    "discount_fixed_amount": "Fixed amount",
+    "placeholder_start": "Start",
+    "placeholder_end": "End",
+    "not_specified": "Not specified",
+    "error_required": "This field is required",
+    "error_minlength": "Minimum {{min}} characters",
+    "error_non_negative": "Value cannot be negative",
+    "error_max_100": "Discount cannot exceed 100%",
+    "error_select_type": "You must select a type",
+    "error_select_category": "Select a category",
+    "error_select_product": "Select a product",
+    "error_start_date_required": "Start date is missing or greater than the end date",
+    "error_end_date_required": "End date is missing or less than the start dated",
+    "error_invalid_date_range": "End date must be after start date",
+    "button_cancel": "Cancel",
+    "button_update": "Update Promotion",
+    "back_button": "Back to promotions",
+    "start": "Start",
+    "end": "End"
+  },
+  "review": {
+    "title": "Review Management",
+    "list": {
+      "title": "Reviews",
+      "rating_label": "Rating"
+    },
+    "filter": {
+      "all": "All",
+      "visible": "Visible",
+      "hidden": "Hidden",
+      "reported": "Reported"
+    },
+    "column": {
+      "user": "User",
+      "comment": "Comment",
+      "reports": "Reports",
+      "stars": "Stars",
+      "date": "Date",
+      "status": "Status",
+      "actions": "Actions"
+    },
+    "report": {
+      "reason": "Reason",
+      "status": "Status",
+      "reported_by": "Reported by",
+      "unknown": "Unknown",
+      "na": "N/A",
+      "title": "Report Review",
+      "reason_label": "Reason for report",
+      "reason_placeholder": "Briefly explain the reason for the report"
+    },
+    "status": {
+      "visible": "Visible",
+      "hidden": "Hidden"
+    },
+    "action": {
+      "hide": "Hide",
+      "show": "Show",
+      "moderate": "Moderate"
+    },
+    "detail": {
+      "title": "Review Details",
+      "product": "Product",
+      "comment": "Comment",
+      "rating": "Rating",
+      "back": "Back"
+    },
+    "moderation": {
+      "title": "Moderate Review",
+      "action_label": "Action",
+      "action": {
+        "delete": "Delete review",
+        "restore": "Restore review"
+      },
+      "comment_label": "Moderation comment",
+      "comment_placeholder": "Explain why you are moderating the review"
+    },
+    "errors": {
+      "required": "This field is required",
+      "minlength": "Minimum 10 characters",
+      "maxlength": "Maximum 500 characters"
+    }
+  },
+  "buttons": {
+    "cancel": "Cancel",
+    "apply": "Apply",
+    "report": "Report",
+    "details": "Details",
+    "update": "Update Promotion",
+    "save_promo": "Save Promotion"
+  },
+  "promotions": {
+    "title": "Promotions",
+    "start": "Start",
+    "end": "End",
+    "details_button": "See details"
+  },
+  "PROMOCION": {
+    "CREAR_TITULO": "Create New Promotion",
+    "NOMBRE_LABEL": "Promotion name",
+    "TIPO_LABEL": "Promotion type",
+    "TIPO_CATEGORIA": "Category",
+    "TIPO_PRODUCTO": "Product",
+    "CATEGORIA_LABEL": "Category",
+    "PRODUCTO_LABEL": "Product",
+    "TIPO_DESCUENTO_LABEL": "Discount type",
+    "DESCUENTO_PORCENTAJE": "Percentage",
+    "DESCUENTO_MONTO": "Fixed amount",
+    "VALOR_DESCUENTO": "Discount value",
+    "RANGO_VIGENCIA": "Validity range",
+    "FECHA_INICIO": "Start",
+    "FECHA_FIN": "End",
+    "vigenteHasta": "Valid until",
+    "finalizo": "Ended",
+    "inicia": "Starts"
+  },
+  "VALIDACION": {
+    "REQUERIDO": "This field is required",
+    "MIN_3_CARACTERES": "Minimum 3 characters",
+    "SELECCIONAR_TIPO": "You must select a type",
+    "SELECCIONAR_CATEGORIA": "Select a category",
+    "SELECCIONAR_PRODUCTO": "Select a product",
+    "NO_NEGATIVO": "Value cannot be negative",
+    "NO_SUPERA_100": "Discount cannot exceed 100%",
+    "FECHA_INICIO_REQ": "Start date is missing or greater than the end date",
+    "FECHA_FIN_REQ": "End date is missing or less than the start dated",
+    "FECHA_FIN_POSTERIOR": "End date must be after start date"
+  },
+  "BOTON": {
+    "CANCELAR": "Cancel",
+    "GUARDAR_PROMOCION": "Save Promotion"
+  },
+  "promoDetail": {
+    "back_button": "Back to promotions",
+    "default_title": "Promotion",
+    "type_label": "Promotion type:",
+    "applies_to_label": "Applies to:",
+    "discount_label": "Discount:",
+    "start_date_label": "Start date:",
+    "end_date_label": "End date:",
+    "not_specified": "Not specified"
+  },
+  "FORM": {
+    "EDITAR_PRODUCTO": "Edit Product",
+    "ID_PRODUCTO": "Product ID",
+    "NOMBRE_PRODUCTO": "Product Name",
+    "ERROR_NOMBRE": "Name is required and must be at least 2 characters long",
+    "DESCRIPCION": "Detailed Description",
+    "ERROR_DESCRIPCION": "Description is required and must be at least 10 characters long",
+    "PRECIO": "Price",
+    "ERROR_PRECIO": "Price is required and must be greater than or equal to 0",
+    "STOCK": "Stock",
+    "ERROR_STOCK": "Stock is required and must be greater than or equal to 0",
+    "ACTIVO": "Active Product",
+    "CATEGORIA": "Category",
+    "SELECCIONE_CATEGORIA": "Select a category",
+    "ERROR_CATEGORIA": "You must select a category",
+    "ETIQUETAS": "Tags",
+    "MULTIPLE_SELECCION": "Select multiple options by holding Ctrl (Windows) or Command (Mac)",
+    "IMAGENES": "Product Images",
+    "ERROR_MAX_IMAGENES": "Error! You cannot upload more than {{cantidad}} images at once",
+    "RECUPERAR": "Restore",
+    "ELIMINAR": "Delete",
+    "SE_ELIMINARA": "(Will be deleted upon saving)",
+    "NUEVA": "(New)",
+    "CAMBIOS_PENDIENTES": "Pending Changes",
+    "IMAGENES_MARCADAS": "image(s) marked for deletion",
+    "Y": "and",
+    "NUEVAS_IMAGENES": "new image(s)",
+    "NUEVAS_IMAGENES_CONTADOR": "New images: {{cantidad}}/{{max}}",
+    "PROMEDIO_VALORACION": "Average Rating",
+    "NO_VALORACIONES": "No ratings available",
+    "VALORACION": "rating",
+    "VALORACIONES": "ratings",
+    "CANCELAR": "Cancel",
+    "ACTUALIZAR_PRODUCTO": "Update Product",
+    "ERROR_SIN_IMAGENES": "Error! The product must have at least one image"
+  },
+  
+  "RELACION": {
+    "TITLE": "Product-Component Relationship Management",
+    "CREATE_TOOLTIP": "Create new relationship",
+    "SEARCH_LABEL": "Search by product",
+    "SEARCH_PLACEHOLDER": "E.g. T-shirt",
+    "TAMANO": "Size",
+    "COLOR": "Color",
+    "MATERIAL": "Material",
+    "PRODUCTO": "Product",
+    "COMPONENTE": "Component",
+    "TIPO": "Type",
+    "PRECIO": "Additional Price",
+    "FECHA": "Created",
+    "ACCIONES": "Actions",
+    "EDIT_TOOLTIP": "Edit relationship",
+    "FORM": {
+      "TITLE": "Create Product-Component Relationship",
+      "PRODUCTO": "Product",
+      "SELECT_PRODUCTO": "Select a product",
+      "TAMANOS": "Sizes",
+      "SELECT_TAMANOS": "Select sizes",
+      "COLORES": "Colors",
+      "SELECT_COLORES": "Select colors",
+      "MATERIALES": "Materials",
+      "SELECT_MATERIALES": "Select materials",
+      "CONFLICT_MESSAGE": "There are conflicts with the selected relationships",
+      "CANCELAR": "Cancel",
+      "GUARDAR": "Save"
+    }
+  },
+  "PAGO": {
+    "TITLE": "Card Payment",
+    "TOTAL": "Total to pay:",
+    "NUMERO_TARJETA": "Card Number",
+    "FECHA_EXPIRACION": "Expiration Date (MM/YY)",
+    "CVV": "CVV",
+    "NOMBRE_TITULAR": "Cardholder Name",
+    "PAGAR": "Pay",
+    "CANCELAR": "Cancel",
+    "ERROR": {
+      "NUMERO_REQUIRED": "Card number is required",
+      "NUMERO_LONGITUD": "Card number must be 16 digits",
+      "FECHA_REQUIRED": "Expiration date is required",
+      "FECHA_INVALIDA": "Invalid date (month must be between 01 and 12)",
+      "FECHA_EXPIRADA": "The card cannot expire this year or earlier",
+      "CVV_REQUIRED": "CVV is required",
+      "CVV_PATTERN": "CVV must be 3 or 4 digits",
+      "NOMBRE_REQUIRED": "Cardholder name is required"
+    }
+  },
+  "PAGO_EFECTIVO": {
+    "TITLE": "Cash Payment",
+    "TOTAL": "Total to pay:",
+    "MONTO": "Amount given",
+    "PLACEHOLDER_MONTO": "Enter amount in colones",
+    "VUELTO": "Change to return:",
+    "CANCELAR": "Cancel",
+    "CONFIRMAR": "Confirm Payment",
+    "ERROR": {
+      "REQUIRED": "Amount is required",
+      "MIN": "Amount must be greater than 0",
+      "MENOR_TOTAL": "Amount must be greater than or equal to the total to pay"
+    }
+  },
+  "PRODUCTO_COMPONENTE": {
+    "FORM": {
+      "TITLE": "Create Product-Component Relation",
+      "PRODUCTO": "Product",
+      "SELECT_PRODUCTO": "Select a product",
+      "TAMANOS": "Sizes",
+      "SELECT_TAMANOS": "Select sizes",
+      "COLORES": "Colors",
+      "SELECT_COLORES": "Select colors",
+      "MATERIALES": "Materials",
+      "SELECT_MATERIALES": "Select materials",
+      "CONFLICT_MESSAGE": "There are conflicts in the selected relations"
+    }
+  },
+  "COMMON": {
+    "CANCEL": "Cancel",
+    "SAVE": "Save"
+  },
+  
+  "auth": {
+    "login": {
+      "title": "User Login",
+      "email": {
+        "label": "Email",
+        "placeholder": "User email"
+      },
+      "password": {
+        "label": "Password",
+        "placeholder": "User password",
+        "toggle": "Show or hide password"
+      },
+      "submit": "Login",
+      "cancel": "Cancel"
+    }
+  
+},
+  "USER": {
+    "CREATE": {
+      "TITLE": "Create User"
+    },
+    "FORM": {
+      "NAME": {
+        "LABEL": "Name",
+        "PLACEHOLDER": "User name"
+      },
+      "EMAIL": {
+        "LABEL": "Email",
+        "PLACEHOLDER": "User email"
+      },
+      "PASSWORD": {
+        "LABEL": "Password",
+        "PLACEHOLDER": "User password",
+        "HIDE": "Hide password"
+      },
+      "CONFIRM_PASSWORD": {
+        "LABEL": "Confirm Password",
+        "PLACEHOLDER": "Confirm user password",
+        "ERROR": "Passwords do not match."
+      },
+      "ROLE": {
+        "LABEL": "Role",
+        "PLACEHOLDER": "Select role"
+      }
+    },
+    "ACTIONS": {
+      "REGISTER": "Register",
+      "CANCEL": "Cancel"
+    }
+  },
+  "PRODUCT": {
+    "IMAGE_ALT": "Product image",
+    "QUANTITY": "QUANTITY",
+    "IMAGE_SELECTED_ALT": "Selected product image",
+    "SIZE_IMAGE_ALT": "Size image",
+    "COLOR_IMAGE_ALT": "Color image",
+    "MATERIAL_IMAGE_ALT": "Material image",
+    "SELECT_BASE": "Product to customize",
+    "SIZE": "Size",
+    "COLOR": "Color",
+    "MATERIAL": "Material",
+    "NO_OPTIONS": "No options available",
+    "ERROR_REQUIRED": "Required",
+    "ERROR_MIN_1": "Minimum 1",
+    "ERROR_SELECT_SIZE": "You must select a size",
+    "ERROR_SELECT_COLOR": "You must select a color",
+    "ERROR_SELECT_MATERIAL": "You must select a material",
+    "LOADING_COMPONENTS": "Loading components…",
+    "PRICE_BASE": "Base price",
+    "FINAL_PRICE": "Final price (per unit)",
+    "TOTAL_BY_QUANTITY": "Total x quantity",
+    "CONFIGURATION": "Configuration",
+    "QUANTITY_PLACEHOLDER": "Enter the quantity"
+  },
+  "BUTTON": {
+    "CANCEL": "Cancel",
+    "UPDATE": "Update",
+    "ADD_TO_CART": "Add to cart"
+  
+},
+"CART": {
+    "REGISTRATION_TITLE": "Order Registration",
+    "DATE": "Date",
+    "CLIENT": "Client",
+    "EMAIL": "Email",
+    "SHIPPING_ADDRESS": "Detailed Shipping Address",
+    "PAYMENT_METHOD": "Select Payment Method",
+    "PAY_CASH": "Cash",
+    "PAY_CARD": "Card",
+    "CURRENT_STATUS": "Current Status",
+    "PRODUCT": "Product",
+    "CUSTOM_PRODUCT": "Customized",
+    "BASE_PRODUCT": "Base Product",
+    "CONFIGURATION": "Configuration",
+    "BASE_COST": "Base Cost",
+    "COMPONENTS": "Components",
+    "TOTAL_CUSTOM": "Total Customized",
+    "NO_DESCRIPTION": "No description",
+    "UNIT_PRICE": "Unit Price",
+    "QUANTITY": "Quantity",
+    "SUBTOTAL": "Subtotal",
+    "TAX": "Tax",
+    "TAXES_13": "Taxes (13%)",
+    "TOTAL_WITH_TAX": "Total with taxes",
+    "EMPTY_TITLE": "Your cart is empty",
+    "EMPTY_TEXT": "Add products to start",
+    "VIEW_PRODUCTS": "View Products",
+    "SAVE_CART": "Save cart for later",
+    "ADD_CUSTOM_PRODUCT": "Add Customized Product",
+    "CLEAR_CART": "Clear Cart",
+    "REGISTER_ORDER": "Register Order"
+  },
+  "NOTIFICATIONS": {
+"ERROR": "Error",
+"SUCCESS": "Success",
+"WARNING": "Warning",
+"INFO": "Moderation",
+"LOAD_PRODUCTS_FAILED": "Failed to load products",
+"LOAD_COMPONENTS_FAILED": "Failed to load components",
+"COMPLETE_FIELDS": "Please fill in all required fields",
+"LOGIN_REQUIRED": "You must log in to continue",
+"STOCK_EMPTY": "The base product has no available stock",
+"PRODUCT_ADDED": "Product added to cart",
+"PRODUCT_UPDATED": "Product updated in cart",
+"PRODUCT_CREATED_SUC": "Product \"{{name}}\" created successfully",
+"PRODUCT_CREATION_FAILED": "Failed to create the product",
+"OPERATION_FAILED": "Operation could not be completed",
+"NO_USER_LOGGED": "No user is logged in",
+"CART_SYNC_SUCCESS": "Data synchronized with server",
+"CART_LOADED_FROM_CACHE": "Cart loaded from local cache",
+"PRODUCT_NOT_FOUND": "Product not found",
+"PRODUCT_OUT_OF_STOCK": "This product is no longer available",
+"PRODUCT_CREATED": "Product \"{{name}}\" and images uploaded successfully",
+"CUSTOM_PRODUCT_NOT_FOUND": "Custom product not found",
+"BASE_PRODUCT_OUT_OF_STOCK": "The base product is no longer available",
+"QUANTITY_INVALID": "You must enter a valid number",
+"QUANTITY_INVALID_GREATER_0": "You must enter a valid number greater than or equal to 0",
+"INSUFFICIENT_STOCK": "Not enough units, only remaining",
+"QUANTITY_UPDATED": "Quantity and price updated successfully",
+"QUANTITY_UPDATE_FAILED": "Failed to update quantity",
+"PRODUCT_REMOVED": "Product removed",
+"PRODUCT_REMOVE_FAILED": "Failed to remove product",
+"CART_CLEARED": "All products removed",
+"CART_CLEAR_FAILED": "Failed to clear the cart",
+"SAVE_CART_SUCCESS": "The cart is now pending",
+"SAVE_CART_FAILED": "Failed to save the cart",
+"USER_NOT_FOUND": "User not found",
+"SHIPPING_REQUIRED": "You must enter the shipping address",
+"EMPTY_CART": "The cart is empty",
+"INVALID_QUANTITY_FOR_PRODUCT": "The quantity of product {nombreProducto} is not valid.",
+"INSUFFICIENT_STOCK_FOR_PRODUCT": "Product {nombreProducto} only has {stock} units available. Adjust the quantity before continuing.",
+"INVALID_PAYMENT_METHOD": "Select a valid payment method",
+"INVALID_CART": "Invalid cart",
+"ORDER_CREATED_SUCCESS": "Order created successfully",
+"ORDER_CREATION_FAILED": "Failed to create order",
+"CART_UPDATED": "Cart updated",
+"CART_LOADED_CACHE": "Cart loaded from local cache",
+"PRODUCT_ADDED_TO_CART": "Product added to cart",
+"ADD_PRODUCT_FAILED": "Failed to add product to cart",
+"STOCK_EMPTY_BASE": "The base product is no longer available",
+"CUSTOM_PRODUCT_ADDED": "Custom product added",
+"ADD_CUSTOM_PRODUCT_FAILED": "Failed to add custom product",
+"INVALID_QUANTITY": "You must enter a valid number",
+"INVALID_QUANTITY_MIN": "You must enter a valid number greater than or equal to 0",
+"INSUFFICIENT_STOCK_ADJUSTED": "Only {stock} units available. Adjusted automatically.",
+"QUANTITY_PRICE_UPDATED": "Quantity and price updated successfully",
+"UPDATE_QUANTITY_FAILED": "Failed to update quantity",
+"REMOVE_PRODUCT_FAILED": "Failed to remove product",
+"CLEAR_CART_FAILED": "Failed to clear cart",
+"CART_SAVED": "Cart saved",
+"CART_EMPTY": "The cart is empty",
+"INVALID_PRODUCT_QUANTITY": "The quantity of product {{productName}} is not valid.",
+"INSUFFICIENT_STOCK_PRODUCT": "Product {{productName}} only has {{stock}} units available. Adjust the quantity before continuing.",
+"ORDER_CREATED": "Order created successfully",
+"ENTER_SHIPPING_ADDRESS": "Enter a shipping address",
+"ALL_PRODUCTS_REMOVED": "All products removed",
+"FAILED_TO_REMOVE_PRODUCT": "Failed to remove product",
+"PRODUCT_NO_LONGER_AVAILABLE": "This product is no longer available",
+"INVALID_ORDER_AMOUNT": "Enter a valid amount greater than or equal to the order total",
+"CASH_PAYMENT_ACCEPTED": "Cash payment accepted",
+"PAYMENT_ACCEPTED": "Payment accepted",
+"STOCK_INSUFFICIENT": "Insufficient stock",
+"ONLY_X_UNITS_AVAILABLE": "Only {{stock}} units available.",
+"ADJUSTED_AUTOMATICALLY": "Adjusted automatically.",
+"PRODUCT_REMOVED_FROM_CART": "Product removed from cart",
+"LABEL_UPDATED": "Label updated successfully",
+"LABEL_ALREADY_EXISTS": "A label with this name already exists",
+"LABEL_UPDATE_FAILED": "Error updating label",
+"LABEL_CREATED": "Label created successfully",
+"LABEL_CREATION_ERROR": "Error creating label",
+"PROMOTION_UPDATE_FAILED": "Failed to update promotion",
+"PROMOTION_UPDATED": "Promotion updated",
+"PROMOTION_UPDATED_SUCCESS": "Promotion \"{{nombre}}\" updated successfully",
+"INVALID_FORM": "Invalid form",
+"COMPLETE_ALL_FIELDS": "Please complete all required fields",
+"LOAD_CATEGORIES_FAILED": "Failed to load categories",
+"LOAD_PROMOTION_FAILED": "Failed to load promotion",
+"LOAD_LABEL_FAILED": "Failed to load labels",
+"CREATE_PROMOTION_FAILED": "Failed to create promotion",
+"PROMOTION_CREATED": "Promotion created",
+"PROMOTION_CREATED_SUCCESS": "Promotion \"{{name}}\" created successfully",
+"CANNOT_EDIT_FINALIZED_PROMOTION": "Cannot edit a finalized promotion",
+"SELECT_PRODUCT_AND_COMPONENT": "Select a product and at least one component",
+"SELECT_AT_LEAST_ONE_COMPONENT": "Select at least one component",
+"RELATIONS_CREATED": "Relations created successfully",
+"RELATIONS_CREATION_FAILED": "Error creating relations",
+"USER_CREATED_SUCCESS": "User created successfully",
+"USER_CREATION_FAILED": "Error creating user",
+"AUTH_ERROR": "Authentication error",
+"LOGIN_SUCCESS": "Login successful",
+"WELCOME": "Welcome",
+"MAX_IMAGES": "Cannot select more than 10 images",
+"ONLY_IMAGES": "Only image files allowed (JPEG, PNG, GIF, WEBP)",
+"MAX_IMAGES_PERM": "No more than 10 images allowed",
+"PRODUCT_CREATED_IMAGE": "Product created but there were issues uploading images",
+"REVIEW_HIDDEN": "Review hidden successfully",
+"REVIEW_HIDE_FAILED": "Failed to hide review",
+"COMPLETE_REVIEW_FIELDS": "Please complete all fields for the review",
+"REVIEW_CREATED": "Review created successfully",
+"REVIEW_SUBMIT_FAILED": "Failed to submit review",
+"REVIEW_ALREADY_REPORTED": "You have already reported this review.",
+"CHECK_REVIEW_REPORT_FAILED": "Failed to check if you already reported this review.",
+"REPORT_SENT": "Report sent successfully",
+"REPORT_FAILED": "Failed to send report",
+"INVALID_PRODUCT_ID": "Product does not have a valid ID",
+"PRODUCT_INACTIVE": "Inactive product",
+"CANNOT_ADD_PRODUCT": "Cannot add this product",
+"PRODUCT_NOT_AVAILABLE": "This product is not available",
+"PRODUCT_ADDEDD": "Product added",
+"PRODUCT_ADDED_TO_CARTT": "{{nombre}} added to cart",
+"CHECK_STOCK_FAILED": "Failed to check product stock",
+"LOAD_PRODUCT_FAILED": "Failed to load product",
+"MAX_FILES_EXCEEDED": "You cannot upload more than {{max}} images at once",
+"AT_LEAST_ONE_IMAGE_REQUIRED": "Product must have at least one image",
+"PRODUCT_UPDATED_SUCCESS": "Product \"{{nombre}}\" and images updated successfully",
+"PRODUCT_UPDATED_IMAGES_FAILED": "Product updated but there were issues uploading new images",
+"PRODUCT_UPDATE_FAILED": "Failed to update product"
+  },
+  "ACCESS_DENIED": {
+    "TITLE": "Access Denied",
+    "MESSAGE": "You do not have permission to access this page.",
+    "GO_HOME": "Go to Home"
+  }
+
+  
+
+
+}

@@ -1,0 +1,98 @@
+/* Paleta rápida */
+:root {
+  --primary: #0066ff;
+  --primary-light: #e5efff;
+  --accent: #ff4081;
+  --accent-light: #fff0f5;
+  --bg: #f7f9fc;
+  --text: #2d2d2d;
+  --border: #dde3ea;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Segoe UI', sans-serif;
+}
+
+/* Toolbar */
+.toolbar {
+  margin: 24px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.toolbar button {
+  background: var(--primary);
+  color: #fff;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border-radius: 8px;
+  padding: 8px 20px;
+  box-shadow: 0 2px 6px rgba(0, 102, 255, 0.3);
+  transition: all 0.25s;
+}
+.toolbar button:hover {
+  background: #0052cc;
+  box-shadow: 0 4px 12px rgba(0, 102, 255, 0.4);
+}
+
+/* Tabla */
+table {
+  width: 90%;
+  max-width: 900px;
+  margin: 0 auto 40px;
+  border-collapse: collapse;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  background: #fff;
+}
+
+th.mat-header-cell {
+  background: var(--primary);
+  color: #fff;
+  font-weight: 700;
+  font-size: 14px;
+  padding: 14px 16px;
+  letter-spacing: 0.5px;
+}
+
+td.mat-cell {
+  padding: 14px 16px;
+  font-size: 14px;
+  border-bottom: 1px solid var(--border);
+}
+
+tr.mat-row:hover {
+  background: var(--primary-light);
+}
+
+/* Botones de acciones */
+td.mat-cell button {
+  margin-right: 6px;
+  font-size: 12px;
+  border-radius: 6px;
+  padding: 4px 12px;
+  font-weight: 600;
+}
+
+td.mat-cell button[color="accent"] {
+  color: var(--accent);
+  border: 2px solid var(--accent);
+  background: var(--accent-light);
+}
+td.mat-cell button[color="accent"]:hover {
+  background: var(--accent);
+  color: #fff;
+}
+
+td.mat-cell button[color="primary"] {
+  background: var(--primary);
+  color: #fff;
+  border: 2px solid var(--primary);
+}
+td.mat-cell button[color="primary"]:hover {
+  background: #0052cc;
+}

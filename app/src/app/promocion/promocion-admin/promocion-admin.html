@@ -1,0 +1,153 @@
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>{{ 'promo.title' | translate }}</mat-card-title>
+    <mat-card-subtitle>
+      <button
+        mat-mini-fab
+        color="secondary"
+        (click)="crearPromocion()"
+        [matTooltip]="'promo.create_tooltip' | translate"
+      >
+        <mat-icon>add</mat-icon>
+      </button>
+    </mat-card-subtitle>
+  </mat-card-header>
+
+  <mat-card-content>
+    <mat-form-field appearance="outline" class="search-field">
+      <mat-label>{{ 'promo.search_label' | translate }}</mat-label>
+      <input
+        matInput
+        (keyup)="aplicarFiltro($event)"
+        [placeholder]="'promo.search_placeholder' | translate"
+      />
+      <mat-icon matSuffix>search</mat-icon>
+    </mat-form-field>
+
+    <!-- Cuadro informativo de íconos -->
+    <div class="icon-info-box mat-elevation-z2">
+      <div class="icon-info-item">
+        <mat-icon>category</mat-icon>
+        <span> = {{ 'promo.icon_category' | translate }}</span>
+      </div>
+      <div class="icon-info-item">
+        <mat-icon>shopping_bag</mat-icon>
+        <span> = {{ 'promo.icon_product' | translate }}</span>
+      </div>
+    </div>
+
+    <div class="mat-elevation-z8">
+      <table mat-table [dataSource]="dataSource" matSort>
+
+        <!-- Nombre Column -->
+        <ng-container matColumnDef="nombre">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'promo.column.name' | translate }}</th>
+          <td mat-cell *matCellDef="let promocion">{{ promocion.nombre }}</td>
+        </ng-container>
+
+        <!-- Tipo Column -->
+        <ng-container matColumnDef="tipo">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'promo.column.type' | translate }}</th>
+          <td mat-cell *matCellDef="let promocion">
+            {{ getTipoDescuentoTexto(promocion.tipo) }}
+          </td>
+        </ng-container>
+
+        <!-- Descuento Column -->
+        <ng-container matColumnDef="descuento">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'promo.column.discount' | translate }}</th>
+          <td
+            mat-cell
+            *matCellDef="let promocion"
+            [class]="getClaseDescuento(promocion.tipo)"
+          >
+            {{ getFormatoDescuento(promocion.tipo, promocion.descuento) }}
+          </td>
+        </ng-container>
+
+        <!-- Estado/Vigencia Column -->
+        <ng-container matColumnDef="vigencia">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'promo.column.status' | translate }}</th>
+          <td mat-cell *matCellDef="let promocion">
+            <div
+              class="estado-container"
+              [class.estado-activa]="getEstadoPromocion(promocion) === 'activa'"
+              [class.estado-vencida]="getEstadoPromocion(promocion) === 'aplicada'"
+              [class.estado-proxima]="getEstadoPromocion(promocion) === 'proxima'"
+            >
+              <mat-icon>{{ getIconoEstado(promocion) }}</mat-icon>
+              <span class="estado-texto">
+                {{ getTextoVigencia(promocion) }}
+              </span>
+
+              <mat-chip
+                *ngIf="getEstadoPromocion(promocion) === 'activa'"
+                class="dias-chip"
+              >
+                {{ diasRestantes(promocion) }} {{ 'promo.days' | translate }}
+              </mat-chip>
+            </div>
+          </td>
+        </ng-container>
+
+        <!-- Aplicación Column -->
+        <ng-container matColumnDef="aplicacion">
+          <th mat-header-cell *matHeaderCellDef>{{ 'promo.column.application' | translate }}</th>
+          <td mat-cell *matCellDef="let promocion">
+            <div *ngIf="promocion.categoria" class="aplicacion-item">
+              <mat-icon>category</mat-icon> {{ promocion.categoria.nombre }}
+            </div>
+            <div *ngIf="promocion.producto" class="aplicacion-item">
+              <mat-icon>shopping_bag</mat-icon> {{ promocion.producto.nombre }}
+            </div>
+            <div *ngIf="!promocion.categoria && !promocion.producto" class="aplicacion-item">
+              <mat-icon>all_inclusive</mat-icon> {{ 'promo.all_products' | translate }}
+            </div>
+          </td>
+        </ng-container>
+
+        <!-- Acciones Column -->
+        <ng-container matColumnDef="acciones">
+          <th mat-header-cell *matHeaderCellDef>{{ 'promo.column.actions' | translate }}</th>
+          <td mat-cell *matCellDef="let promocion">
+            <!-- Ver detalles -->
+            <button mat-icon-button
+                    color="accent"
+                    [matTooltip]="'promo.tooltip.details' | translate"
+                    [attr.aria-label]="'promo.tooltip.details' | translate"
+                    (click)="verDetalle(promocion.id)">
+              <mat-icon>info</mat-icon>
+            </button>
+
+            <!-- Editar -->
+            <ng-container *ngIf="getEstadoPromocion(promocion) !== 'aplicada'; else bloqueado">
+              <button mat-icon-button
+                      color="primary"
+                      [matTooltip]="'promo.tooltip.edit' | translate"
+                      [attr.aria-label]="'promo.tooltip.edit' | translate"
+                      (click)="editarPromocion(promocion)">
+                <mat-icon>edit</mat-icon>
+              </button>
+            </ng-container>
+
+            <!-- No editable -->
+            <ng-template #bloqueado>
+              <button mat-icon-button
+                      color="warn"
+                      disabled
+                      [matTooltip]="'promo.tooltip.not_editable' | translate"
+                      [attr.aria-label]="'promo.tooltip.not_editable' | translate">
+                <mat-icon>do_not_disturb_on</mat-icon>
+              </button>
+            </ng-template>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+
+      <mat-paginator [pageSizeOptions]="[5, 10, 25]"></mat-paginator>
+    </div>
+  </mat-card-content>
+</mat-card>

@@ -1,0 +1,203 @@
+<form [formGroup]="productoForm" (ngSubmit)="onSubmit()">
+  <div class="form-container">
+    <h2>{{ 'FORM.EDITAR_PRODUCTO' | translate }}</h2>
+
+    <div class="form-group">
+      <label for="id">{{ 'FORM.ID_PRODUCTO' | translate }}</label>
+      <input type="text" id="id" [value]="producto?.id" readonly disabled />
+    </div>
+
+    <div class="form-group">
+      <label for="nombre">{{ 'FORM.NOMBRE_PRODUCTO' | translate }}</label>
+      <input
+        type="text"
+        id="nombre"
+        formControlName="nombre"
+        [class.invalid]="productoForm.get('nombre')?.invalid && productoForm.get('nombre')?.touched"
+      />
+      <div *ngIf="productoForm.get('nombre')?.invalid && productoForm.get('nombre')?.touched" class="error-message">
+        {{ 'FORM.ERROR_NOMBRE' | translate }}
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="descripcion">{{ 'FORM.DESCRIPCION' | translate }}</label>
+      <textarea
+        id="descripcion"
+        formControlName="descripcion"
+        rows="4"
+        [class.invalid]="productoForm.get('descripcion')?.invalid && productoForm.get('descripcion')?.touched"
+      ></textarea>
+      <div *ngIf="productoForm.get('descripcion')?.invalid && productoForm.get('descripcion')?.touched" class="error-message">
+        {{ 'FORM.ERROR_DESCRIPCION' | translate }}
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label for="precio">{{ 'FORM.PRECIO' | translate }}</label>
+        <input
+          type="number"
+          id="precio"
+          formControlName="precio"
+          min="0"
+          step="1"
+          [class.invalid]="productoForm.get('precio')?.invalid && productoForm.get('precio')?.touched"
+        />
+        <div *ngIf="productoForm.get('precio')?.invalid && productoForm.get('precio')?.touched" class="error-message">
+          {{ 'FORM.ERROR_PRECIO' | translate }}
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="stock">{{ 'FORM.STOCK' | translate }}</label>
+        <input
+          type="number"
+          id="stock"
+          formControlName="stock"
+          min="0"
+          [class.invalid]="productoForm.get('stock')?.invalid && productoForm.get('stock')?.touched"
+        />
+        <div *ngIf="productoForm.get('stock')?.invalid && productoForm.get('stock')?.touched" class="error-message">
+          {{ 'FORM.ERROR_STOCK' | translate }}
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <mat-checkbox formControlName="activo">{{ 'FORM.ACTIVO' | translate }}</mat-checkbox>
+    </div>
+
+    <div class="form-group">
+      <mat-form-field>
+        <mat-label>{{ 'FORM.CATEGORIA' | translate }}</mat-label>
+        <mat-select formControlName="id_categoria">
+          <mat-option value="">{{ 'FORM.SELECCIONE_CATEGORIA' | translate }}</mat-option>
+          <mat-option *ngFor="let categoria of categoriasList" [value]="categoria.id">
+            {{ categoria.nombre }}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="productoForm.get('id_categoria')?.invalid && productoForm.get('id_categoria')?.touched">
+          {{ 'FORM.ERROR_CATEGORIA' | translate }}
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="form-group">
+      <mat-form-field>
+        <mat-label>{{ 'FORM.ETIQUETAS' | translate }}</mat-label>
+        <mat-select formControlName="etiquetas" multiple>
+          <mat-option *ngFor="let etiqueta of etiquetasList" [value]="etiqueta.id">
+            {{ etiqueta.nombre }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <small>{{ 'FORM.MULTIPLE_SELECCION' | translate }}</small>
+    </div>
+
+    <div class="form-group">
+      <label for="imagenes">{{ 'FORM.IMAGENES' | translate }}</label>
+      <input
+        type="file"
+        id="imagenes"
+        multiple
+        accept="image/jpeg, image/png, image/gif, image/webp"
+        (change)="selectFiles($event)"
+        #fileInput
+      />
+      <div *ngIf="currentFiles.length > maxFilesPerUpload" class="error-message">
+        {{ 'FORM.ERROR_MAX_IMAGENES' | translate:{ cantidad: maxFilesPerUpload } }}
+      </div>
+
+      <div class="image-previews">
+        <div *ngFor="let img of existingImages" class="preview-item">
+          <img [src]="img.url" alt="Imagen del producto" [class.marked-for-delete]="imagesToDelete.includes(img.id)" />
+          <button type="button" (click)="removeExistingImage(img.id)" class="btn-remove">
+            {{ imagesToDelete.includes(img.id) ? ('FORM.RECUPERAR' | translate) : ('FORM.ELIMINAR' | translate) }}
+          </button>
+          <span *ngIf="imagesToDelete.includes(img.id)" class="delete-label">
+            {{ 'FORM.SE_ELIMINARA' | translate }}
+          </span>
+        </div>
+
+        <div *ngFor="let preview of previews; let i = index" class="preview-item new-image">
+          <img [src]="preview" alt="Nueva imagen" />
+          <button type="button" (click)="removeNewImage(i)" class="btn-remove">×</button>
+          <span class="new-label">{{ 'FORM.NUEVA' | translate }}</span>
+        </div>
+      </div>
+
+      <div *ngIf="(imagesToDelete.length > 0) || (previews.length > 0)" class="changes-summary">
+        <small>
+          {{ 'FORM.CAMBIOS_PENDIENTES' | translate }}:
+          <span *ngIf="imagesToDelete.length > 0" class="delete-count">
+            {{ imagesToDelete.length }} {{ 'FORM.IMAGENES_MARCADAS' | translate }}
+          </span>
+          <span *ngIf="imagesToDelete.length > 0 && previews.length > 0"> {{ 'FORM.Y' | translate }} </span>
+          <span *ngIf="previews.length > 0" class="add-count">
+            {{ previews.length }} {{ 'FORM.NUEVAS_IMAGENES' | translate }}
+          </span>
+        </small>
+      </div>
+
+      <div *ngIf="previews.length" class="image-counter">
+        {{ 'FORM.NUEVAS_IMAGENES_CONTADOR' | translate:{ cantidad: previews.length, max: maxFilesPerUpload } }}
+      </div>
+    </div>
+
+    <div class="ranting-valorations" *ngIf="productoConValoracion">
+      <div class="rating-info">
+        <h2 class="section-title">{{ 'FORM.PROMEDIO_VALORACION' | translate }}</h2>
+
+        @if (productoConValoracion.promedioValoracion === 0 || !productoConValoracion.resenas?.length) {
+          <p>{{ 'FORM.NO_VALORACIONES' | translate }}</p>
+        } @else {
+          @for (star of getStars(productoConValoracion.promedioValoracion); track $index) {
+            <mat-icon [ngClass]="{'star-filled': star, 'star-empty': !star}">
+              {{ star ? 'star' : 'star_border' }}
+            </mat-icon>
+          }
+
+          <p>
+            {{ productoConValoracion.promedioValoracion.toFixed(1) }} /
+            {{ productoConValoracion.resenas.length }}
+            {{ productoConValoracion.resenas.length !== 1 ? ('FORM.VALORACIONES' | translate) : ('FORM.VALORACION' | translate) }}
+          </p>
+
+          <div class="conteo-valoraciones">
+            @for (item of getConteoPorEstrella(); track $index) {
+              <div class="conteo-linea">
+                <div class="stars-small">
+                  @for (star of getArray(item.estrellas); track $index) {
+                    <mat-icon class="star-filled">star</mat-icon>
+                  }
+                </div>
+                <span>
+                  ({{ item.cantidad }})
+                  {{ item.cantidad !== 1 ? ('FORM.VALORACIONES' | translate) : ('FORM.VALORACION' | translate) }}
+                </span>
+              </div>
+            }
+          </div>
+        }
+      </div>
+    </div>
+
+    <div class="form-actions">
+      <button type="button" class="cancel-btn" (click)="onCancel()">
+        {{ 'FORM.CANCELAR' | translate }}
+      </button>
+      <button
+        type="submit"
+        class="submit-btn"
+        [disabled]="productoForm.invalid || currentFiles.length > maxFilesPerUpload || !hasImages"
+      >
+        {{ 'FORM.ACTUALIZAR_PRODUCTO' | translate }}
+      </button>
+
+      <div *ngIf="!hasImages" class="error-message">
+        {{ 'FORM.ERROR_SIN_IMAGENES' | translate }}
+      </div>
+    </div>
+  </div>
+</form>

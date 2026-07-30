@@ -1,0 +1,41 @@
+/* ===== Cohesión con el nuevo HTML ===== */
+.wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+}
+
+.card {
+  width: 100%;
+  max-width: 420px;
+  background: var(--surface);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-lg);
+  transition: box-shadow var(--transition);
+}
+
+.card:hover {
+  box-shadow: var(--shadow-lg), 0 0 0 1px var(--primary);
+}
+
+.card__title {
+  margin: 0 0 .25em;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--text);
+  text-align: center;
+}
+
+.card__subtitle {
+  margin: 0 0 2rem;
+  font-size: .875rem;
+  color: var(--muted);
+  text-align: center;
+}
+
+.form__submit {
+  margin-top: 1.5rem;
+  background-color: chocolate;
+  padding-left: 25px;
+}

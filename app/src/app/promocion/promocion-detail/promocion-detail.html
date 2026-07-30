@@ -1,0 +1,50 @@
+<!-- Botón de regreso -->
+<button class="back-button" (click)="goBack()">
+  <mat-icon>arrow_back</mat-icon>
+  {{ 'promoDetail.back_button' | translate }}
+</button>
+<div class="grid-container">
+  <!-- Card de Promoción -->
+  <mat-card
+    appearance="outlined"
+    class="promotion-detail-card"
+    [ngStyle]="{'background-color': promocion?.color}"
+  >
+    <mat-card-header>
+      <h1 class="mat-h1">{{ promocion?.nombre || ('promoDetail.default_title' | translate) }}</h1>
+    </mat-card-header>
+    <mat-card-content>
+      <div class="promotion-info">
+        <div class="promotion-field">
+          <span class="field-label">{{ 'promoDetail.type_label' | translate }}</span>
+          <span class="field-value">
+            {{ promocion?.tipoPromocion || ('promoDetail.not_specified' | translate) }}
+          </span>
+        </div>
+        <div class="promotion-field">
+          <span class="field-label">{{ 'promoDetail.applies_to_label' | translate }}</span>
+          <span class="field-value">
+            {{ promocion?.aplica || ('promoDetail.not_specified' | translate) }}
+          </span>
+        </div>
+        <div class="promotion-field">
+          <span class="field-label">{{ 'promoDetail.discount_label' | translate }}</span>
+          <span class="field-value">
+            {{ promocion?.tipoDescuento === 'PORCENTAJE' ? (promocion.descuento + '%') : getPrecioConSimboloAdelante(promocion.descuento) }}
+          </span>
+        </div>
+        <div class="promotion-field">
+          <span class="field-label">{{ 'promoDetail.start_date_label' | translate }}</span>
+          <span class="field-value">
+            {{ promocion?.fechaInicio ? (promocion.fechaInicio | date:'fullDate') : ( 'promoDetail.not_specified' | translate ) }}
+          </span>
+        </div>
+        <div class="promotion-field">
+          <span class="field-label">{{ 'promoDetail.end_date_label' | translate }}</span>
+          <span class="field-value">
+            {{ promocion?.fechaFin ? (promocion.fechaFin | date:'fullDate') : ( 'promoDetail.not_specified' | translate ) }}
+          </span>
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>

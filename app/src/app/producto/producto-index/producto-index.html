@@ -1,0 +1,161 @@
+<div class="grid-container">
+  <!-- Filtros -->
+  <mat-card appearance="outlined" class="filter">
+    <mat-card-header
+      ><h1 class="mat-h1">
+        {{ 'product.list_title' | translate }}
+      </h1></mat-card-header
+    >
+    <mat-card-content>
+      <mat-form-field class="full-width">
+        <mat-label>{{ 'product.filter_name' | translate }}</mat-label>
+        <input
+          matInput
+          [(ngModel)]="nombreFiltro"
+          (input)="filtrarProductos()"
+        />
+        <mat-hint>{{nombreFiltro?.length || 0}}/20</mat-hint>
+        <button mat-icon-button matSuffix color="primary">
+          <mat-icon>search</mat-icon>
+        </button>
+      </mat-form-field>
+      <mat-form-field class="full-width">
+        <mat-label>{{ 'product.tags' | translate }}</mat-label>
+        <mat-select
+          multiple
+          [(ngModel)]="etiquetasSeleccionadas"
+          (selectionChange)="filtrarProductos()"
+        >
+          <mat-option
+            *ngFor="let etiqueta of etiquetasList"
+            [value]="etiqueta.id"
+            >{{etiqueta.nombre}}</mat-option
+          >
+        </mat-select>
+      </mat-form-field>
+    </mat-card-content>
+  </mat-card>
+
+  <!-- Lista de productos -->
+  @if(datosFiltrados) {
+  <div class="product-list">
+    @for (item of datosFiltrados; track item.id) {
+    <mat-card appearance="outlined" class="product-card">
+      <!-- Badge de promoción -->
+      @if(item.tienePromocion && item.promocionActiva?.nombre) {
+      <div class="promo-badge">
+        <span class="promo-text">{{item.promocionActiva?.nombre}}</span>
+        <span class="promo-type">
+          {{item.promocionActiva?.esDeProducto ? ('product.promo_type_product' |
+          translate) : ('product.promo_type_category' | translate)}}
+        </span>
+      </div>
+      }
+
+      <mat-card-header class="card-header-secondary">
+        <mat-card-title-group>
+          <mat-card-title>{{item.nombre}}</mat-card-title>
+          @if(item.tienePromocion && item.promocionActiva?.fin) {
+          <mat-card-subtitle class="promo-subtitle">
+            {{ 'product.promo_valid_until' | translate }}:
+            {{item.promocionActiva?.fin | date:'shortDate'}}
+          </mat-card-subtitle>
+          }
+        </mat-card-title-group>
+      </mat-card-header>
+
+      <!-- Imagen del producto -->
+      @if(item.imagenes && item.imagenes.length > 0) {
+      <img
+        mat-card-image
+        [src]="item.imagenes[0]"
+        [alt]="item.nombre"
+        class="product-image"
+      />
+      } @if(!item.imagenes || item.imagenes.length === 0) {
+      <img
+        mat-card-image
+        src="assets/uploads/imagen-no-encontrada.jpg"
+        [alt]="item.nombre"
+        class="product-image"
+      />
+      }
+
+      <mat-card-content class="product-content">
+        <div class="product-details">
+          <p class="product-description">
+            {{item.descripcion || ('product.no_description' | translate)}}
+          </p>
+
+          <!-- Sección de precios -->
+          <div class="price-section">
+            @if(item.tienePromocion && item.precioConPromocion !== undefined &&
+            item.promocionActiva) {
+            <div class="price-container">
+              <p class="original-price">{{ getPrecioCRC(item.precio) }}</p>
+              <div class="promo-container">
+                <p class="promo-price">
+                  {{ getPrecioCRC(item.precioConPromocion) }}
+                </p>
+                <p class="discount-badge">
+                  {{ item.promocionActiva.tipo === 'PORCENTAJE' ?
+                  (item.promocionActiva.descuento + '% OFF') :
+                  (getPrecioCRC(item.promocionActiva.descuento) + ' OFF') }}
+                </p>
+              </div>
+            </div>
+            } @else {
+            <p class="normal-price">{{ getPrecioCRC(item.precio) }}</p>
+            }
+          </div>
+
+          <!-- Etiquetas -->
+          @if(item.etiquetas && item.etiquetas.length > 0) {
+          <div class="product-tags">
+            <p class="section-title">{{ 'product.tags' | translate }}:</p>
+            <mat-chip-listbox aria-label="Etiquetas">
+              @for (etiqueta of item.etiquetas; track $index) {
+              <mat-chip-option class="chip-tertiary">
+                {{getEtiquetaNombre(etiqueta.etiquetaId)}}
+              </mat-chip-option>
+              }
+            </mat-chip-listbox>
+          </div>
+          }
+        </div>
+      </mat-card-content>
+
+      <!-- Acciones -->
+      <mat-card-actions class="product-actions">
+        <button mat-button class="bg-primary" (click)="detalle(item.id ?? 0)">
+          <mat-icon>info</mat-icon>
+          <span>{{ 'product.details_button' | translate }}</span>
+        </button>
+        <ng-container *ngIf="!isAdmin()">
+        <button
+          mat-button
+          class="bg-secondary"
+          (click)="comprar(item)"
+          [disabled]="!item.activo || stockDisponible(item) <= 0"
+          [matTooltip]="stockDisponible(item) <= 0 
+    ? ('product.no_stock_tooltip' | translate) 
+    : ('product.add_to_cart_tooltip' | translate)"
+        >
+          <mat-icon>add_shopping_cart</mat-icon>
+          <span>
+            @if(stockDisponible(item) <= 0) { {{ 'product.no_stock' | translate
+            }} } @else { {{ 'product.add_to_cart' | translate }} }
+          </span>
+        </button>
+        </ng-container>
+      </mat-card-actions>
+    </mat-card>
+    } @empty {
+    <div class="no-results">
+      <mat-icon>search_off</mat-icon>
+      <p>{{ 'product.no_results' | translate }}</p>
+    </div>
+    }
+  </div>
+  }
+</div>

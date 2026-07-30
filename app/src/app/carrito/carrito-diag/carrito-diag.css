@@ -1,0 +1,153 @@
+.dialog-container {
+  display: block;
+}
+
+.product-card {
+  max-width: 920px;
+  margin: 0 auto;
+}
+
+.avatar .producto-imagen {
+  width: 40px;
+  height: 40px;
+  object-fit: cover;
+  border-radius: 6px;
+}
+
+.product-summary {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  gap: 16px;
+  align-items: flex-start;
+  margin-top: 8px;
+}
+
+.producto-imagen.grande {
+  width: 200px;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.summary-right {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.summary-row {
+  display: flex;
+  gap: 24px;
+  flex-wrap: wrap;
+  align-items: flex-end;
+}
+
+.summary-block .label {
+  font-size: 12px;
+  opacity: 0.8;
+  margin-bottom: 4px;
+}
+
+.summary-block .value {
+  font-weight: 600;
+  font-size: 16px;
+}
+
+.cantidad-field {
+  width: 140px;
+}
+
+.spacer {
+  margin: 8px 0 16px 0;
+}
+
+.loading-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 0 16px 0;
+}
+
+.components-grid {
+  display: grid;
+  grid-template-columns: 1fr 160px;
+  gap: 16px 20px;
+}
+
+
+.components-grid.disabled {
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+.field-col .full-width {
+  width: 100%;
+}
+
+.preview-col {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.error-visible {
+  font-size: 18px;
+  font-weight: 400;
+  color: #b71c1c;
+  background-color: #000000;
+  padding: 6px 10px;
+  border-radius: 6px;
+  display: block;
+  margin-top: 4px;
+  text-align: center; /* opcional */
+}
+
+
+.componente-imagen {
+  width: 140px;
+  height: 140px;
+  object-fit: cover;
+  border-radius: 12px;
+  border: 1px solid rgba(0,0,0,0.08);
+}
+
+.price-box .label {
+  font-size: 12px;
+  opacity: 0.8;
+}
+
+.price-final {
+  font-size: 22px;
+  font-weight: 700;
+  margin: 4px 0;
+}
+
+.total-line {
+  font-size: 14px;
+  margin-top: 2px;
+}
+
+.row {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.full-width {
+  width: 100%;
+}
+
+/* Responsive */
+@media (max-width: 720px) {
+  .product-summary {
+    grid-template-columns: 1fr;
+  }
+  .producto-imagen.grande {
+    width: 100%;
+    height: 220px;
+  }
+  .components-grid {
+    grid-template-columns: 1fr;
+  }
+}

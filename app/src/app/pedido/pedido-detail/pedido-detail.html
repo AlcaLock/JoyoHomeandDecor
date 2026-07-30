@@ -1,0 +1,97 @@
+<!-- Botón de regreso -->
+<button class="back-button" (click)="goBack()">
+  <mat-icon>arrow_back</mat-icon>
+  {{ 'factura.volver' | translate }}
+</button>
+
+<div class="invoice-container">
+  <!-- Encabezado -->
+  <div class="invoice-header">
+    <h1>{{ 'factura.titulo' | translate }}</h1>
+    <small>{{ 'factura.numeroPedido' | translate }} {{ pedido?.id }}</small><br>
+    <small>
+    {{ 'factura.fechaEmision' | translate }} 
+{{ pedido?.fecha | date: currentLang === 'en' ? 'MM/dd/yyyy' : 'dd/MM/yyyy' }} - 
+{{ pedido?.fecha | date: 'shortTime' }}
+    </small>
+  </div>
+
+  <!-- Información del cliente -->
+  <div class="client-info">
+    <h3>{{ 'factura.cliente.titulo' | translate }}</h3>
+    <p><strong>{{ 'factura.cliente.nombre' | translate }}:</strong> {{ pedido?.cliente?.nombre }}</p>
+    <p><strong>{{ 'factura.cliente.correo' | translate }}:</strong> {{ pedido?.cliente?.correo }}</p>
+    <p><strong>{{ 'factura.cliente.direccion' | translate }}:</strong> {{ pedido?.direccionEnvio }}</p>
+  </div>
+
+  <!-- Productos normales -->
+  <div class="product-section" *ngIf="productosNormales.length > 0">
+    <h3>{{ 'factura.productos.titulo' | translate }}</h3>
+    <table class="product-table">
+      <thead>
+        <tr>
+          <th>{{ 'factura.productos.producto' | translate }}</th>
+          <th>{{ 'factura.productos.cantidad' | translate }}</th>
+          <th>{{ 'factura.productos.precioUnitario' | translate }}</th>
+          <th>{{ 'factura.productos.subtotal' | translate }}</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let prod of productosNormales">
+          <td>{{ prod.nombre }}</td>
+          <td class="left">{{ prod.cantidad }}</td>
+          <td class="left">{{ getPrecioCRC(prod.precioUnitario) }}</td>
+          <td class="left">{{ getPrecioCRC(prod.subtotal) }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Productos personalizados -->
+  <div class="product-section" *ngIf="productosPersonalizados.length > 0">
+    <h3>{{ 'factura.personalizados.titulo' | translate }}</h3>
+    <div *ngFor="let personalizado of productosPersonalizados" class="custom-product">
+      <p><strong>{{ 'factura.personalizados.nombre' | translate }}:</strong> {{ personalizado.nombre }}</p>
+      <p><strong>{{ 'factura.personalizados.base' | translate }}:</strong> {{ getPrecioCRC(personalizado.base) }}</p>
+      <p><strong>{{ 'factura.personalizados.cantidad' | translate }}:</strong> {{ personalizado.cantidad }}</p>
+
+      <div *ngIf="personalizado.componentes.length > 0">
+        <p><strong>{{ 'factura.personalizados.componentes' | translate }}:</strong></p>
+        <ul>
+          <li *ngFor="let comp of personalizado.componentes">
+            {{ comp.nombre }} ({{ getPrecioCRC(comp.precio) }})
+          </li>
+        </ul>
+      </div>
+
+      <p class="total-PP"><strong>{{ 'factura.personalizados.totalUnitario' | translate }}:</strong> {{ getPrecioCRC(personalizado.totalUnitario) }}</p>
+      <p class="subtotal-PP"><strong>{{ 'factura.personalizados.subtotal' | translate }}:</strong> {{ getPrecioCRC(personalizado.subtotal) }}</p>
+    </div>
+  </div>
+
+  <!-- Resumen -->
+  <div class="summary-wrapper">
+    <div class="summary-section">
+      <table class="summary-table">
+        <tr>
+          <td><strong>{{ 'factura.resumen.subtotal' | translate }}:</strong></td>
+          <td class="right">{{ getPrecioCRC(subtotalCalculado) }}</td>
+        </tr>
+        <tr>
+          <td><strong>{{ 'factura.resumen.impuestos' | translate }}:</strong></td>
+          <td class="right">{{ getPrecioCRC(impuestoCalculado) }}</td>
+        </tr>
+        <tr>
+          <td><strong>{{ 'factura.resumen.total' | translate }}:</strong></td>
+          <td class="right total">{{ getPrecioCRC(totalCalculado) }}</td>
+        </tr>
+      </table>
+
+      <!-- Método de pago -->
+      <div class="payment-method">
+        <h3>{{ 'factura.metodoPago.titulo' | translate }}</h3>
+        <p>{{ pedido?.metodoPago }}</p>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,95 @@
+<div class="container">
+  <h2>{{ 'review.title' | translate }}</h2>
+
+  <!-- Filtros -->
+  <div class="filtros">
+    <label>
+      <input type="radio" name="filtro" (change)="filtroOculto = null; filtroReporte = null" [checked]="filtroOculto === null && filtroReporte === null" />
+      {{ 'review.filter.all' | translate }}
+    </label>
+    <label>
+      <input type="radio" name="filtro" (change)="filtroOculto = false; filtroReporte = null" [checked]="filtroOculto === false" />
+      {{ 'review.filter.visible' | translate }}
+    </label>
+    <label>
+      <input type="radio" name="filtro" (change)="filtroOculto = true; filtroReporte = null" [checked]="filtroOculto === true" />
+      {{ 'review.filter.hidden' | translate }}
+    </label>
+    <label>
+      <input type="radio" name="filtro" (change)="filtroReporte = true; filtroOculto = null" [checked]="filtroReporte === true" />
+      {{ 'review.filter.reported' | translate }}
+    </label>
+  </div>
+
+  <!-- Tabla reseñas -->
+  <table mat-table [dataSource]="getResenasFiltradas()" class="mat-elevation-z8" style="width: 100%; margin-top: 1rem;">
+
+    <!-- Usuario -->
+    <ng-container matColumnDef="usuario">
+      <th mat-header-cell *matHeaderCellDef> {{ 'review.column.user' | translate }} </th>
+      <td mat-cell *matCellDef="let resena"> {{ resena.usuario.nombre }} </td>
+    </ng-container>
+
+    <!-- Comentario -->
+    <ng-container matColumnDef="comentario">
+      <th mat-header-cell *matHeaderCellDef> {{ 'review.column.comment' | translate }} </th>
+      <td mat-cell *matCellDef="let resena"> {{ resena.comentario }} </td>
+    </ng-container>
+
+    <ng-container *ngIf="filtroReporte === true" matColumnDef="motivo">
+      <th mat-header-cell *matHeaderCellDef> {{ 'review.column.reports' | translate }} </th>
+      <td mat-cell *matCellDef="let resena">
+        <ng-container *ngIf="resena.reportes?.length > 0; else sinReportes">
+          <div *ngFor="let reporte of resena.reportes" style="margin-bottom: 0.5rem;">
+            <strong>{{ 'review.report.reason' | translate }}:</strong> {{ reporte.motivo }}<br />
+            <strong>{{ 'review.report.status' | translate }}:</strong> {{ reporte.estado }}<br />
+            <strong>{{ 'review.report.reported_by' | translate }}:</strong> {{ reporte.usuarioReporta?.nombre || ('review.report.unknown' | translate) }}
+          </div>
+        </ng-container>
+        <ng-template #sinReportes>{{ 'review.report.na' | translate }}</ng-template>
+      </td>
+    </ng-container>
+
+    <!-- Estrellas -->
+    <ng-container matColumnDef="estrellas">
+      <th mat-header-cell *matHeaderCellDef> {{ 'review.column.stars' | translate }} </th>
+      <td mat-cell *matCellDef="let resena">
+        <span *ngFor="let star of getStars(resena.estrellas); let i = index">
+          <mat-icon color="warn">star</mat-icon>
+        </span>
+      </td>
+    </ng-container>
+
+    <!-- Fecha -->
+    <ng-container matColumnDef="fecha">
+      <th mat-header-cell *matHeaderCellDef> {{ 'review.column.date' | translate }} </th>
+      <td mat-cell *matCellDef="let resena"> {{ resena.fecha | date:'medium':undefined:currentLang }} </td>
+    </ng-container>
+
+    <!-- Estado -->
+    <ng-container matColumnDef="estado">
+      <th mat-header-cell *matHeaderCellDef> {{ 'review.column.status' | translate }} </th>
+      <td mat-cell *matCellDef="let resena">
+        <span *ngIf="resena.oculto; else visible" class="estado-oculto">{{ 'review.status.hidden' | translate }}</span>
+        <ng-template #visible><span class="estado-visible">{{ 'review.status.visible' | translate }}</span></ng-template>
+      </td>
+    </ng-container>
+
+    <!-- Acciones -->
+    <ng-container matColumnDef="acciones">
+      <th mat-header-cell *matHeaderCellDef> {{ 'review.column.actions' | translate }} </th>
+      <td mat-cell *matCellDef="let resena">
+        <button mat-button color="primary" *ngIf="!resena.oculto" (click)="ocultarResena(resena)">{{ 'review.action.hide' | translate }}</button>
+        <button mat-button color="accent" *ngIf="resena.oculto" (click)="mostrarResena(resena)">{{ 'review.action.show' | translate }}</button>
+
+        <ng-container *ngIf="filtroReporte === true">
+          <button mat-button color="primary" (click)="moderarResena(resena)">{{ 'review.action.moderate' | translate }}</button>
+        </ng-container>
+      </td>
+    </ng-container>
+
+    <!-- Filas -->
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+  </table>
+</div>

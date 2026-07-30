@@ -1,0 +1,58 @@
+<div class="grid-container">
+  <p>{{ 'pedidos.titulo' | translate }}</p>
+
+  <div class="pedidos-list" *ngIf="datos">
+    <mat-card
+      appearance="outlined"
+      class="pedido-card"
+      *ngFor="let pedido of datos; trackBy: trackById"
+    >
+      <mat-card-header>
+        <mat-card-title>
+          {{ 'pedidos.numeroPedido' | translate }} #{{ pedido.id }}
+        </mat-card-title>
+        <mat-card-subtitle>{{ pedido.estado_legible }}</mat-card-subtitle>
+      </mat-card-header>
+
+<mat-card-content>
+  <p>
+    <strong>{{ 'pedidos.cliente' | translate }}:</strong>
+    {{ pedido.cliente?.nombre || ('pedidos.na' | translate) }}
+  </p>
+  <p>
+    <strong>{{ 'pedidos.fecha' | translate }}:</strong>
+    {{ pedido.fecha | date: currentLang === 'en' ? 'MM/dd/yyyy' : 'dd/MM/yyyy' }}
+  </p>
+</mat-card-content>
+
+<mat-card-actions>
+  <!-- Siempre se puede ver el detalle -->
+  <button mat-button color="primary" (click)="detallePedido(pedido.id)">
+    <span>{{ 'pedidos.verDetalle' | translate }}</span>
+  </button>
+
+  <!-- Botón de entregar solo para admin -->
+  <button
+    mat-button
+    color="warn"
+    *ngIf="isAdmin() && pedido.estado !== 'ENTREGADO'"
+    (click)="entregarPedido(pedido)"
+  >
+    {{ 'pedidos.entregar' | translate }}
+  </button>
+
+  <!-- Botón de pagar solo para clientes y si está pendiente de pago -->
+  <button
+    mat-button
+    color="accent"
+    *ngIf="!isAdmin() && pedido.estado === 'PENDIENTE_PAGO'"
+    (click)="pagarPedido(pedido)"
+  >
+    {{ 'pedidos.pagar' | translate }}
+  </button>
+</mat-card-actions>
+
+
+    </mat-card>
+  </div>
+</div>

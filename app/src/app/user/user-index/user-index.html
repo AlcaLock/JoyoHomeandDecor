@@ -1,0 +1,17 @@
+<mat-card class="main-div">
+  <mat-card-content>
+    <nav mat-tab-nav-bar class="bg-primary" [tabPanel]="tabPanel">
+      <a mat-tab-link [routerLink]="['/usuario/login']" routerLinkActive="active-link">
+        {{ 'USUARIO.NAV.LOGIN' | translate }}
+      </a>
+      <a mat-tab-link [routerLink]="['/usuario/registrar']" routerLinkActive="active-link">
+        {{ 'USUARIO.NAV.REGISTRAR' | translate }}
+      </a>
+    </nav>
+    <mat-tab-nav-panel #tabPanel></mat-tab-nav-panel>
+    
+    <div>
+      <router-outlet></router-outlet>
+    </div>
+  </mat-card-content>
+</mat-card>

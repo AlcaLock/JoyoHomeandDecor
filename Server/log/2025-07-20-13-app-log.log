@@ -1,0 +1,182 @@
+2025-07-20 13:28:43.794 error: 	Asus--Se produjo un error interno del servidor 
+Invalid `this.prisma.producto.create()` invocation in
+C:\Users\Asus\OneDrive\Escritorio\joyohyd\Server\source\controllers\productoController.ts:128:58
+
+  125 try {
+  126     const body = request.body;
+  127 
+→ 128     const nuevoProducto = await this.prisma.producto.create({
+            data: {
+              nombre: "sdfdsf",
+              descripcion: "sfdsfsdfsd",
+              precio: 28,
+              stock: 33,
+              activo: true,
+              id_categoria: 1,
+              etiquetas: {
+                create: [
+                  {
+                    etiqueta: {
+                      connect: {
+                        id: undefined
+                      }
+                    }
+                  },
+                  {
+                    etiqueta: {
+                      connect: {
+                        id: undefined
+                      }
+                    }
+                  }
+                ]
+              },
+              imagenes: {
+                create: []
+              }
+            },
+            include: {
+              categoria: true,
+              etiquetas: {
+                include: {
+                  etiqueta: true
+                }
+              },
+              imagenes: true
+            }
+          })
+
+Argument `connect` of type EtiquetaWhereUniqueInput needs at least one of `id` or `nombre` arguments. Available options are marked with ?.
+2025-07-20 13:29:13.396 error: 	Asus--Se produjo un error interno del servidor 
+Invalid `this.prisma.producto.create()` invocation in
+C:\Users\Asus\OneDrive\Escritorio\joyohyd\Server\source\controllers\productoController.ts:128:58
+
+  125 try {
+  126     const body = request.body;
+  127 
+→ 128     const nuevoProducto = await this.prisma.producto.create({
+            data: {
+              nombre: "sdfdsf",
+              descripcion: "sfdsfsdfsd",
+              precio: 28,
+              stock: 33,
+              activo: true,
+              id_categoria: 1,
+              etiquetas: {
+                create: [
+                  {
+                    etiqueta: {
+                      connect: {
+                        id: undefined
+                      }
+                    }
+                  },
+                  {
+                    etiqueta: {
+                      connect: {
+                        id: undefined
+                      }
+                    }
+                  }
+                ]
+              },
+              imagenes: {
+                create: []
+              }
+            },
+            include: {
+              categoria: true,
+              etiquetas: {
+                include: {
+                  etiqueta: true
+                }
+              },
+              imagenes: true
+            }
+          })
+
+Argument `connect` of type EtiquetaWhereUniqueInput needs at least one of `id` or `nombre` arguments. Available options are marked with ?.
+2025-07-20 13:37:31.836 error: 	Asus--Se produjo un error interno del servidor 
+Invalid `this.prisma.producto.create()` invocation in
+C:\Users\Asus\OneDrive\Escritorio\joyohyd\Server\source\controllers\productoController.ts:128:58
+
+  125 try {
+  126     const body = request.body;
+  127 
+→ 128     const nuevoProducto = await this.prisma.producto.create({
+            data: {
+              nombre: "vvvvvv",
+              descripcion: "vvvvvvvvvvvvv",
+              precio: 445543,
+              stock: 12,
+              activo: true,
+              id_categoria: 1,
+              etiquetas: {
+                create: [
+                  {
+                    etiqueta: {
+                      connect: {
+                        id: undefined
+                      }
+                    }
+                  }
+                ]
+              },
+              imagenes: {
+                create: []
+              }
+            },
+            include: {
+              categoria: true,
+              etiquetas: {
+                include: {
+                  etiqueta: true
+                }
+              },
+              imagenes: true
+            }
+          })
+
+Argument `connect` of type EtiquetaWhereUniqueInput needs at least one of `id` or `nombre` arguments. Available options are marked with ?.
+2025-07-20 13:46:27.973 error: 	Asus--Se produjo un error interno del servidor 
+Invalid `this.prisma.producto.create()` invocation in
+C:\Users\Asus\OneDrive\Escritorio\joyohyd\Server\source\controllers\productoController.ts:128:58
+
+  125 try {
+  126     const body = request.body;
+  127 
+→ 128     const nuevoProducto = await this.prisma.producto.create({
+            data: {
+              nombre: "sddfsdfd",
+              descripcion: "fsdfsdfsdfsdf",
+              precio: 312312,
+              stock: 12,
+              activo: true,
+              id_categoria: 1,
+              etiquetas: {
+                create: [
+                  {
+                    etiqueta: {
+                      connect: {
+                        id: undefined
+                      }
+                    }
+                  }
+                ]
+              },
+              imagenes: {
+                create: []
+              }
+            },
+            include: {
+              categoria: true,
+              etiquetas: {
+                include: {
+                  etiqueta: true
+                }
+              },
+              imagenes: true
+            }
+          })
+
+Argument `connect` of type EtiquetaWhereUniqueInput needs at least one of `id` or `nombre` arguments. Available options are marked with ?.

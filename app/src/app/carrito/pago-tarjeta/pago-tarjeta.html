@@ -1,0 +1,67 @@
+<form [formGroup]="paymentForm" (ngSubmit)="onSubmit()">
+  <h2>{{ 'PAGO.TITLE' | translate }}</h2>
+
+  <!-- Total a pagar -->
+  <div class="total-row" *ngIf="totalAPagar >= 0">
+    <span>{{ 'PAGO.TOTAL' | translate }}</span>
+    <span class="total">{{ getPrecioCRC(totalAPagar) }}</span>
+  </div>
+
+  <!-- Número de Tarjeta -->
+  <mat-form-field appearance="fill" class="full-width">
+    <mat-label>{{ 'PAGO.NUMERO_TARJETA' | translate }}</mat-label>
+    <input matInput type="tel" formControlName="numeroTarjeta" maxlength="16" />
+    <mat-error *ngIf="paymentForm.get('numeroTarjeta')?.hasError('required')">
+      {{ 'PAGO.ERROR.NUMERO_REQUIRED' | translate }}
+    </mat-error>
+    <mat-error *ngIf="paymentForm.get('numeroTarjeta')?.hasError('longitudInvalida')">
+      {{ 'PAGO.ERROR.NUMERO_LONGITUD' | translate }}
+    </mat-error>
+  </mat-form-field>
+
+  <!-- Fecha de Expiración -->
+  <mat-form-field appearance="fill">
+    <mat-label>{{ 'PAGO.FECHA_EXPIRACION' | translate }}</mat-label>
+    <input matInput placeholder="MM/AA" formControlName="fechaExpiracion" maxlength="5" />
+    <mat-error *ngIf="paymentForm.get('fechaExpiracion')?.hasError('required')">
+      {{ 'PAGO.ERROR.FECHA_REQUIRED' | translate }}
+    </mat-error>
+    <mat-error *ngIf="paymentForm.get('fechaExpiracion')?.hasError('fechaInvalida')">
+      {{ 'PAGO.ERROR.FECHA_INVALIDA' | translate }}
+    </mat-error>
+    <mat-error *ngIf="paymentForm.get('fechaExpiracion')?.hasError('fechaExpirada')">
+      {{ 'PAGO.ERROR.FECHA_EXPIRADA' | translate }}
+    </mat-error>
+  </mat-form-field>
+
+  <!-- CVV -->
+  <mat-form-field appearance="fill">
+    <mat-label>{{ 'PAGO.CVV' | translate }}</mat-label>
+    <input matInput type="tel" formControlName="cvv" maxlength="4" />
+    <mat-error *ngIf="paymentForm.get('cvv')?.hasError('required')">
+      {{ 'PAGO.ERROR.CVV_REQUIRED' | translate }}
+    </mat-error>
+    <mat-error *ngIf="paymentForm.get('cvv')?.hasError('pattern')">
+      {{ 'PAGO.ERROR.CVV_PATTERN' | translate }}
+    </mat-error>
+  </mat-form-field>
+
+  <!-- Nombre del Titular -->
+  <mat-form-field appearance="fill" class="full-width">
+    <mat-label>{{ 'PAGO.NOMBRE_TITULAR' | translate }}</mat-label>
+    <input matInput type="text" formControlName="nombreTitular" />
+    <mat-error *ngIf="paymentForm.get('nombreTitular')?.hasError('required')">
+      {{ 'PAGO.ERROR.NOMBRE_REQUIRED' | translate }}
+    </mat-error>
+  </mat-form-field>
+
+  <!-- Botones -->
+  <div class="actions">
+    <button mat-raised-button color="primary" type="submit" [disabled]="paymentForm.invalid">
+      {{ 'PAGO.PAGAR' | translate }}
+    </button>
+    <button mat-raised-button type="button" (click)="onCancel()">
+      {{ 'PAGO.CANCELAR' | translate }}
+    </button>
+  </div>
+</form>

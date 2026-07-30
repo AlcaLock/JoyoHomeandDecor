@@ -1,0 +1,79 @@
+.header {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background: linear-gradient(90deg, #2C3E50, #4CA1AF); /* degradado elegante */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  display: flex;
+  align-items: center;
+  padding: 0.75em 1.5em;
+  z-index: 1000;
+  color: #fff;
+  height: 64px;
+}
+
+.logo-button {
+  padding: 0;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  overflow: hidden;
+  background-color: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logo-image {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+
+/* Espaciador para distribuir el contenido */
+.example-spacer {
+  flex: 1 1 auto;
+}
+
+/* Imagen o icono redondo en el header */
+.example-header-image {
+  background-image: url("/images/gamepad.png");
+  background-size: cover;
+  background-position: center;
+  height: 48px;
+  width: 48px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  margin-right: 12px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+/* Texto pequeño con mejor legibilidad */
+.small-text {
+  font-size: 0.85rem;
+  color: #e0e0e0;
+  letter-spacing: 0.5px;
+}
+.cart-button {
+  margin: 0 10px;
+  position: relative;
+  transition: transform 0.2s ease;
+}
+
+.cart-button:hover {
+  transform: scale(1.1);
+}
+
+.cart-button .mat-badge-content {
+  background: #ff4081; /* Color de acento */
+  color: white;
+  top: -8px;
+  right: -8px;
+  font-size: 0.7em;
+}
+
+/* Ocultar badge cuando el carrito está vacío */
+.cart-button .mat-badge-hidden {
+  display: none;
+}

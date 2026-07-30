@@ -1,0 +1,279 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Categoria {
+  id          Int         @id @default(autoincrement())
+  nombre      String      @unique
+  productos   Producto[]
+  promociones Promocion[]
+}
+
+model Usuario {
+  id                      Int                     @id @default(autoincrement())
+  nombre                  String                  @unique
+  correo                  String                  @unique
+  contrasena              String
+  rol                     Rol
+  ultimoLogin             DateTime?
+  creadoEn                DateTime                @default(now())
+  isTempPassword          Boolean                 @default(false)
+  resenas                 Resena[]
+  productosPersonalizados ProductoPersonalizado[]
+  carritos                Carrito[]               @relation("UsuarioCarritos")
+  pedidos                 Pedido[]
+  estadosTransicion       EstadoTransicion[]
+  reportesResena          ReporteResena[]
+  moderaciones            ModeracionResena[]
+}
+
+
+
+model Producto {
+  id               Int                     @id @default(autoincrement())
+  nombre           String
+  descripcion      String
+  precio           Float
+  stock            Int
+  creadoEn         DateTime                @default(now())
+  activo           Boolean                 @default(true)
+  id_categoria     Int
+  categoria        Categoria               @relation(fields: [id_categoria], references: [id])
+  etiquetas        ProductoEtiqueta[]
+  imagenes         ImagenProducto[]
+  resenas          Resena[]
+  componentes      ProductoComponente[]
+  personalizados   ProductoPersonalizado[]
+  promociones      Promocion[]
+  carritoProductos CarritoProducto[]
+  pedidoProductos  PedidoProducto[]
+}
+
+model Etiqueta {
+  id        Int                @id @default(autoincrement())
+  nombre    String             @unique
+  productos ProductoEtiqueta[]
+}
+
+model ProductoEtiqueta {
+  productoId Int
+  etiquetaId Int
+  producto   Producto @relation(fields: [productoId], references: [id])
+  etiqueta   Etiqueta @relation(fields: [etiquetaId], references: [id])
+
+  @@id([productoId, etiquetaId])
+}
+
+model ImagenProducto {
+  id         Int      @id @default(autoincrement())
+  url        String   @default("imagen-not-found")
+  productoId Int
+  producto   Producto @relation(fields: [productoId], references: [id])
+}
+
+model Resena {
+  id           Int                @id @default(autoincrement())
+  usuarioId    Int
+  productoId   Int
+  fecha        DateTime           @default(now())
+  comentario   String
+  estrellas    Int
+  oculto       Boolean            @default(false)
+  activo       Boolean            @default(true)
+  usuario      Usuario            @relation(fields: [usuarioId], references: [id])
+  producto     Producto           @relation(fields: [productoId], references: [id])
+  reportes     ReporteResena[]
+  moderaciones ModeracionResena[]
+
+  @@unique([usuarioId, productoId])
+}
+
+model GrupoComponente {
+  id          Int          @id @default(autoincrement())
+  nombre      String
+  componentes Componente[]
+}
+
+model Componente {
+  id                Int                         @id @default(autoincrement())
+  nombre            String
+  descripcion       String?
+  precio            Decimal                     @db.Decimal(10, 2)
+  imagenUrl         String                      @default("componente-not-found")
+  grupoComponenteId Int
+  grupoComponente   GrupoComponente             @relation(fields: [grupoComponenteId], references: [id])
+  productos         ProductoComponente[]
+  personalizaciones PersonalizacionComponente[]
+}
+
+model ProductoComponente {
+  id_producto   Int
+  id_componente Int
+  producto      Producto   @relation(fields: [id_producto], references: [id])
+  componente    Componente @relation(fields: [id_componente], references: [id])
+
+  @@id([id_producto, id_componente])
+}
+
+model ProductoPersonalizado {
+  id             Int                         @id @default(autoincrement())
+  productoBaseId Int
+  configuracion  String
+  precioFinal    Decimal                     @db.Decimal(10, 2)
+  usuarioId      Int
+  productoBase   Producto                    @relation(fields: [productoBaseId], references: [id])
+  usuario        Usuario                     @relation(fields: [usuarioId], references: [id])
+  carritoItems   CarritoProducto[]
+  pedidoItems    PedidoProducto[]
+  componentes    PersonalizacionComponente[]
+}
+
+model PersonalizacionComponente {
+  productoPersonalizadoId Int
+  componenteId            Int
+
+  productoPersonalizado ProductoPersonalizado @relation(fields: [productoPersonalizadoId], references: [id])
+  componente            Componente            @relation(fields: [componenteId], references: [id])
+
+  @@id([productoPersonalizadoId, componenteId])
+}
+
+model Promocion {
+  id          Int           @id @default(autoincrement())
+  nombre      String
+  tipo        TipoDescuento
+  descuento   Float
+  inicio      DateTime
+  fin         DateTime
+  categoriaId Int?
+  productoId  Int?
+
+  categoria Categoria? @relation(fields: [categoriaId], references: [id])
+  producto  Producto?  @relation(fields: [productoId], references: [id])
+}
+
+model Carrito {
+  id            Int               @id @default(autoincrement())
+  usuarioId     Int
+  estado        EstadoCarrito     @default(TEMPORAL) // Nuevo campo
+  actualizadoEn DateTime          @default(now()) @updatedAt
+  usuario       Usuario           @relation("UsuarioCarritos", fields: [usuarioId], references: [id])
+  productos     CarritoProducto[]
+}
+
+model CarritoProducto {
+  id              Int                    @id @default(autoincrement())
+  carritoId       Int
+  productoId      Int?
+  personalizadoId Int?
+  cantidad        Int
+  precioUnitario  Decimal?               @db.Decimal(10, 2)
+  carrito         Carrito                @relation(fields: [carritoId], references: [id])
+  producto        Producto?              @relation(fields: [productoId], references: [id])
+  personalizado   ProductoPersonalizado? @relation(fields: [personalizadoId], references: [id])
+}
+
+model Pedido {
+  id             Int                @id @default(autoincrement())
+  clienteId      Int
+  fecha          DateTime           @default(now())
+  direccionEnvio String
+  metodoPago     MetodoPago
+  estado         EstadoPedido
+  subtotal       Decimal            @db.Decimal(10, 2)
+  total          Decimal            @db.Decimal(10, 2)
+  cliente        Usuario            @relation(fields: [clienteId], references: [id])
+  productos      PedidoProducto[]
+  transiciones   EstadoTransicion[]
+}
+
+model PedidoProducto {
+  id              Int     @id @default(autoincrement())
+  pedidoId        Int
+  productoId      Int?
+  personalizadoId Int?
+  cantidad        Int
+  precioUnitario  Decimal @db.Decimal(10, 2)
+
+  pedido        Pedido                 @relation(fields: [pedidoId], references: [id])
+  producto      Producto?              @relation(fields: [productoId], references: [id])
+  personalizado ProductoPersonalizado? @relation(fields: [personalizadoId], references: [id])
+}
+
+model EstadoTransicion {
+  id              Int          @id @default(autoincrement())
+  pedidoId        Int
+  estado          EstadoPedido
+  fecha           DateTime     @default(now())
+  administradorId Int
+  pedido          Pedido       @relation(fields: [pedidoId], references: [id])
+  administrador   Usuario      @relation(fields: [administradorId], references: [id])
+}
+
+model ReporteResena {
+  id               Int                 @id @default(autoincrement())
+  resenaId         Int
+  usuarioReportaId Int
+  motivo           String
+  fechaReporte     DateTime            @default(now())
+  estado           EstadoReporteResena @default(PENDIENTE)
+  resena           Resena              @relation(fields: [resenaId], references: [id])
+  usuarioReporta   Usuario             @relation(fields: [usuarioReportaId], references: [id])
+}
+
+model ModeracionResena {
+  id              Int              @id @default(autoincrement())
+  resenaId        Int
+  administradorId Int
+  accion          AccionModeracion
+  comentario      String?
+  fecha           DateTime         @default(now())
+  resena          Resena           @relation(fields: [resenaId], references: [id])
+  administrador   Usuario          @relation(fields: [administradorId], references: [id])
+}
+
+enum Rol {
+  ADMIN
+  CLIENTE
+}
+
+enum TipoDescuento {
+  PORCENTAJE
+  MONTO_FIJO
+}
+
+enum MetodoPago {
+  EFECTIVO
+  TARJETA
+}
+
+enum EstadoPedido {
+  PENDIENTE_PAGO
+  PAGADO
+  EN_PREPARACION
+  ENTREGADO
+}
+
+enum EstadoReporteResena {
+  PENDIENTE
+  ACEPTADO
+  RECHAZADO
+}
+
+enum AccionModeracion {
+  OCULTAR
+  MANTENER
+}
+
+enum EstadoCarrito {
+  TEMPORAL
+  PENDIENTE
+  ABANDONADO
+  COMPLETADO
+}
