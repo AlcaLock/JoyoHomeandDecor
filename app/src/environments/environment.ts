@@ -1,1 +1,18 @@
-export const environment = {};
+export const environment = {
+  apiURL: 'https://your-production-api-url.com',
+  endPointProducto: 'producto',
+  endPointResena: 'resena',
+  endPointPromocion: 'promocion',
+  endPointPedido: 'pedido',
+  endPointEtiqueta: 'etiqueta',
+  endPointRol: 'rol',
+  endPointUsuario: 'usuario',
+  endPointCategoria: 'categoria',
+  endPointImagenProducto: 'imagen',
+  endPointCarrito: 'carrito',
+  endPointCarritoProducto: 'carrito-producto',
+  endPointProductoComponente: 'producto-componente',
+  endPointComponente: 'componente',
+  endPointProductoPerzonalizado: 'producto-personalizado',
+  endPointGrupoComponente: 'grupo-componente',
+};
