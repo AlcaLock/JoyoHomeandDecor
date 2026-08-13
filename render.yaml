@@ -37,4 +37,4 @@ services:
     staticPublishPath: dist/app
     envVars:
       - key: PUBLIC_API_URL
-        sync: false
+        value: https://joyohyd-portfolio-api.onrender.com

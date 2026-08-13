@@ -1,0 +1,12 @@
+# Root safety rules for portfolio publishing
+
+# Never commit local environment secrets
+Server/.env
+app/.env
+
+# Never commit runtime logs
+Server/log/
+
+# Local tooling artifacts
+*.log
+*.log.gz

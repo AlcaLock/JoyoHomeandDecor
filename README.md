@@ -171,8 +171,14 @@ npx prisma db seed
 - Product reviews, promotions, and complete order examples
 
 **Test credentials after running the seed:**
-- Admin: `admin.prueba@ejemplo.com` / `Admin123!`
-- Client: `camila.rojas@ejemplo.com` / `camila123`
+- Client (public demo): `camila.rojas@ejemplo.com` / `camila123`
+- Admin credentials: keep private (do not publish in public repositories)
+
+Admin password in seed is not hardcoded publicly. Set it only when needed:
+
+```bash
+SEED_ADMIN_PASSWORD="your_private_admin_password"
+```
 
 You can use any of the seeded client accounts if you want to test the buyer flow:
 - `esteban.mora@ejemplo.com` / `esteban123`
@@ -251,8 +257,8 @@ npm start -- --port 4201
 
 ### 5. Demo credentials
 
-- Admin: `admin.prueba@ejemplo.com` / `Admin123!`
-- Client: `camila.rojas@ejemplo.com` / `camila123`
+- Client (public demo): `camila.rojas@ejemplo.com` / `camila123`
+- Admin credentials: keep private (do not share publicly)
 
 ### 6. Minimum secure setup before sharing publicly
 

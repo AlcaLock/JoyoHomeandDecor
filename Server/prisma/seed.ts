@@ -19,8 +19,9 @@ import { reporteResena } from './seeds/reporteResena';
 import { moderacionResena } from './seeds/moderacionResena';
 import { grupoComponentes } from './seeds/grupoComponente';
 import bcrypt from 'bcryptjs';
+import { randomBytes } from 'crypto';
 
-import { PrismaClient } from '../generated/prisma';
+import { PrismaClient, Rol } from '../generated/prisma';
 const prisma = new PrismaClient();
 
 async function seed() {
@@ -30,11 +31,25 @@ async function seed() {
     await prisma.grupoComponente.createMany({ data: grupoComponentes, skipDuplicates: true });
     await prisma.etiqueta.createMany({ data: etiquetas, skipDuplicates: true });
 
+    const configuredAdminPassword = process.env.SEED_ADMIN_PASSWORD?.trim();
+    const generatedAdminPassword = randomBytes(12).toString('hex');
+
+    if (!configuredAdminPassword) {
+      console.warn('⚠️ SEED_ADMIN_PASSWORD no definido; se generó un password admin aleatorio para este seed.');
+    }
+
     const usuariosConHash = await Promise.all(
-      usuarios.map(async (usuario) => ({
-        ...usuario,
-        contrasena: await bcrypt.hash(usuario.contrasena, 10),
-      }))
+      usuarios.map(async (usuario) => {
+        const plainPassword =
+          usuario.rol === Rol.ADMIN
+            ? configuredAdminPassword || generatedAdminPassword
+            : usuario.contrasena;
+
+        return {
+          ...usuario,
+          contrasena: await bcrypt.hash(plainPassword, 10),
+        };
+      })
     );
 
     await prisma.usuario.createMany({ data: usuariosConHash, skipDuplicates: true });
