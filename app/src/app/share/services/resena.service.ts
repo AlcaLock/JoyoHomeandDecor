@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { ResenaModel } from '../models/ResenaModel';
 import { BaseAPI } from '../base-api';
 import { HttpClient } from '@angular/common/http';
-import { environment } from '../../../environments/environment.development';
+import { environment } from '../../../environments/environment';
 import { Observable } from 'rxjs';
 import { ModeracionResenaModel } from '../models/ModeracionResenaModel';
 @Injectable({
@@ -74,3 +74,4 @@ cambiarEstadoReportes(resenaId: number, estado: 'RECHAZADO' | 'ACEPTADO') {
 
 
   }
+

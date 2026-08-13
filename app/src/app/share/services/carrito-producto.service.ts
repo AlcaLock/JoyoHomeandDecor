@@ -1,6 +1,6 @@
 import { Injectable, signal, computed, effect } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { environment } from '../../../environments/environment.development';
+import { environment } from '../../../environments/environment';
 import { CarritoProductoModel } from '../models/CarritoProductoModel';
 import { CarritoModel } from '../models/CarritoModel';
 import { Observable, tap, map, throwError, catchError, of } from 'rxjs';
@@ -423,3 +423,4 @@ private mergeCarts(
     return this.total() + this.getImpuesto();
   }
 }
+

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BaseAPI } from '../base-api';
 import { HttpClient } from '@angular/common/http';
-import { environment } from '../../../environments/environment.development';
+import { environment } from '../../../environments/environment';
 import { Observable } from 'rxjs';
 import { CarritoModel } from '../models/CarritoModel';
 import { CarritoProductoModel } from '../models/CarritoProductoModel';
@@ -37,3 +37,4 @@ abandonarCarrito(usuarioId: number) {
   
 
 }
+

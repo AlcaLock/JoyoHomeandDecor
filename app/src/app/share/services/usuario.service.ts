@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { CategoriaModel } from '../models/CategoriaModel';
 import { HttpClient } from '@angular/common/http';
-import { environment } from '../../../environments/environment.development';
+import { environment } from '../../../environments/environment';
 import { BaseAPI } from '../base-api';
 import { UsuarioModel } from '../models/UsuarioModel';
 import { Observable } from 'rxjs';
@@ -58,3 +58,4 @@ resetTempPassword(userId: number, nuevaContrasenna: string): Observable<any> {
 
 
 }
+

@@ -1,6 +1,6 @@
 import { Inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { environment } from '../../environments/environment.development';
+import { environment } from '../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 export interface BaseEntity {
   id?: number;
@@ -55,3 +55,4 @@ export class BaseAPI<T extends BaseEntity> {
   
 
 }
+

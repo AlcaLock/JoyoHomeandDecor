@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BaseAPI } from '../base-api';
-import { environment } from '../../../environments/environment.development';
+import { environment } from '../../../environments/environment';
 import { ProductoPersonalizadoModel } from '../models/ProductoPersonalizadoModel';
 
 @Injectable({
@@ -15,3 +15,4 @@ export class ProductoPeronalizadoService extends BaseAPI<ProductoPersonalizadoMo
        environment.endPointProductoPerzonalizado);
   }
 }
+

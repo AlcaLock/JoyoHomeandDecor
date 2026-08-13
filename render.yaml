@@ -30,6 +30,10 @@ services:
     name: joyohyd-portfolio-app
     rootDir: app
     autoDeployTrigger: commit
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html
     buildCommand: >-
       npm ci &&
       node scripts/set-api-url.js &&

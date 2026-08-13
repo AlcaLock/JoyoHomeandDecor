@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { ProductoModel } from '../models/ProductoModel';
 import { BaseAPI } from '../base-api';
 import { HttpClient } from '@angular/common/http';
-import { environment } from '../../../environments/environment.development';
+import { environment } from '../../../environments/environment';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -17,3 +17,4 @@ getStockyComponentes(): Observable<ProductoModel[]> {
   return this.httpCustom.get<ProductoModel[]>(`${environment.apiURL}/${environment.endPointProducto}/productoStockCompo`);
 }
 }
+
