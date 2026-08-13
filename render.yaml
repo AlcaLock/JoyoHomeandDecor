@@ -34,7 +34,7 @@ services:
       npm ci &&
       node scripts/set-api-url.js &&
       npm run build
-    staticPublishPath: app/dist/app
+    staticPublishPath: dist/app
     envVars:
       - key: PUBLIC_API_URL
         sync: false
