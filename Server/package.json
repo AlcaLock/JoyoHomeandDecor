@@ -4,7 +4,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"No tests configured\".",
-    "dev": "nodemon source/server.ts",
+    "dev": "nodemon --ignore generated/** --ignore log/** source/server.ts",
     "build": "tsc --noEmit",
     "start:prod": "ts-node source/server.ts",
     "prisma:generate": "prisma generate",
