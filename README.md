@@ -281,8 +281,42 @@ After each public demo:
 
 This repository includes a `render.yaml` blueprint to deploy both backend and frontend from the same repo:
 
-- `joyohyd-api` (Docker web service, from `Server/`)
-- `joyohyd-app` (Static site, from `app/`)
+- `joyohyd-portfolio-api` (Docker web service, from `Server/`)
+- `joyohyd-portfolio-app` (Static site, from `app/`)
+
+### Free MySQL option: TiDB Cloud Serverless
+
+If you want to keep Prisma + MySQL without paying, the simplest option is **TiDB Cloud Serverless** because it is MySQL-compatible.
+
+#### 1. Create the database
+
+- Go to `https://tidbcloud.com/`
+- Create an account
+- Create a **Serverless** cluster
+- Choose any cluster name you want
+- Create a database named `joyohyd`
+
+#### 2. Create a database user
+
+- In TiDB Cloud, create a database user and password
+- Allow public access from Render if TiDB asks for allowed IPs/connection rules
+
+#### 3. Copy the connection string
+
+Use a Prisma-compatible MySQL URL similar to this:
+
+```env
+mysql://USER:PASSWORD@HOST:4000/joyohyd?sslaccept=strict
+```
+
+That full string is the value for `DATABASE_URL` in Render.
+
+#### 4. Render URLs if you keep the default service names in this repo
+
+- Frontend URL: `https://joyohyd-portfolio-app.onrender.com`
+- API URL: `https://joyohyd-portfolio-api.onrender.com`
+
+If Render tells you the name is already taken and you rename the service, then the URL changes to that new name.
 
 ### 1. Push your repo changes
 
@@ -294,7 +328,7 @@ In Render, create a new **Blueprint** and select this repository.
 
 ### 3. Set required backend environment variables
 
-- `FRONTEND_URL` (the public URL of `joyohyd-app`)
+- `FRONTEND_URL` = `https://joyohyd-portfolio-app.onrender.com`
 - `DATABASE_URL`
 - `SECRET_KEY`
 - `EMAIL_HOST`
@@ -304,7 +338,7 @@ In Render, create a new **Blueprint** and select this repository.
 
 ### 4. Set frontend environment variable
 
-- `PUBLIC_API_URL` = public URL of `joyohyd-api`
+- `PUBLIC_API_URL` = `https://joyohyd-portfolio-api.onrender.com`
 
 The frontend build rewrites `apiURL` in `app/src/environments/environment.ts` during CI, so you do not need to hardcode production URLs in source control.
 
