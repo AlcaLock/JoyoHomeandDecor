@@ -1,11 +1,11 @@
 services:
   - type: web
+    runtime: docker
     name: joyohyd-portfolio-api
-    env: docker
     dockerContext: ./Server
     dockerfilePath: ./Server/Dockerfile
     plan: free
-    autoDeploy: true
+    autoDeployTrigger: commit
     healthCheckPath: /producto
     envVars:
       - key: PORT
@@ -25,16 +25,17 @@ services:
       - key: EMAIL_PASS
         sync: false
 
-  - type: static
+  - type: web
+    runtime: static
     name: joyohyd-portfolio-app
     rootDir: app
     plan: free
-    autoDeploy: true
+    autoDeployTrigger: commit
     buildCommand: >-
       npm ci &&
       node -e "const fs=require('fs');const p='src/environments/environment.ts';const api=process.env.PUBLIC_API_URL||'https://your-production-api-url.com';let s=fs.readFileSync(p,'utf8');s=s.replace(/apiURL:\s*'[^']*'/, \"apiURL: '" + api + "'\");fs.writeFileSync(p,s);" &&
       npm run build
-    publishPath: dist/app/browser
+    staticPublishPath: app/dist/app/browser
     envVars:
       - key: PUBLIC_API_URL
         sync: false
