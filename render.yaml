@@ -32,7 +32,7 @@ services:
     autoDeployTrigger: commit
     buildCommand: >-
       npm ci &&
-      node -e "const fs=require('fs');const p='src/environments/environment.ts';const api=process.env.PUBLIC_API_URL||'https://your-production-api-url.com';let s=fs.readFileSync(p,'utf8');s=s.replace(/apiURL:\s*'[^']*'/, \"apiURL: '" + api + "'\");fs.writeFileSync(p,s);" &&
+      node scripts/set-api-url.js &&
       npm run build
     staticPublishPath: app/dist/app/browser
     envVars:
