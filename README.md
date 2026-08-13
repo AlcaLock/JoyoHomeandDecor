@@ -309,6 +309,14 @@ Use a Prisma-compatible MySQL URL similar to this:
 mysql://USER:PASSWORD@HOST:4000/joyohyd?sslaccept=strict
 ```
 
+If Render still shows TLS certificate verification errors (`unable to get local issuer certificate`), use this temporary fallback for portfolio demo environments:
+
+```env
+mysql://USER:PASSWORD@HOST:4000/joyohyd?sslaccept=accept_invalid_certs
+```
+
+Use `sslaccept=strict` whenever possible.
+
 That full string is the value for `DATABASE_URL` in Render.
 
 #### 4. Render URLs if you keep the default service names in this repo
