@@ -26,9 +26,9 @@ const prisma = new PrismaClient();
 async function seed() {
   try {
    // 1. Modelos independientes primero
-    await prisma.categoria.createMany({ data: categorias });
-    await prisma.grupoComponente.createMany({ data: grupoComponentes });
-    await prisma.etiqueta.createMany({ data: etiquetas });
+    await prisma.categoria.createMany({ data: categorias, skipDuplicates: true });
+    await prisma.grupoComponente.createMany({ data: grupoComponentes, skipDuplicates: true });
+    await prisma.etiqueta.createMany({ data: etiquetas, skipDuplicates: true });
 
     const usuariosConHash = await Promise.all(
       usuarios.map(async (usuario) => ({
@@ -37,33 +37,33 @@ async function seed() {
       }))
     );
 
-    await prisma.usuario.createMany({ data: usuariosConHash });
+    await prisma.usuario.createMany({ data: usuariosConHash, skipDuplicates: true });
 
     // 2. Modelos que dependen de los anteriores
-    await prisma.componente.createMany({ data: componentes });
-    await prisma.producto.createMany({ data: productos });
+    await prisma.componente.createMany({ data: componentes, skipDuplicates: true });
+    await prisma.producto.createMany({ data: productos, skipDuplicates: true });
 
     // 3. Relaciones muchos-a-muchos
-    await prisma.productoEtiqueta.createMany({ data: productoEtiqueta });
-    await prisma.productoComponente.createMany({ data: productoComponente });
-    await prisma.imagenProducto.createMany({ data: imagenesProducto });
+    await prisma.productoEtiqueta.createMany({ data: productoEtiqueta, skipDuplicates: true });
+    await prisma.productoComponente.createMany({ data: productoComponente, skipDuplicates: true });
+    await prisma.imagenProducto.createMany({ data: imagenesProducto, skipDuplicates: true });
 
     // 4. Modelos que dependen de múltiples relaciones
-    await prisma.resena.createMany({ data: resenas });
-    await prisma.productoPersonalizado.createMany({ data: productoPersonalizado });
-    await prisma.personalizacionComponente.createMany({ data: personalizacionComponente });
-    await prisma.promocion.createMany({ data: promociones });
+    await prisma.resena.createMany({ data: resenas, skipDuplicates: true });
+    await prisma.productoPersonalizado.createMany({ data: productoPersonalizado, skipDuplicates: true });
+    await prisma.personalizacionComponente.createMany({ data: personalizacionComponente, skipDuplicates: true });
+    await prisma.promocion.createMany({ data: promociones, skipDuplicates: true });
 
     // 5. Flujo de compra
-    await prisma.carrito.createMany({ data: carritos });
-    await prisma.carritoProducto.createMany({ data: carritoProducto });
-    await prisma.pedido.createMany({ data: pedidos });
-    await prisma.pedidoProducto.createMany({ data: pedidoProducto });
-    await prisma.estadoTransicion.createMany({ data: estadoTransicion });
+    await prisma.carrito.createMany({ data: carritos, skipDuplicates: true });
+    await prisma.carritoProducto.createMany({ data: carritoProducto, skipDuplicates: true });
+    await prisma.pedido.createMany({ data: pedidos, skipDuplicates: true });
+    await prisma.pedidoProducto.createMany({ data: pedidoProducto, skipDuplicates: true });
+    await prisma.estadoTransicion.createMany({ data: estadoTransicion, skipDuplicates: true });
 
     // 6. Moderación
-    await prisma.reporteResena.createMany({ data: reporteResena });
-    await prisma.moderacionResena.createMany({ data: moderacionResena });
+    await prisma.reporteResena.createMany({ data: reporteResena, skipDuplicates: true });
+    await prisma.moderacionResena.createMany({ data: moderacionResena, skipDuplicates: true });
 
     console.log("✅ Seed completado exitosamente");
   } catch (error) {
