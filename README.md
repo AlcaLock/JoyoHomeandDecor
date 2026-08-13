@@ -344,13 +344,25 @@ The frontend build rewrites `apiURL` in `app/src/environments/environment.ts` du
 
 ### 5. Deploy
 
-On container startup, backend runs:
+Backend container starts the API directly (`npm run start:prod`).
 
-- `prisma generate`
-- `prisma migrate deploy`
-- `ts-node source/server.ts`
+After first successful deploy, run migrations and seed **once** against your remote MySQL URL from your local machine:
 
-This is defined in `Server/Dockerfile` and `Server/package.json` scripts.
+```bash
+cd Server
+```
+
+PowerShell:
+
+```powershell
+$env:DATABASE_URL="<TU_DATABASE_URL_REMOTA>"
+npx prisma generate
+npx prisma migrate deploy
+npx prisma db seed
+Remove-Item Env:DATABASE_URL
+```
+
+This avoids deploy failures caused by startup-time migration issues and keeps the service boot path stable.
 
 ---
 
