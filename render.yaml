@@ -34,7 +34,7 @@ services:
       npm ci &&
       node scripts/set-api-url.js &&
       npm run build
-    staticPublishPath: dist/app
+    staticPublishPath: dist/app/browser
     envVars:
       - key: PUBLIC_API_URL
         value: https://joyohyd-portfolio-api.onrender.com
