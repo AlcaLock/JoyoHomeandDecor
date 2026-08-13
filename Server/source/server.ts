@@ -19,9 +19,14 @@ app.use(passport.initialize());
 // Puerto que escucha por defecto 3000 o definido .env
 const port = process.env.PORT || 3000;
 // Middleware CORS para aceptar llamadas en el servidor
-const allowedOrigins = (process.env.FRONTEND_URL || 'http://localhost:4200')
+const normalizeOrigin = (origin: string) => origin.trim().replace(/\/$/, '');
+
+const allowedOrigins = (
+  process.env.FRONTEND_URL ||
+  'http://localhost:4200,https://joyohyd-portfolio-app.onrender.com'
+)
   .split(',')
-  .map((origin) => origin.trim())
+  .map((origin) => normalizeOrigin(origin))
   .filter(Boolean);
 
 app.disable('x-powered-by');
@@ -30,13 +35,14 @@ app.use(
   cors({
     origin: (origin, callback) => {
       // Permite herramientas sin origin (Postman/curl) y el frontend configurado
-      if (!origin || allowedOrigins.includes(origin)) {
+      if (!origin || allowedOrigins.includes(normalizeOrigin(origin))) {
         callback(null, true);
         return;
       }
 
       callback(new Error(`Origen no permitido por CORS: ${origin}`));
     },
+    optionsSuccessStatus: 204,
   })
 );
 // Middleware para loggear las llamadas al servidor

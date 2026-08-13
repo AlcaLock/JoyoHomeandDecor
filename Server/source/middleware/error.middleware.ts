@@ -1,7 +1,6 @@
 import { type Response, type NextFunction, type Request } from "express";
 import { StatusCodes } from "http-status-codes";
 import * as winston from "winston";
-import os from "os"; 
 import  'winston-daily-rotate-file';
 import { AppError } from "../errors/custom.error";
 
@@ -60,8 +59,7 @@ export class ErrorMiddleware {
     res: Response,
     _next: NextFunction
   ): void => {
-    const userInfo = os.userInfo();
-    const userName = userInfo.username;
+    const userName = process.env.RENDER_SERVICE_NAME || process.env.USER || "unknown-user";
 
     if (res.headersSent) {
       return;
@@ -70,13 +68,21 @@ export class ErrorMiddleware {
      if (error instanceof AppError) {
       const { message, name, validationErrors } = error;
       const statusCode =  error.statusCode ;
-      logger.error(`${userName}--${request.method} ${request.originalUrl}--${message}`, error);
+      try {
+        logger.error(`${userName}--${request.method} ${request.originalUrl}--${message}`, error);
+      } catch {
+        // Evita cortar la respuesta HTTP si el logger falla en runtime
+      }
       res.status( statusCode).json({ name, message, validationErrors });
     } else {
       const rError = AppError.internalServer(
         "Se produjo un error interno del servidor"
       );
-      logger.error(`${userName}--${request.method} ${request.originalUrl}--${rError.message}`, error);
+      try {
+        logger.error(`${userName}--${request.method} ${request.originalUrl}--${rError.message}`, error);
+      } catch {
+        // Evita cortar la respuesta HTTP si el logger falla en runtime
+      }
       const statusCode =  StatusCodes.INTERNAL_SERVER_ERROR;
       res.status( statusCode).json(rError);
     }
