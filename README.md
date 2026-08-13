@@ -13,6 +13,8 @@ A full-stack e-commerce platform for furniture and home decoration. It provides 
 - [Installation](#installation)
 - [Database Setup](#database-setup)
 - [Running the Application](#running-the-application)
+- [Demo Quick Runbook](#demo-quick-runbook)
+- [Portfolio Deployment (Render)](#portfolio-deployment-render)
 - [Available Scripts](#available-scripts)
 - [API Reference](#api-reference)
 - [Authentication](#authentication)
@@ -168,6 +170,16 @@ npx prisma db seed
 - 5 sample customer users + admin accounts
 - Product reviews, promotions, and complete order examples
 
+**Test credentials after running the seed:**
+- Admin: `admin.prueba@ejemplo.com` / `Admin123!`
+- Client: `camila.rojas@ejemplo.com` / `camila123`
+
+You can use any of the seeded client accounts if you want to test the buyer flow:
+- `esteban.mora@ejemplo.com` / `esteban123`
+- `valeria.mendez@ejemplo.com` / `valeria123`
+- `luis.navarro@ejemplo.com` / `luis123`
+- `sofia.gonzalez@ejemplo.com` / `sofia123`
+
 ---
 
 ## Running the Application
@@ -189,6 +201,122 @@ npm start
 ```
 
 The Angular dev server starts at **http://localhost:4200**
+
+If port `4200` is already in use:
+
+```bash
+npm start -- --port 4201
+```
+
+---
+
+## Demo Quick Runbook
+
+Use this flow to have a reproducible and safe live demo in minutes.
+
+### 1. Initialize DB and sample data (from `Server/`)
+
+If you are coming from older local credentials, recreate DB containers once:
+
+```bash
+npm run db:down
+```
+
+```bash
+npm run db:init
+```
+
+### 2. Start backend (from `Server/`)
+
+```bash
+npm run dev
+```
+
+### 3. Start frontend (from `app/`)
+
+```bash
+npm start
+```
+
+If needed, use an alternate port:
+
+```bash
+npm start -- --port 4201
+```
+
+### 4. Verify core demo URLs
+
+- Frontend: `http://localhost:4200` (or selected port)
+- Backend: `http://localhost:3000`
+
+### 5. Demo credentials
+
+- Admin: `admin.prueba@ejemplo.com` / `Admin123!`
+- Client: `camila.rojas@ejemplo.com` / `camila123`
+
+### 6. Minimum secure setup before sharing publicly
+
+- Set a strong `SECRET_KEY` in `Server/.env` (do not use defaults).
+- Set `FRONTEND_URL` in `Server/.env` to your real frontend URL.
+- Never publish `Server/.env`.
+- Keep admin credentials only for demo and rotate/remove after presentation.
+- Override Docker DB credentials before exposing the app:
+   - `MYSQL_ROOT_PASSWORD`
+   - `MYSQL_USER`
+   - `MYSQL_PASSWORD`
+- Remove runtime logs from commits (`Server/log` is ignored).
+
+### 7. Post-demo credential rotation
+
+After each public demo:
+
+1. Rotate `SECRET_KEY` in `Server/.env`.
+2. Change seeded demo user passwords (admin + clients).
+3. Rotate Docker/MySQL credentials and restart DB containers.
+4. Invalidate active sessions by restarting backend after rotation.
+
+---
+
+## Portfolio Deployment (Render)
+
+This repository includes a `render.yaml` blueprint to deploy both backend and frontend from the same repo:
+
+- `joyohyd-api` (Docker web service, from `Server/`)
+- `joyohyd-app` (Static site, from `app/`)
+
+### 1. Push your repo changes
+
+Make sure `render.yaml` is in the repository root.
+
+### 2. Create a new Blueprint on Render
+
+In Render, create a new **Blueprint** and select this repository.
+
+### 3. Set required backend environment variables
+
+- `FRONTEND_URL` (the public URL of `joyohyd-app`)
+- `DATABASE_URL`
+- `SECRET_KEY`
+- `EMAIL_HOST`
+- `EMAIL_PORT`
+- `EMAIL_USER`
+- `EMAIL_PASS`
+
+### 4. Set frontend environment variable
+
+- `PUBLIC_API_URL` = public URL of `joyohyd-api`
+
+The frontend build rewrites `apiURL` in `app/src/environments/environment.ts` during CI, so you do not need to hardcode production URLs in source control.
+
+### 5. Deploy
+
+On container startup, backend runs:
+
+- `prisma generate`
+- `prisma migrate deploy`
+- `ts-node source/server.ts`
+
+This is defined in `Server/Dockerfile` and `Server/package.json` scripts.
 
 ---
 

@@ -14,10 +14,15 @@ import { randomBytes } from "crypto";
 export class usuarioController {
   private prisma = new PrismaClient();
 
+  private withoutPassword<T extends { contrasena?: string }>(user: T) {
+    const { contrasena, ...safeUser } = user as T & { contrasena?: string };
+    return safeUser;
+  }
+
   get = async (req: Request, res: Response, next: NextFunction) => {
     try {
       const usuarios = await this.prisma.usuario.findMany({});
-      res.json(usuarios);
+      res.json(usuarios.map((user) => this.withoutPassword(user)));
     } catch (error) {
       next(error);
     }
@@ -25,8 +30,17 @@ export class usuarioController {
 
   getById = async (req: Request, res: Response, next: NextFunction) => {
     try {
+      const authenticatedUser = req.user as Usuario | undefined;
       const id = parseInt(req.params.id);
       if (isNaN(id)) return next(AppError.badRequest("ID inválido"));
+
+      if (!authenticatedUser?.id) {
+        return next(AppError.unauthorized("Usuario no autenticado"));
+      }
+
+      if (authenticatedUser.rol !== Rol.ADMIN && authenticatedUser.id !== id) {
+        return next(AppError.forbidden("No tiene permiso para ver este usuario"));
+      }
 
       const usuario = await this.prisma.usuario.findUnique({
         where: { id },
@@ -34,7 +48,7 @@ export class usuarioController {
 
       if (!usuario) return next(AppError.notFound("No existe el usuario"));
 
-      res.json(usuario);
+      res.json(this.withoutPassword(usuario));
     } catch (error) {
       next(error);
     }
@@ -42,8 +56,17 @@ export class usuarioController {
 
   update = async (req: Request, res: Response, next: NextFunction) => {
     try {
+      const authenticatedUser = req.user as Usuario | undefined;
       const id = parseInt(req.params.id);
       if (isNaN(id)) return next(AppError.badRequest("ID inválido"));
+
+      if (!authenticatedUser?.id) {
+        return next(AppError.unauthorized("Usuario no autenticado"));
+      }
+
+      if (authenticatedUser.rol !== Rol.ADMIN && authenticatedUser.id !== id) {
+        return next(AppError.forbidden("No tiene permiso para actualizar este usuario"));
+      }
 
       const { nombre, correo } = req.body;
 
@@ -64,7 +87,7 @@ export class usuarioController {
       res.json({
         success: true,
         message: "Usuario actualizado correctamente",
-        data: actualizado,
+        data: this.withoutPassword(actualizado),
       });
     } catch (error: any) {
       if (error.code === "P2002") {
@@ -88,7 +111,16 @@ export class usuarioController {
 
   register = async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const { nombre, correo, contrasenna, rol } = req.body;
+      const { nombre, correo, contrasenna } = req.body;
+
+      if (!nombre || !correo || !contrasenna) {
+        return next(AppError.badRequest("Nombre, correo y contraseña son obligatorios"));
+      }
+
+      const existe = await this.prisma.usuario.findUnique({ where: { correo } });
+      if (existe) {
+        return next(AppError.badRequest("El correo ya está en uso"));
+      }
 
       const salt = await bcrypt.genSalt(10);
       const hash = await bcrypt.hash(contrasenna, salt);
@@ -98,14 +130,14 @@ export class usuarioController {
           nombre,
           correo,
           contrasena: hash,
-          rol: Rol[rol as keyof typeof Rol],
+          rol: Rol.CLIENTE,
         },
       });
 
       res.status(201).json({
         success: true,
         message: "Usuario creado",
-        data: user,
+        data: this.withoutPassword(user),
       });
     } catch (error) {
       next(error);
@@ -167,7 +199,7 @@ login = (req: Request, res: Response, next: NextFunction) => {
   userAuth = (req: Request, res: Response, next: NextFunction) => {
     try {
       const usuario = req.user as Usuario;
-      res.json(usuario);
+      res.json(this.withoutPassword(usuario));
     } catch (error) {
       next(error);
     }
@@ -180,7 +212,13 @@ login = (req: Request, res: Response, next: NextFunction) => {
       if (!correo) return next(AppError.badRequest("El correo es obligatorio"));
 
       const user = await this.prisma.usuario.findUnique({ where: { correo } });
-      if (!user) return next(AppError.notFound("Usuario no encontrado"));
+      if (!user) {
+        res.json({
+          success: true,
+          message: "Si el correo coincide le llegara un correo de recuperación",
+        });
+        return;
+      }
 
       // Verifica que las variables de entorno existan
       if (
@@ -231,7 +269,7 @@ login = (req: Request, res: Response, next: NextFunction) => {
         message: "Si el correo coincide le llegara un correo de recuperación",
       });
     } catch (error) {
-      console.error("Error enviando correo:", error);
+      next(error);
     }
   };
 
@@ -240,6 +278,7 @@ resetPassword = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const { token, nuevaContrasenna } = req.body;
     if (!token) return next(AppError.badRequest("Token requerido"));
+    if (!nuevaContrasenna) return next(AppError.badRequest("Nueva contraseña requerida"));
 
     const payload: any = verifyToken(token);
 
@@ -260,15 +299,28 @@ resetPassword = async (req: Request, res: Response, next: NextFunction) => {
 resetTempPassword = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const { userId, nuevaContrasenna } = req.body;
-    if (!userId) return next(AppError.badRequest("UserId requerido"));
+    if (!nuevaContrasenna) return next(AppError.badRequest("Nueva contraseña requerida"));
 
-    const usuario = await this.prisma.usuario.findUnique({ where: { id: userId } });
+    const authenticatedUser = req.user as Usuario | undefined;
+
+    if (!authenticatedUser?.id) {
+      return next(AppError.unauthorized("Usuario no autenticado"));
+    }
+
+    const targetUserId = Number(userId ?? authenticatedUser.id);
+    if (!targetUserId) return next(AppError.badRequest("UserId requerido"));
+
+    if (targetUserId !== authenticatedUser.id) {
+      return next(AppError.forbidden("No puede cambiar la contraseña temporal de otro usuario"));
+    }
+
+    const usuario = await this.prisma.usuario.findUnique({ where: { id: targetUserId } });
     if (!usuario) return next(AppError.notFound("Usuario no encontrado"));
 
     const hash = await bcrypt.hash(nuevaContrasenna, 10);
 
     await this.prisma.usuario.update({
-      where: { id: userId },
+      where: { id: targetUserId },
       data: { contrasena: hash, isTempPassword: false },
     });
 
@@ -313,6 +365,7 @@ resetTempPassword = async (req: Request, res: Response, next: NextFunction) => {
       }
 
       // Enviar correo al usuario
+      const frontendUrl = (process.env.FRONTEND_URL || "http://localhost:4200").replace(/\/$/, "");
       const transporter = nodemailer.createTransport({
         service: "gmail",
         auth: { user: process.env.EMAIL_USER, pass: process.env.EMAIL_PASS },
@@ -326,7 +379,7 @@ resetTempPassword = async (req: Request, res: Response, next: NextFunction) => {
         <p>Hola ${user.nombre},</p>
         <p>Tu administrador ha generado una contraseña temporal para tu cuenta:</p>
         <p><b>${tempPassword}</b></p>
-         <a href="http://localhost:4200/usuario/login">Login</a>
+         <a href="${frontendUrl}/usuario/login">Login</a>
         <p>Por seguridad, te recomendamos cambiarla al iniciar sesión.</p>
       `,
       });

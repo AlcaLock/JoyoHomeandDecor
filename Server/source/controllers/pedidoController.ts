@@ -29,6 +29,7 @@ get = async (req: Request, res: Response, next: NextFunction) => {
 
 getById = async (req: Request, res: Response, next: NextFunction) => {
   try {
+    const user = req.user as { id: number; rol: Rol };
     const id = parseInt(req.params.id);
     if (isNaN(id)) return next(AppError.badRequest('ID inválido'));
 
@@ -57,6 +58,10 @@ getById = async (req: Request, res: Response, next: NextFunction) => {
 
     if (!pedido) return next(AppError.notFound('No existe el pedido'));
 
+    if (user.rol !== Rol.ADMIN && pedido.clienteId !== user.id) {
+      return next(AppError.forbidden('No tiene permiso para ver este pedido'));
+    }
+
     res.json(pedido);
   } catch (error) {
     next(error);
@@ -65,6 +70,7 @@ getById = async (req: Request, res: Response, next: NextFunction) => {
 
 create = async (req: Request, res: Response, next: NextFunction) => {
   try {
+    const user = req.user as { id: number; rol: Rol };
     const { 
       usuarioId, 
       direccionEnvio, 
@@ -78,6 +84,10 @@ create = async (req: Request, res: Response, next: NextFunction) => {
     if (!usuarioId || !direccionEnvio || !metodoPago || 
         subtotal === undefined || total === undefined || !items?.length) {
       return next(AppError.badRequest('Faltan datos obligatorios'));
+    }
+
+    if (user.rol !== Rol.ADMIN && Number(usuarioId) !== user.id) {
+      return next(AppError.forbidden('No puede crear pedidos para otro usuario'));
     }
 
     // Verificar existencia de usuario
@@ -198,10 +208,11 @@ create = async (req: Request, res: Response, next: NextFunction) => {
 
 cambiarEstado = async (req: Request, res: Response, next: NextFunction) => {
   try {
+    const user = req.user as { id: number; rol: Rol };
     const id = parseInt(req.params.id);
     if (isNaN(id)) return next(AppError.badRequest('ID inválido'));
 
-    const { estado, administradorId } = req.body;
+    const { estado } = req.body;
 
     if (!estado) {
       return next(AppError.badRequest('Se requiere estado'));
@@ -214,13 +225,8 @@ cambiarEstado = async (req: Request, res: Response, next: NextFunction) => {
     });
     if (!pedido) return next(AppError.notFound('Pedido no encontrado'));
 
-    let admin: { id: number } | null = null;
-    if (administradorId) {
-      admin = await this.prisma.usuario.findUnique({
-        where: { id: administradorId },
-        select: { id: true }
-      });
-      if (!admin) return next(AppError.forbidden('Acceso no autorizado'));
+    if (user.rol !== Rol.ADMIN) {
+      return next(AppError.forbidden('Solo un administrador puede cambiar el estado'));
     }
 
     // Actualizar estado
@@ -233,18 +239,15 @@ cambiarEstado = async (req: Request, res: Response, next: NextFunction) => {
       }
     });
 
-    // Registrar nueva transición solo si es admin
-    let transicion = null;
-    if (admin) {
-      transicion = await this.prisma.estadoTransicion.create({
-        data: {
-          pedidoId: id,
-          estado,
-          administradorId: admin.id,
-          fecha: new Date()
-        }
-      });
-    }
+    // Registrar nueva transición con el admin autenticado
+    const transicion = await this.prisma.estadoTransicion.create({
+      data: {
+        pedidoId: id,
+        estado,
+        administradorId: user.id,
+        fecha: new Date()
+      }
+    });
 
     res.json({
       ...pedidoActualizado,

@@ -1,5 +1,7 @@
 import { Router } from "express";
 import { productoController } from "../controllers/productoController";
+import { authenticateJWT, authorizeRoles } from "../middleware/authMiddleware";
+import { Rol } from "../../generated/prisma";
 
 export class ProductoRoutes {
   static get routes(): Router {
@@ -8,11 +10,11 @@ export class ProductoRoutes {
 
     router.get("/", controller.get);
     router.get("/productoStockCompo", controller.getConComponentesYStock); 
-    router.post("/", controller.create);
+    router.post("/", authenticateJWT, authorizeRoles(Rol.ADMIN), controller.create);
 
     router.get("/:id", controller.getById); 
-    router.put("/:id", controller.update);
-    router.delete("/:id", controller.delete);
+    router.put("/:id", authenticateJWT, authorizeRoles(Rol.ADMIN), controller.update);
+    router.delete("/:id", authenticateJWT, authorizeRoles(Rol.ADMIN), controller.delete);
 
     return router;
   }

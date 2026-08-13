@@ -18,6 +18,7 @@ import { estadoTransicion } from './seeds/estadoTransicion';
 import { reporteResena } from './seeds/reporteResena';
 import { moderacionResena } from './seeds/moderacionResena';
 import { grupoComponentes } from './seeds/grupoComponente';
+import bcrypt from 'bcryptjs';
 
 import { PrismaClient } from '../generated/prisma';
 const prisma = new PrismaClient();
@@ -28,7 +29,15 @@ async function seed() {
     await prisma.categoria.createMany({ data: categorias });
     await prisma.grupoComponente.createMany({ data: grupoComponentes });
     await prisma.etiqueta.createMany({ data: etiquetas });
-    await prisma.usuario.createMany({ data: usuarios });
+
+    const usuariosConHash = await Promise.all(
+      usuarios.map(async (usuario) => ({
+        ...usuario,
+        contrasena: await bcrypt.hash(usuario.contrasena, 10),
+      }))
+    );
+
+    await prisma.usuario.createMany({ data: usuariosConHash });
 
     // 2. Modelos que dependen de los anteriores
     await prisma.componente.createMany({ data: componentes });

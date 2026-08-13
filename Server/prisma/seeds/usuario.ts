@@ -6,4 +6,5 @@ export const usuarios = [
   { nombre: 'Valeria Méndez', correo: 'valeria.mendez@ejemplo.com', contrasena: 'valeria123', rol: Rol.CLIENTE },
   { nombre: 'Luis Navarro', correo: 'luis.navarro@ejemplo.com', contrasena: 'luis123', rol: Rol.CLIENTE },
   { nombre: 'Sofía González', correo: 'sofia.gonzalez@ejemplo.com', contrasena: 'sofia123', rol: Rol.CLIENTE },
+  { nombre: 'Admin Prueba', correo: 'admin.prueba@ejemplo.com', contrasena: 'Admin123!', rol: Rol.ADMIN },
 ];

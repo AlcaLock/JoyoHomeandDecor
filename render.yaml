@@ -1,0 +1,40 @@
+services:
+  - type: web
+    name: joyohyd-api
+    env: docker
+    dockerContext: ./Server
+    dockerfilePath: ./Server/Dockerfile
+    plan: free
+    autoDeploy: true
+    healthCheckPath: /producto
+    envVars:
+      - key: PORT
+        value: 3000
+      - key: FRONTEND_URL
+        sync: false
+      - key: DATABASE_URL
+        sync: false
+      - key: SECRET_KEY
+        sync: false
+      - key: EMAIL_HOST
+        sync: false
+      - key: EMAIL_PORT
+        sync: false
+      - key: EMAIL_USER
+        sync: false
+      - key: EMAIL_PASS
+        sync: false
+
+  - type: static
+    name: joyohyd-app
+    rootDir: app
+    plan: free
+    autoDeploy: true
+    buildCommand: >-
+      npm ci &&
+      node -e "const fs=require('fs');const p='src/environments/environment.ts';const api=process.env.PUBLIC_API_URL||'https://your-production-api-url.com';let s=fs.readFileSync(p,'utf8');s=s.replace(/apiURL:\s*'[^']*'/, \"apiURL: '" + api + "'\");fs.writeFileSync(p,s);" &&
+      npm run build
+    publishPath: dist/app/browser
+    envVars:
+      - key: PUBLIC_API_URL
+        sync: false

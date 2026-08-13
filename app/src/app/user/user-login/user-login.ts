@@ -50,9 +50,6 @@ hide=true;
 
   this.authService.loginUser(credentials).subscribe({
     next: (res: any) => {
-      // Guardar token
-      localStorage.setItem('token', res.token);
-
       if (res.requirePasswordChange) {
         // Redirigir al formulario de cambio de contraseña
         this.router.navigate(['/usuario/reset-password']);

@@ -48,40 +48,38 @@ var consoleTransport = new winston.transports.Console({
     handleExceptions: true,
   })
 
+const logger = winston.createLogger({
+  transports: [consoleTransport, fileTransport],
+  exitOnError: false,
+});
+
 export class ErrorMiddleware {
   public static handleError = (
     error: unknown,
     request: Request,
     res: Response,
-    next: NextFunction
+    _next: NextFunction
   ): void => {
     const userInfo = os.userInfo();
     const userName = userInfo.username;
-    //Winston Logger
-    const logger = winston.createLogger({
-      
-      transports: [
-        consoleTransport,
-        fileTransport
-      ],
 
-      exitOnError: false, // no salir en caso de excepciones controladas
-    });
+    if (res.headersSent) {
+      return;
+    }
+
      if (error instanceof AppError) {
-      const { message, name, stack, validationErrors } = error;
+      const { message, name, validationErrors } = error;
       const statusCode =  error.statusCode ;
-      logger.error(`${userName}--${message}`, error);
+      logger.error(`${userName}--${request.method} ${request.originalUrl}--${message}`, error);
       res.status( statusCode).json({ name, message, validationErrors });
     } else {
       const rError = AppError.internalServer(
         "Se produjo un error interno del servidor"
       );
-      logger.error(`${userName}--${rError.message}`, error);
+      logger.error(`${userName}--${request.method} ${request.originalUrl}--${rError.message}`, error);
       const statusCode =  StatusCodes.INTERNAL_SERVER_ERROR;
       res.status( statusCode).json(rError);
     }
-  
-    next();
   };
 }
 

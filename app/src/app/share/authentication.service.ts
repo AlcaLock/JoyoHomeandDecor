@@ -14,6 +14,7 @@ import { CarritoProductoService } from './services/carrito-producto.service';
 export class AuthenticationService {
   private apiUrl = environment.apiURL;
   private tokenKey = 'currentUser';
+  private legacyTokenKey = 'token';
 
   // Signals
   tokenUser = signal<string | null>(localStorage.getItem(this.tokenKey));
@@ -26,6 +27,13 @@ export class AuthenticationService {
     private cartService: CarritoService,
 
   ) {
+    const legacyToken = localStorage.getItem(this.legacyTokenKey);
+    if (!this.tokenUser() && legacyToken) {
+      localStorage.setItem(this.tokenKey, legacyToken);
+      localStorage.removeItem(this.legacyTokenKey);
+      this.tokenUser.set(legacyToken);
+    }
+
     if (this.tokenUser()) {
       this.getUserProfile().subscribe();
     }
@@ -63,6 +71,7 @@ export class AuthenticationService {
         
         const token = String(response.token);
         localStorage.setItem(this.tokenKey, token);
+        localStorage.removeItem(this.legacyTokenKey);
         this.tokenUser.set(token);
 
         // GUARDAR USUARIO EN LOCALSTORAGE SI REQUIERE CAMBIO DE CONTRASEÑA
@@ -110,6 +119,7 @@ logout(): void {
 
   // Limpiar sesión
   localStorage.removeItem(this.tokenKey);
+  localStorage.removeItem(this.legacyTokenKey);
    localStorage.removeItem('usuario');
   this.tokenUser.set(null);
   this.usuario.set(null);

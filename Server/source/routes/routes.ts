@@ -36,7 +36,7 @@ export class AppRoutes {
     router.use('/etiqueta', EtiquetaRoutes.routes);
     router.use('/imagen-producto', ImagenProductoRoutes.routes);
     router.use('/estado-transicion', EstadoTransicionRoutes.routes);
-    router.use('/reporte-resena', ResenaRoutes.routes);
+    router.use('/reporte-resena', ReporteResenaRoutes.routes);
     router.use('/moderacion-resena', ModeracionResenaRoutes.routes);
     router.use('/producto-etiqueta', ProductoEtiquetaRoutes.routes);
     router.use('/producto-componente', ProductoComponenteRoutes.routes);

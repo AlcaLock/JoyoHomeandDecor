@@ -13,13 +13,15 @@ export const authenticateJWT = passport.authenticate("jwt", { session: false });
 export const authorizeRoles = (...roles: Rol[]) => {
   return (req: Request, res: Response, next: NextFunction): void => {
     //Extrae al usuario de req.user, que fue previamente agregado por el middleware authenticateJWT
-    const user = req.user as { role: Rol };
+    const user = req.user as { rol?: Rol; role?: Rol };
+    const userRole = user?.rol ?? user?.role;
 
-    if (!user || !roles.includes(user.role)) {
+    if (!userRole || !roles.includes(userRole)) {
       res.status(403).json({
         success: false,
         message: "Acceso denegado: rol no autorizado",
       });
+      return;
     }
 
     next(); 

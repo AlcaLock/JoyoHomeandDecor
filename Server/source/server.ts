@@ -5,7 +5,6 @@ import cors from 'cors';
 import path from 'path'
 import { ErrorMiddleware } from './middleware/error.middleware';
 import { AppRoutes } from './routes/routes';
-import "./config/passport"
 
 const rootDir = __dirname;
 
@@ -13,10 +12,33 @@ const app: Express=express()
 
 // Acceder a la configuracion del archivo .env
 dotenv.config();
+
+// Inicializar estrategias Passport despues de cargar variables de entorno
+const passport = require('./config/passport').default;
+app.use(passport.initialize());
 // Puerto que escucha por defecto 3000 o definido .env
 const port = process.env.PORT || 3000;
 // Middleware CORS para aceptar llamadas en el servidor
-app.use(cors());
+const allowedOrigins = (process.env.FRONTEND_URL || 'http://localhost:4200')
+  .split(',')
+  .map((origin) => origin.trim())
+  .filter(Boolean);
+
+app.disable('x-powered-by');
+
+app.use(
+  cors({
+    origin: (origin, callback) => {
+      // Permite herramientas sin origin (Postman/curl) y el frontend configurado
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+        return;
+      }
+
+      callback(new Error(`Origen no permitido por CORS: ${origin}`));
+    },
+  })
+);
 // Middleware para loggear las llamadas al servidor
 app.use(morgan('dev'));
 
