@@ -5,6 +5,7 @@ import cors from 'cors';
 import path from 'path'
 import { ErrorMiddleware } from './middleware/error.middleware';
 import { AppRoutes } from './routes/routes';
+import { normalizeJsonAssetUrls } from './utils/url.utils';
 
 const rootDir = __dirname;
 
@@ -55,6 +56,18 @@ app.use(
     extended: true,
   })
 );
+
+// Normaliza URLs heredadas de localhost en las respuestas JSON para entornos publicos
+app.use((req, res, next) => {
+  const originalJson = res.json.bind(res);
+
+  res.json = ((body: unknown) => {
+    const normalizedBody = normalizeJsonAssetUrls(req, body);
+    return originalJson(normalizedBody);
+  }) as typeof res.json;
+
+  next();
+});
 
 //---- Registro de rutas ----
 app.use(AppRoutes.routes)

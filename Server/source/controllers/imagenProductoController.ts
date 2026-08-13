@@ -4,6 +4,7 @@ import { PrismaClient } from "../../generated/prisma";
 import multer from "multer";
 import path from 'path';
 import fs from 'fs';
+import { buildPublicImageUrl } from "../utils/url.utils";
 
 // Configuración de almacenamiento para multer (modificado para assets/uploads)
 const storage = multer.diskStorage({
@@ -71,7 +72,7 @@ export class imagenProductoController {
         // Procesar cada archivo (con cambio en la URL)
         for (const file of files) {
           const imagenData = {
-            url: `http://localhost:3000/images/${file.filename}`, // URL completa
+            url: buildPublicImageUrl(req, file.filename),
             productoId: productoId
           };
 
@@ -110,7 +111,7 @@ uploadImages = async (req: Request, res: Response, next: NextFunction) => {
       const nuevas = files?.length
         ? await Promise.all(files.map(f =>
             this.prisma.imagenProducto.create({
-              data: { url: `http://localhost:3000/images/${f.filename}`, productoId }
+              data: { url: buildPublicImageUrl(req, f.filename), productoId }
             })
           ))
         : [];

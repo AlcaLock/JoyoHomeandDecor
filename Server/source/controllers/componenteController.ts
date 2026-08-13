@@ -4,6 +4,7 @@ import { PrismaClient } from "../../generated/prisma";
 import path from "path";
 import fs from "fs";
 import multer from "multer";
+import { buildPublicImageUrl } from "../utils/url.utils";
 
 export class componenteController {
   prisma = new PrismaClient();
@@ -173,7 +174,7 @@ upload = multer({
 
       let imagenUrl = "componente-not-found";
       if (req.file) {
-        imagenUrl = `http://localhost:3000/images/${req.file.filename}`;
+        imagenUrl = buildPublicImageUrl(req, req.file.filename);
       }
 
       const nuevo = await this.prisma.componente.create({
@@ -205,7 +206,7 @@ upload = multer({
 
       let imagenUrl;
       if (req.file) {
-        imagenUrl = `http://localhost:3000/images/${req.file.filename}`;
+        imagenUrl = buildPublicImageUrl(req, req.file.filename);
       }
 
       const actualizado = await this.prisma.componente.update({
