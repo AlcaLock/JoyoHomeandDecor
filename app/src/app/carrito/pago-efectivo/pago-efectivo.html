@@ -38,12 +38,12 @@
 
     <!-- Botones -->
     <div class="actions">
-      <button mat-stroked-button type="button" (click)="onCancel()">
+      <app-button variant="tertiary" type="button" (click)="onCancel()">
         {{ 'PAGO_EFECTIVO.CANCELAR' | translate }}
-      </button>
-      <button mat-raised-button color="primary" type="submit" [disabled]="efectivoForm.invalid">
+      </app-button>
+      <app-button variant="primary" type="submit" [disabled]="efectivoForm.invalid">
         {{ 'PAGO_EFECTIVO.CONFIRMAR' | translate }}
-      </button>
+      </app-button>
     </div>
 
   </form>

@@ -11,18 +11,18 @@ import { UserPerfil } from './user-perfil/user-perfil';
 import { authGuard } from '../share/auth.guard';
 
 const routes: Routes = [
-  { path: 'usuario/forgot-password', component: UserResetEmail },
-  { path: 'usuario/reset-password', component: UserReset },
-  { path: 'usuario/update/:id', component: UserUpdate },
+  { path: 'forgot-password', component: UserResetEmail },
+  { path: 'reset-password', component: UserReset },
+  { path: 'update/:id', component: UserUpdate },
   {
-    path: 'usuario/admin',
+    path: 'admin',
     component: UserAdmin,
     canActivate: [authGuard],
     data: { roles: ['ADMIN'] },
   },
-  { path: 'usuario/perfil/:id', component: UserPerfil },
+  { path: 'perfil/:id', component: UserPerfil },
   {
-    path: 'usuario',
+    path: '',
     component: UserIndex,
     children: [
       { path: 'login', component: UserLogin },

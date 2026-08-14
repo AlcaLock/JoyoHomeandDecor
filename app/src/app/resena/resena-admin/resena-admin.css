@@ -1,43 +1,113 @@
-/* Asegura que el body y html no tengan márgenes y usen todo el espacio */
-html, body {
-  margin: 0;
-  padding: 0;
-  height: 100%;
-  width: 100%;
-}
-
-/* El contenedor principal */
 .container {
-  min-height: 100vh;     /* Ocupa todo el alto del viewport */
-  width: 90vw;           /* Ocupa todo el ancho del viewport */
-  padding: 1rem;          /* Espacio interno opcional */
-  background-color: aliceblue;
-  box-sizing: border-box;
+  width: min(1250px, 100%);
+  margin: 0 auto;
+  padding: clamp(1rem, 2.4vw, 1.8rem);
+  border-radius: 20px;
+  border: 1px solid rgba(136, 97, 68, 0.22);
+  background:
+    radial-gradient(circle at 86% 14%, rgba(161, 118, 81, 0.16), transparent 35%),
+    linear-gradient(150deg, #fff8ef, #f3e1c8 66%, #ead5b6);
+  box-shadow: 0 14px 28px rgba(82, 50, 30, 0.13);
   display: flex;
   flex-direction: column;
+  gap: 0.9rem;
 }
 
-
 .container h2 {
-  color: black; 
+  margin: 0;
+  color: #4d3324;
+}
+
+.filtros {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.9rem;
+  padding: 0.75rem 0.9rem;
+  border-radius: 12px;
+  border: 1px solid rgba(140, 103, 74, 0.2);
+  background: rgba(251, 241, 226, 0.9);
 }
 
 .filtros label {
-  margin-right: 1rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
   cursor: pointer;
-  color: black; 
+  color: #543e2f;
+  font-size: 0.9rem;
+  padding: 0.25rem 0.45rem;
+  border-radius: 999px;
+  background: rgba(255, 246, 232, 0.7);
+}
+
+table.mat-table {
+  width: 100%;
+  border-radius: 14px;
+  overflow: hidden;
+  border: 1px solid rgba(143, 105, 76, 0.2);
+}
+
+th.mat-header-cell {
+  background: linear-gradient(120deg, #5c3a28, #84543a);
+  color: #fff1e1;
+  font-weight: 700;
+  padding: 0.72rem 0.9rem;
+}
+
+td.mat-cell {
+  padding: 0.72rem 0.9rem;
+  color: #4d3b2e;
+  border-bottom: 1px solid rgba(166, 132, 102, 0.2);
+  background: rgba(255, 248, 239, 0.95);
+}
+
+tr.mat-row:nth-child(even) td.mat-cell {
+  background: rgba(250, 240, 227, 0.95);
+}
+
+tr.mat-row:hover td.mat-cell {
+  background: rgba(238, 221, 201, 0.86);
 }
 
 .estado-oculto {
-  color: red;
-  font-weight: bold;
+  color: #8f2f25;
+  font-weight: 700;
 }
 
 .estado-visible {
-  color: green;
-  font-weight: bold;
+  color: #4c6c3f;
+  font-weight: 700;
 }
 
 mat-icon {
   vertical-align: middle;
+  color: #9c6e30;
+}
+
+button[mat-button] {
+  border-radius: 9px;
+  font-weight: 700;
+  margin-right: 0.35rem;
+}
+
+@media (max-width: 860px) {
+  .container {
+    border-radius: 14px;
+    padding: 0.9rem;
+  }
+
+  table.mat-table {
+    display: block;
+    overflow-x: auto;
+  }
+
+  td.mat-cell,
+  th.mat-header-cell {
+    white-space: nowrap;
+  }
+
+  .filtros {
+    gap: 0.45rem;
+    padding: 0.55rem 0.65rem;
+  }
 }

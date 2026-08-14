@@ -1,17 +1,17 @@
 <mat-toolbar color="primary-fixed" class="header">
   <!-- Botón con logo -->
-  <button mat-icon-button [routerLink]="['/inicio']" class="logo-button" [matTooltip]="'TOOLTIP.INICIO' | translate">
+  <button mat-icon-button [routerLink]="['/inicio']" class="logo-button" [matTooltip]="'TOOLTIP.INICIO' | translate" [attr.aria-label]="'TOOLTIP.INICIO' | translate">
     <img src="logo.png" alt="Logo" class="logo-image" />
   </button>
 
   <!-- Menú -->
-  <button [matMenuTriggerFor]="menu1" mat-icon-button class="example-icon" [matTooltip]="'TOOLTIP.MENU' | translate">
+  <button [matMenuTriggerFor]="menu1" mat-icon-button class="example-icon" [matTooltip]="'TOOLTIP.MENU' | translate" [attr.aria-label]="'TOOLTIP.MENU' | translate">
     <mat-icon>menu</mat-icon>
   </button>
 
 
   <ng-container *ngIf="isAdmin()">
-  <button mat-icon-button [matTooltip]="'TOOLTIP.MANTENIMIENTOS' | translate" [matMenuTriggerFor]="menu2">
+  <button mat-icon-button [matTooltip]="'TOOLTIP.MANTENIMIENTOS' | translate" [attr.aria-label]="'TOOLTIP.MANTENIMIENTOS' | translate" [matMenuTriggerFor]="menu2">
     <mat-icon>save_as</mat-icon>
   </button>
   </ng-container>
@@ -66,14 +66,15 @@
         [matBadgeHidden]="cartItemCount() === 0"
         [routerLink]="['/carrito']"
         routerLinkActive="active-link"
-        [matTooltip]="'TOOLTIP.CARRITO' | translate">
+        [matTooltip]="'TOOLTIP.CARRITO' | translate"
+        [attr.aria-label]="'TOOLTIP.CARRITO' | translate">
   <mat-icon>shopping_cart</mat-icon>
 </button>
 </ng-container>
 
 <!-- Menú de Usuario -->
 <span class="small-text">{{ currentUser()?.correo }}</span>
-<button mat-icon-button [matMenuTriggerFor]="menu3">
+<button mat-icon-button [matMenuTriggerFor]="menu3" aria-label="Menú de usuario">
    <mat-icon>person</mat-icon>
 </button>
 

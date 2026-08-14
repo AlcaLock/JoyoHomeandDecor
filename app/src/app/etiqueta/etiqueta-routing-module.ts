@@ -4,7 +4,7 @@ import { EtiquetaAdmin } from './etiqueta-admin/etiqueta-admin';
 import { authGuard } from '../share/auth.guard';
 
 const routes: Routes = [
-  { path: 'etiqueta/admin', component: EtiquetaAdmin,
+  { path: 'admin', component: EtiquetaAdmin,
       canActivate: [authGuard],
       data: { roles: ['ADMIN'] },}
 ];

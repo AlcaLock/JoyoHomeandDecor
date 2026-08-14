@@ -7,6 +7,7 @@ import { AcercaDe } from './acerca-de/acerca-de';
 import { MatCardModule } from '@angular/material/card';
 import { TranslateModule } from '@ngx-translate/core';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { AppButton } from '../share/ui/button/button';
 
 @NgModule({
   declarations: [Inicio, AcercaDe],
@@ -16,6 +17,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     MatTooltipModule,
     HomeRoutingModule,
     MatCardModule,
+    AppButton,
   ],
 })
 export class HomeModule {}

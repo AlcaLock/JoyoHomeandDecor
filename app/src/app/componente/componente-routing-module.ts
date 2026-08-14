@@ -7,19 +7,19 @@ import { ComponenteUpdate } from './componente-update/componente-update';
 
 const routes: Routes = [
   {
-    path: 'componente/admin',
+    path: 'admin',
     component: ComponenteAdmin,
     canActivate: [authGuard],
     data: { roles: ['ADMIN'] },
   },
   {
-    path: 'componente/create',
+    path: 'create',
     component: ComponenteCreate,
     canActivate: [authGuard],
     data: { roles: ['ADMIN'] },
   },
   {
-    path: 'componente/update/:id',
+    path: 'update/:id',
     component: ComponenteUpdate,
     canActivate: [authGuard],
     data: { roles: ['ADMIN'] },

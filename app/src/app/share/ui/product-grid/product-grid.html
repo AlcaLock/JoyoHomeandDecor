@@ -1,0 +1,33 @@
+@if (products().length > 0) {
+  <div class="product-grid">
+    @for (product of products(); track product.id; let i = $index) {
+      @if (i < eagerCount()) {
+        <app-product-card
+          class="product-grid__item"
+          [product]="product"
+          [hideCta]="hideCta()"
+          (addToCart)="addToCart.emit($event)"
+          (viewDetail)="viewDetail.emit($event)"
+        />
+      } @else {
+        @defer (on viewport; prefetch on idle) {
+          <app-product-card
+            class="product-grid__item"
+            [product]="product"
+            [hideCta]="hideCta()"
+            (addToCart)="addToCart.emit($event)"
+            (viewDetail)="viewDetail.emit($event)"
+          />
+        } @placeholder (minimum 120ms) {
+          <div class="product-grid__skeleton" aria-hidden="true"></div>
+        } @loading (minimum 120ms) {
+          <div class="product-grid__skeleton" aria-hidden="true"></div>
+        }
+      }
+    }
+  </div>
+} @else {
+  <div class="product-grid__empty" role="status">
+    <p>{{ emptyMessage() }}</p>
+  </div>
+}

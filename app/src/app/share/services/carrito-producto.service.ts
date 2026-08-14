@@ -19,20 +19,26 @@ export class CarritoProductoService {
 
   public total = computed(() =>
     this._cartItems().reduce((sum, item) => {
-      let precio = 0;
+      const cantidad = Number(item.cantidad ?? 1);
+      const precioBase = Number(
+        item.precioUnitario ??
+          item.producto?.precio ??
+          item.personalizado?.productoBase?.precio ??
+          0
+      );
 
-      if (item.personalizadoId) {
-        // precioFinal ya viene por unidad, no por cantidad
-        const precioUnit = Number(item.personalizado?.precioFinal ?? 0);
-        precio = precioUnit * Number(item.cantidad ?? 1);
-      } else {
-        const precioUnit = Number(
-          item.precioUnitario ?? item.producto?.precio ?? 0
+      if (item.personalizado) {
+        const precioComponentes = (item.personalizado.componentes ?? []).reduce(
+          (acc, c) => acc + Number(c.componente?.precio ?? 0),
+          0
         );
-        precio = precioUnit * Number(item.cantidad ?? 1);
+        const precioUnitarioPersonalizado =
+          Number(item.personalizado.precioFinal ?? 0) ||
+          precioBase + precioComponentes;
+        return sum + precioUnitarioPersonalizado * cantidad;
       }
 
-      return sum + precio;
+      return sum + precioBase * cantidad;
     }, 0)
   );
 
@@ -58,18 +64,6 @@ export class CarritoProductoService {
       }
     });
 
-    effect(() => {
-      if (this.authService.isAuthenticatedSignal()) {
-        this.loadCartFromServer().subscribe({
-          next: (productos) => {
-            console.log('Carrito cargado automáticamente:', productos);
-          },
-          error: (err) => {
-            console.error('Error cargando carrito automáticamente:', err);
-          },
-        });
-      }
-    });
   }
 
   private get currentUserId(): number | null {
@@ -125,6 +119,7 @@ export class CarritoProductoService {
           if (!carrito) {
             throw new Error('Carrito no encontrado');
           }
+          this._currentCart.set(carrito);
           return (carrito.productos || []).map((p) => this.parseCartItem(p)); // 👈 parseo
         }),
         tap((serverItems: CarritoProductoModel[]) => {
@@ -162,7 +157,10 @@ export class CarritoProductoService {
         `${environment.apiURL}/${environment.endPointCarrito}/usuario/${this.currentUserId}`
       )
       .pipe(
-        map((carrito: CarritoModel) => carrito?.productos || []),
+        map((carrito: CarritoModel) => {
+          this._currentCart.set(carrito ?? null);
+          return (carrito?.productos || []).map((p) => this.parseCartItem(p));
+        }),
         tap((productos: CarritoProductoModel[]) => {
           this._cartItems.set(productos);
         }),
@@ -222,26 +220,22 @@ private mergeCarts(
         }
       )
       .pipe(
-        tap((updatedItem) => {
-          // Forzar precioUnitario correcto para que no salga calculado en la tabla
-          if (!updatedItem.precioUnitario) {
-            updatedItem.precioUnitario = updatedItem.producto?.precio ?? 0;
-          }
-
-          console.log('Producto agregado al carrito:', updatedItem);
+        map((updatedItem) => this.parseCartItem(updatedItem)),
+        tap((parsedItem) => {
+          console.log('Producto agregado al carrito:', parsedItem);
 
           this._cartItems.update((items) => {
             const existingIndex = items.findIndex(
               (item) =>
-                item.id === updatedItem.id ||
-                item.productoId === updatedItem.productoId
+                item.id === parsedItem.id ||
+                item.productoId === parsedItem.productoId
             );
 
             return existingIndex >= 0
               ? items.map((item, index) =>
-                  index === existingIndex ? updatedItem : item
+                  index === existingIndex ? parsedItem : item
                 )
-              : [...items, updatedItem];
+              : [...items, parsedItem];
           });
         }),
         catchError((error) => {
@@ -303,11 +297,7 @@ private mergeCarts(
           this._cartItems.update((items) =>
             items.map((item) =>
               item.id === itemId
-                ? {
-                    ...item,
-                    cantidad: parsedItem.cantidad,
-                    precioUnitario: parsedItem.precioUnitario,
-                  }
+                ? parsedItem
                 : item
             )
           );

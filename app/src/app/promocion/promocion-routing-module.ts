@@ -8,22 +8,22 @@ import { PromocionUpdate } from './promocion-update/promocion-update';
 import { authGuard } from '../share/auth.guard';
 
 const routes: Routes = [
-  { path: 'promocion', component: PromocionIndex },
+  { path: '', component: PromocionIndex },
   {
-    path: 'promocion/create',
+    path: 'create',
     component: PromocionCreate,
     canActivate: [authGuard],
     data: { roles: ['ADMIN'] },
   },
   {
-    path: 'promocion/admin',
+    path: 'admin',
     component: PromocionAdmin,
     canActivate: [authGuard],
     data: { roles: ['ADMIN'] },
   },
-  { path: 'promocion/:id', component: PromocionDetail },
+  { path: ':id', component: PromocionDetail },
   {
-    path: 'promocion/update/:id',
+    path: 'update/:id',
     component: PromocionUpdate,
     canActivate: [authGuard],
     data: { roles: ['ADMIN'] },

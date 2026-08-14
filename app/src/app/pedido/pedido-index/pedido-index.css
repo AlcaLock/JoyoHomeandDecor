@@ -1,105 +1,81 @@
-/* Contenedor general con fondo profesional */
 .grid-container {
-  min-height: 100vh;
-  padding: 2rem;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  width: min(1320px, 100%);
+  margin: 0 auto;
+  min-height: 60vh;
 }
 
-/* Lista de pedidos: 3 columnas exactas */
+.pedidos-title {
+  margin: 0 0 var(--space-5);
+  font-family: var(--font-display);
+  font-size: var(--text-3xl);
+  color: var(--color-ink);
+}
+
+/* Lista de pedidos: grid fluido, no columnas fijas */
 .pedidos-list {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 2rem;
-  justify-items: center;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: var(--space-5);
 }
 
-/* Tarjeta moderna con brillo, ahora sin bordes redondeados */
 .pedido-card {
   width: 100%;
-  max-width: 350px;
-  background: rgba(255, 255, 255, 0.08);
-  color: #ecf0f1;
-  padding: 1.5rem;
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
-  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s;
-  backdrop-filter: blur(8px);
+  background: var(--color-surface);
+  color: var(--color-ink);
+  padding: var(--space-4);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-1);
+  transition: transform var(--duration-base) var(--ease-standard), box-shadow var(--duration-base) var(--ease-standard);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  gap: var(--space-3);
 }
 
-/* Hover mejorado sin redondez */
 .pedido-card:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 14px 32px rgba(0, 0, 0, 0.3);
-  border-color: #00d2ff;
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-2);
 }
 
-
-/* Encabezado cuadrado */
 .pedido-card mat-card-header {
-  padding-bottom: 1rem;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding-bottom: var(--space-2);
+  border-bottom: 1px solid var(--color-border);
 }
 
 .pedido-card mat-card-title {
-  font-size: 1.3rem;
-  font-weight: 700;
-  color: #ffffff;
+  font-size: 1.2rem;
+  font-weight: var(--weight-bold);
+  color: var(--color-ink);
   margin: 0;
 }
 
 .pedido-card mat-card-subtitle {
-  font-size: 1rem;
-  color: #dcdde1;
-  font-weight: 500;
+  font-size: var(--text-sm);
+  color: var(--color-ink-soft);
+  font-weight: var(--weight-medium);
 }
 
 /* Contenido textual */
 .pedido-card mat-card-content p {
-  margin: 0.5rem 0;
-  font-size: 0.95rem;
-  color: #ecf0f1;
+  margin: 0.4rem 0;
+  font-size: var(--text-sm);
+  color: var(--color-ink-soft);
 }
 
-/* Acciones cuadradas */
-.pedido-card img {
-  width: 100%;       /* Ocupa todo el ancho del card */
-  height: 180px;     /* Altura fija, ajusta según convenga */
-  object-fit: cover; /* Recorta y mantiene proporción */
-  border-radius: 0;  /* Sin bordes redondeados, para que coincida con diseño */
-  display: block;    /* Evita espacios extra */
+.pedido-card mat-card-content strong {
+  color: var(--color-ink);
 }
 
-
-/* Botón cuadrado con efecto brillante */
-.pedido-card button {
-  background: linear-gradient(90deg, #ac883b, #f7b72c);
-  color: white;
-  padding: 0.6rem 1.2rem;
-  border: none;
-  border-radius: 0; /* Cuadrado */
-  font-weight: 600;
-  font-size: 0.95rem;
-  box-shadow: 0 4px 12px rgba(0, 114, 255, 0.3);
-  transition: background 0.3s ease, transform 0.2s ease;
+.pedido-card mat-card-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  padding-top: var(--space-2);
 }
 
-.pedido-card button:hover {
-  background: linear-gradient(90deg, #9c7d27, #b67e0f);
-  transform: scale(1.03);
-}
-
-/* Responsive: mantiene estructura */
-@media (max-width: 1024px) {
-  .pedidos-list {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-@media (max-width: 768px) {
-  .pedidos-list {
-    grid-template-columns: 1fr;
+@media (max-width: 480px) {
+  .pedido-card mat-card-actions app-button {
+    width: 100%;
   }
 }

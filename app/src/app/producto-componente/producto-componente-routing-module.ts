@@ -7,19 +7,19 @@ import { authGuard } from '../share/auth.guard';
 
 const routes: Routes = [
   {
-    path: 'productoComponente/admin',
+    path: 'admin',
     component: ProductoComponenteAdmin,
     canActivate: [authGuard],
     data: { roles: ['ADMIN'] },
   },
   {
-    path: 'productoComponente/create',
+    path: 'create',
     component: ProductoComponenteCreate,
     canActivate: [authGuard],
     data: { roles: ['ADMIN'] },
   },
   {
-    path: 'productoComponente/update/:id',
+    path: 'update/:id',
     component: ProductoComponenteUpdate,
     canActivate: [authGuard],
     data: { roles: ['ADMIN'] },

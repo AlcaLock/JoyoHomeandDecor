@@ -8,26 +8,26 @@ import { ProductoUpdate } from './producto-update/producto-update';
 import { authGuard } from '../share/auth.guard';
 
 const routes: Routes = [
-  { path: 'producto', component: ProductoIndex },
+  { path: '', component: ProductoIndex },
   {
-    path: 'producto/create',
+    path: 'create',
     component: ProductoCreate,
     canActivate: [authGuard],
     data: { roles: ['ADMIN'] },
   },
   {
-    path: 'producto/admin',
+    path: 'admin',
     component: ProductoAdmin,
     canActivate: [authGuard],
     data: { roles: ['ADMIN'] },
   },
   {
-    path: 'producto/update/:id',
+    path: 'update/:id',
     component: ProductoUpdate,
     canActivate: [authGuard],
     data: { roles: ['ADMIN'] },
   },
-  { path: 'producto/:id', component: ProductoDetail },
+  { path: ':id', component: ProductoDetail },
 ];
 
 @NgModule({

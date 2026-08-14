@@ -1,5 +1,5 @@
 <div class="grid-container">
-  <p>{{ 'pedidos.titulo' | translate }}</p>
+  <h1 class="pedidos-title">{{ 'pedidos.titulo' | translate }}</h1>
 
   <div class="pedidos-list" *ngIf="datos">
     <mat-card
@@ -27,29 +27,29 @@
 
 <mat-card-actions>
   <!-- Siempre se puede ver el detalle -->
-  <button mat-button color="primary" (click)="detallePedido(pedido.id)">
-    <span>{{ 'pedidos.verDetalle' | translate }}</span>
-  </button>
+  <app-button variant="primary" size="sm" (click)="detallePedido(pedido.id)">
+    {{ 'pedidos.verDetalle' | translate }}
+  </app-button>
 
   <!-- Botón de entregar solo para admin -->
-  <button
-    mat-button
-    color="warn"
+  <app-button
+    variant="secondary"
+    size="sm"
     *ngIf="isAdmin() && pedido.estado !== 'ENTREGADO'"
     (click)="entregarPedido(pedido)"
   >
     {{ 'pedidos.entregar' | translate }}
-  </button>
+  </app-button>
 
   <!-- Botón de pagar solo para clientes y si está pendiente de pago -->
-  <button
-    mat-button
-    color="accent"
+  <app-button
+    variant="secondary"
+    size="sm"
     *ngIf="!isAdmin() && pedido.estado === 'PENDIENTE_PAGO'"
     (click)="pagarPedido(pedido)"
   >
     {{ 'pedidos.pagar' | translate }}
-  </button>
+  </app-button>
 </mat-card-actions>
 
 

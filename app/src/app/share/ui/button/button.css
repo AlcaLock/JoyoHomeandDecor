@@ -1,0 +1,138 @@
+:host {
+  display: inline-flex;
+}
+
+:host(.app-button-host--full) {
+  display: flex;
+  width: 100%;
+}
+
+.app-btn {
+  width: 100%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  font-family: var(--font-body);
+  font-weight: var(--weight-semibold);
+  letter-spacing: 0.02em;
+  border-radius: var(--radius-pill);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background-color var(--duration-base) var(--ease-standard),
+    color var(--duration-base) var(--ease-standard),
+    box-shadow var(--duration-base) var(--ease-standard),
+    transform var(--duration-fast) var(--ease-standard);
+}
+
+.app-btn--full {
+  justify-content: center;
+}
+
+/* Tamaños */
+.app-btn--sm {
+  padding: 0.45rem 0.9rem;
+  font-size: var(--text-sm);
+}
+
+.app-btn--md {
+  padding: 0.75rem 1.5rem;
+  font-size: var(--text-base);
+}
+
+.app-btn--lg {
+  padding: 0.95rem 2rem;
+  font-size: var(--text-md);
+}
+
+/* Primario: CTA principal, sólido y con mayor peso visual */
+.app-btn--primary {
+  background: var(--color-brand);
+  color: var(--color-brand-contrast);
+  border: 1px solid transparent;
+  box-shadow: var(--shadow-1);
+}
+
+.app-btn--primary:hover:not(:disabled) {
+  background: var(--color-brand-strong);
+  box-shadow: var(--shadow-2);
+  transform: translateY(-1px);
+}
+
+.app-btn--primary:active:not(:disabled) {
+  background: var(--color-brand-dark);
+  transform: translateY(0);
+  box-shadow: var(--shadow-1);
+}
+
+/* Secundario: tonal, claramente subordinado al primario */
+.app-btn--secondary {
+  background: var(--color-accent-soft);
+  color: var(--color-accent-dark);
+  border: 1px solid var(--color-accent);
+}
+
+.app-btn--secondary:hover:not(:disabled) {
+  background: var(--color-accent);
+  color: var(--color-accent-contrast);
+}
+
+.app-btn--secondary:active:not(:disabled) {
+  background: var(--color-accent-dark);
+  color: var(--color-accent-contrast);
+}
+
+/* Terciario: texto/ghost, para acciones de bajo énfasis */
+.app-btn--tertiary {
+  background: transparent;
+  color: var(--color-ink-soft);
+  border: 1px solid var(--color-border-strong);
+}
+
+.app-btn--tertiary:hover:not(:disabled) {
+  background: var(--color-surface-strong);
+  color: var(--color-ink);
+}
+
+.app-btn--tertiary:active:not(:disabled) {
+  background: var(--color-border);
+}
+
+/* Danger: acciones destructivas (eliminar, vaciar carrito) */
+.app-btn--danger {
+  background: var(--color-danger);
+  color: #fff;
+  border: 1px solid transparent;
+}
+
+.app-btn--danger:hover:not(:disabled) {
+  filter: brightness(1.08);
+  box-shadow: var(--shadow-2);
+}
+
+.app-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  box-shadow: none;
+  transform: none;
+}
+
+.app-btn:focus-visible {
+  outline: 3px solid var(--color-focus);
+  outline-offset: 2px;
+}
+
+.app-btn__spinner {
+  width: 1em;
+  height: 1em;
+  border-radius: 50%;
+  border: 2px solid currentColor;
+  border-top-color: transparent;
+  animation: app-btn-spin var(--duration-slow) linear infinite;
+}
+
+@keyframes app-btn-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}

@@ -32,16 +32,16 @@ export class ProductoAdmin {
     private dialog: MatDialog
   ) {}
 
-  ngOnInit() {
-    // Configurar etiquetas del paginador
+  ngOnInit() {}
+
+  ngAfterViewInit(): void {
+    // @ViewChild solo resuelve aquí, no en ngOnInit.
     this.paginator._intl.itemsPerPageLabel = 'Items por página';
     this.paginator._intl.nextPageLabel = 'Siguiente';
     this.paginator._intl.previousPageLabel = 'Anterior';
     this.paginator._intl.firstPageLabel = 'Primera página';
     this.paginator._intl.lastPageLabel = 'Última página';
-  }
 
-  ngAfterViewInit(): void {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
     this.listarProductos();

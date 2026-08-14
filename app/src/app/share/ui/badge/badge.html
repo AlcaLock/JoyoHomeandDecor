@@ -1,0 +1,9 @@
+<span
+  class="app-badge"
+  [ngClass]="'app-badge--' + variant()"
+  [attr.role]="live() ? 'status' : null"
+  [attr.aria-live]="live() ? 'polite' : null"
+>
+  <ng-content select="[app-badge-icon]" />
+  <span class="app-badge__label"><ng-content /></span>
+</span>

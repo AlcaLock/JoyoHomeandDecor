@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { DOCUMENT } from '@angular/common';
+import { Inject } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 
 @Component({
@@ -12,7 +14,7 @@ export class Footer {
   currentLanguage: string;
   dateFormat: string = 'dd/MM/yyyy'; // predeterminado español
 
-  constructor(public translate: TranslateService) {
+  constructor(public translate: TranslateService, @Inject(DOCUMENT) private document: Document) {
     const savedLang = localStorage.getItem('userLanguage');
     const defaultLang = savedLang || 'es';
 
@@ -21,6 +23,7 @@ export class Footer {
     this.currentLanguage = defaultLang;
 
     this.updateDateFormat(defaultLang);
+    this.document.documentElement.lang = defaultLang;
   }
 
   changeLanguage(lang: string): void {
@@ -29,6 +32,7 @@ export class Footer {
     localStorage.setItem('userLanguage', lang);
 
     this.updateDateFormat(lang);
+    this.document.documentElement.lang = lang;
   }
 
   private updateDateFormat(lang: string) {

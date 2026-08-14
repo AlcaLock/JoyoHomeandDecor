@@ -31,10 +31,10 @@ import { TranslateService } from '@ngx-translate/core';
 })
 export class CarritoIndex implements OnInit, OnDestroy {
   private destroy$ = new Subject<boolean>();
+  private lastLoadedUserId: number | null = null;
 
   cantidadInputs: { [key: number]: string } = {};
 
-  usuarioLogueadoId = 2;
   loading = true;
   metodoPago: 'EFECTIVO' | 'TARJETA' = 'EFECTIVO';
   today = new Date();
@@ -76,20 +76,23 @@ export class CarritoIndex implements OnInit, OnDestroy {
   ) {
     effect(() => {
       const usuario = this.authService.currentUserSignal();
-      if (usuario) {
-        // Solo cargar carrito cuando el usuario ya está definido
+      if (usuario?.id && this.lastLoadedUserId !== usuario.id) {
         this.loadCarritoWithPersistence();
       }
     });
   }
 
   ngOnInit(): void {
-    this.loadCarritoWithPersistence();
+    const usuario = this.authService.currentUserSignal();
+    if (usuario?.id && this.lastLoadedUserId !== usuario.id) {
+      this.loadCarritoWithPersistence();
+    }
   }
 
   private loadCarritoWithPersistence(): void {
     const usuario = this.authService.currentUserSignal();
     if (!usuario?.id) return;
+    this.lastLoadedUserId = usuario.id;
     this.usuario = usuario; // <--- esto faltaba
     this.loading = true;
 
@@ -147,10 +150,6 @@ export class CarritoIndex implements OnInit, OnDestroy {
           this.carritoProductoService.setTempItems(parsedItems);
 
           this.loading = false;
-          this.noti.success(
-            this.translate.instant('NOTIFICATIONS.SUCCESS'),
-            this.translate.instant('NOTIFICATIONS.CART_UPDATED')
-          );
         },
         error: (err) => {
           console.error('Error al cargar carrito:', err);
@@ -597,6 +596,31 @@ export class CarritoIndex implements OnInit, OnDestroy {
     }
 
     return resultado;
+  }
+
+  getItemUnitPrice(item: CarritoProductoModel): number {
+    if (item.personalizado) {
+      const precioBase = Number(
+        item.precioUnitario ?? item.personalizado.productoBase?.precio ?? 0
+      );
+      const precioComponentes = (item.personalizado.componentes ?? []).reduce(
+        (acc, c) => acc + Number(c.componente?.precio ?? 0),
+        0
+      );
+
+      return Number(item.personalizado.precioFinal ?? 0) ||
+        precioBase + precioComponentes;
+    }
+
+    return Number(item.precioUnitario ?? item.producto?.precio ?? 0);
+  }
+
+  getItemSubtotal(item: CarritoProductoModel): number {
+    return this.getItemUnitPrice(item) * Number(item.cantidad ?? 1);
+  }
+
+  getItemTax(item: CarritoProductoModel): number {
+    return this.getItemSubtotal(item) * 0.13;
   }
 
   crearPedido(): void {

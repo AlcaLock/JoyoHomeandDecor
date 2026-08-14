@@ -1,0 +1,73 @@
+<article class="product-card">
+  <div class="product-card__media">
+    @if (product().badges?.length) {
+      <div class="product-card__badges">
+        @for (badge of product().badges; track badge.label) {
+          <app-badge [variant]="badge.variant">{{ badge.label }}</app-badge>
+        }
+      </div>
+    }
+
+    <img
+      class="product-card__image product-card__image--base"
+      [src]="product().imageUrl"
+      [alt]="product().name"
+      loading="lazy"
+      decoding="async"
+    />
+
+    @if (product().hoverImageUrl) {
+      <img
+        class="product-card__image product-card__image--hover"
+        [src]="product().hoverImageUrl"
+        alt=""
+        aria-hidden="true"
+        loading="lazy"
+        decoding="async"
+      />
+    }
+  </div>
+
+  <div class="product-card__body">
+    <button
+      type="button"
+      class="product-card__title-link"
+      (click)="viewDetail.emit(product().id)"
+    >
+      <h3 class="product-card__title">{{ product().name }}</h3>
+    </button>
+
+    @if (product().rating) {
+      <div class="product-card__rating" [attr.aria-label]="'Valoración ' + product().rating + ' de 5'">
+        @for (filled of stars(); track $index) {
+          <span class="product-card__star" [class.product-card__star--filled]="filled" aria-hidden="true">★</span>
+        }
+        @if (product().reviewCount) {
+          <span class="product-card__review-count">({{ product().reviewCount }})</span>
+        }
+      </div>
+    }
+
+    <div class="product-card__footer">
+      <div class="product-card__price-row">
+        @if (hasDiscount()) {
+          <span class="product-card__price product-card__price--original">{{ formattedPrice() }}</span>
+          <span class="product-card__price product-card__price--promo">{{ formattedPromoPrice() }}</span>
+        } @else {
+          <span class="product-card__price">{{ formattedPrice() }}</span>
+        }
+      </div>
+
+      <app-button
+        variant="primary"
+        size="md"
+        [fullWidth]="true"
+        [disabled]="outOfStock()"
+        [hidden]="hideCta()"
+        (click)="addToCart.emit(product().id)"
+      >
+        {{ outOfStock() ? 'Agotado' : 'Añadir al carrito' }}
+      </app-button>
+    </div>
+  </div>
+</article>

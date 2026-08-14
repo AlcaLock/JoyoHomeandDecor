@@ -64,7 +64,7 @@
 
 .review-card .review-comment {
   font-size: 1em;
-  color: #ffffff;
+  color: var(--color-ink);
   margin-bottom: 10px;
 }
 
@@ -79,6 +79,7 @@
   font-size: 1em;
   font-weight: 600;
   margin-right: 10px;
+  color: var(--color-ink);
 }
 
 .review-card .stars {

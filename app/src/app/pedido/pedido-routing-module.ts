@@ -5,9 +5,9 @@ import { PedidoAdmin } from './pedido-admin/pedido-admin';
 import { PedidoDetail } from './pedido-detail/pedido-detail';
 
 const routes: Routes = [
-  { path: 'pedido', component: PedidoIndex },
-  { path: 'pedido-admin', component: PedidoAdmin },
-  { path: 'pedido/:id', component: PedidoDetail },
+  { path: '', component: PedidoIndex },
+  { path: 'admin', component: PedidoAdmin },
+  { path: ':id', component: PedidoDetail },
 ];
 
 @NgModule({

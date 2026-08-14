@@ -1,300 +1,291 @@
-<mat-card class="cart-container">
-  <mat-card-header>
-    <mat-card-title>
-      <h2 class="cart-title">{{ 'CART.REGISTRATION_TITLE' | translate }}</h2>
-    </mat-card-title>
-    <mat-card-subtitle>
-      <div class="order-header">
-        <div>
-  {{ 'CART.DATE' | translate }}: {{ today | date:'shortDate':undefined:currentLang }}
-</div>
-        <!-- Sección de datos del cliente -->
-        <div class="customer-info" *ngIf="usuario">
-          <div class="customer-fields">
-            <div>
-              <strong>{{ 'CART.CLIENT' | translate }}: {{ usuario.nombre }} </strong>
-            </div>
-            <div><strong>{{ 'CART.EMAIL' | translate }}: {{ usuario.correo}}</strong></div>
-          </div>
-
-          <!-- Dirección de envío -->
-          <mat-form-field appearance="outline" class="address-field">
-            <mat-label>{{ 'CART.SHIPPING_ADDRESS' | translate }}</mat-label>
-            <textarea matInput [(ngModel)]="direccionEnvio" required></textarea>
-          </mat-form-field>
-
-          <!-- Selección de método de pago -->
-          <mat-card-content class="payment-method">
-            <mat-label>{{ 'CART.PAYMENT_METHOD' | translate }}</mat-label>
-            <mat-radio-group [(ngModel)]="metodoPago">
-              <mat-radio-button [value]="'EFECTIVO'">{{ 'CART.PAY_CASH' | translate }}</mat-radio-button>
-              <mat-radio-button [value]="'TARJETA'">{{ 'CART.PAY_CARD' | translate }}</mat-radio-button>
-            </mat-radio-group>
-          </mat-card-content>
-
-          <!-- Estado del pedido -->
-          <div class="order-status">
-            <strong>{{ 'CART.CURRENT_STATUS' | translate }}:</strong> {{ getEstadoLegible(estadoPedido) }}
-          </div>
-        </div>
-      </div>
-    </mat-card-subtitle>
-  </mat-card-header>
-
-  <mat-divider></mat-divider>
+<div class="cart-page">
+  <h1 class="cart-page__title">{{ 'CART.REGISTRATION_TITLE' | translate }}</h1>
+  <p class="cart-page__date">
+    {{ 'CART.DATE' | translate }}: {{ today | date:'shortDate':undefined:currentLang }}
+  </p>
 
   @if (loading) {
   <div class="loading-spinner">
-    <mat-progress-spinner
-      mode="indeterminate"
-      diameter="50"
-    ></mat-progress-spinner>
+    <mat-progress-spinner mode="indeterminate" diameter="50"></mat-progress-spinner>
   </div>
   } @else { @if (items.length > 0) {
-  <mat-card-content>
-    <div class="table-responsive">
-      <table mat-table [dataSource]="items" class="cart-table mat-elevation-z1">
-        <!-- Columna Imagen -->
-        <ng-container matColumnDef="image">
-          <th mat-header-cell *matHeaderCellDef></th>
-          <td mat-cell *matCellDef="let item">
-            <div class="item-image">
-              <!-- Para productos normales -->
-              @if (item.producto?.imagenes?.[0]?.url) {
-              <img
-                [src]="item.producto.imagenes[0].url"
-                [alt]="item.producto.nombre"
-                class="product-image"
-                (error)="onImageError($event)"
-              />
-              } 
+  <div class="cart-layout">
+    <!-- Columna principal: ítems del carrito -->
+    <section class="cart-main">
+      <div class="table-responsive">
+        <table mat-table [dataSource]="items" class="cart-table mat-elevation-z1">
+          <!-- Columna Imagen -->
+          <ng-container matColumnDef="image">
+            <th mat-header-cell *matHeaderCellDef></th>
+            <td mat-cell *matCellDef="let item">
+              <div class="item-image">
+                <!-- Para productos normales -->
+                @if (item.producto?.imagenes?.[0]?.url) {
+                <img
+                  [src]="item.producto.imagenes[0].url"
+                  [alt]="item.producto.nombre"
+                  class="product-image"
+                  loading="lazy"
+                  decoding="async"
+                  (error)="onImageError($event)"
+                />
+                } 
 
-              <!-- Para productos personalizados -->
-              @if (item.personalizado?.productoBase?.imagenes?.[0]?.url) {
-              <img
-                [src]="item.personalizado.productoBase.imagenes[0].url"
-                [alt]="item.personalizado.productoBase.nombre"
-                class="product-image"
-                (error)="onImageError($event)"
-              />
-              }
-            </div>
-          </td>
-        </ng-container>
+                <!-- Para productos personalizados -->
+                @if (item.personalizado?.productoBase?.imagenes?.[0]?.url) {
+                <img
+                  [src]="item.personalizado.productoBase.imagenes[0].url"
+                  [alt]="item.personalizado.productoBase.nombre"
+                  class="product-image"
+                  loading="lazy"
+                  decoding="async"
+                  (error)="onImageError($event)"
+                />
+                }
+              </div>
+            </td>
+          </ng-container>
 
-        <!-- Producto Columna -->
-        <ng-container matColumnDef="product">
-          <th mat-header-cell *matHeaderCellDef>{{ 'CART.PRODUCT' | translate }}</th>
-          <td mat-cell *matCellDef="let item">
-            <div class="item-details">
-              <h3 class="product-name">
-                {{ item.producto?.nombre ||
-                item.personalizado?.productoBase?.nombre || ('CART.PRODUCT' | translate) }}
-              </h3>
+          <!-- Producto Columna -->
+          <ng-container matColumnDef="product">
+            <th mat-header-cell *matHeaderCellDef>{{ 'CART.PRODUCT' | translate }}</th>
+            <td mat-cell *matCellDef="let item">
+              <div class="item-details">
+                <h3 class="product-name">
+                  {{ item.producto?.nombre ||
+                  item.personalizado?.productoBase?.nombre || ('CART.PRODUCT' | translate) }}
+                </h3>
 
-              @if (item.personalizado) {
-              <div class="custom-product-details" *ngIf="item.personalizado">
-                <p class="custom-config">
-                  <mat-icon>build</mat-icon> {{ 'CART.CUSTOM_PRODUCT' | translate }}
-                </p>
-                <p>
-                  <strong>{{ 'CART.BASE_PRODUCT' | translate }}:</strong> {{
-                  item.personalizado.productoBase?.nombre }}
-                </p>
-                <p>
-                  <strong>{{ 'CART.CONFIGURATION' | translate }}:</strong> {{
-                  item.personalizado.configuracion }}
-                </p>
-                <p>
-                  {{ 'CART.BASE_COST' | translate }}: {{ getPrecioCRC(item.personalizado.precioBase) }}
-                </p>
+                @if (item.personalizado) {
+                <div class="custom-product-details" *ngIf="item.personalizado">
+                  <p class="custom-config">
+                    <mat-icon>build</mat-icon> {{ 'CART.CUSTOM_PRODUCT' | translate }}
+                  </p>
+                  <p>
+                    <strong>{{ 'CART.BASE_PRODUCT' | translate }}:</strong> {{
+                    item.personalizado.productoBase?.nombre }}
+                  </p>
+                  <p>
+                    <strong>{{ 'CART.CONFIGURATION' | translate }}:</strong> {{
+                    item.personalizado.configuracion }}
+                  </p>
+                  <p>
+                    {{ 'CART.BASE_COST' | translate }}: {{ getPrecioCRC(item.personalizado.precioBase) }}
+                  </p>
 
-                <div *ngIf="item.personalizado.componentes?.length">
-                  <strong>{{ 'CART.COMPONENTS' | translate }}:</strong>
-                  <ul>
-                    <li *ngFor="let c of item.personalizado.componentes">
-                      {{ c.componente?.nombre }}: +{{
-                      getPrecioCRC(c.componente?.precio) }}
-                    </li>
-                  </ul>
+                  <div *ngIf="item.personalizado.componentes?.length">
+                    <strong>{{ 'CART.COMPONENTS' | translate }}:</strong>
+                    <ul>
+                      <li *ngFor="let c of item.personalizado.componentes">
+                        {{ c.componente?.nombre }}: +{{
+                        getPrecioCRC(c.componente?.precio) }}
+                      </li>
+                    </ul>
+                  </div>
+
+                  <p class="custom-total">
+                    <strong>{{ 'CART.TOTAL_CUSTOM' | translate }}:</strong>
+                    {{ getPrecioCRC(item.personalizado.precioTotalPersonalizado) }}
+                  </p>
                 </div>
 
-                <p class="custom-total">
-                  <strong>{{ 'CART.TOTAL_CUSTOM' | translate }}:</strong>
-                  {{ getPrecioCRC(item.personalizado.precioTotalPersonalizado) }}
+                } @else {
+                <p class="item-description">
+                  {{ item.producto?.descripcion || ('CART.NO_DESCRIPTION' | translate) | slice:0:100 }}
                 </p>
+                }
               </div>
+            </td>
+          </ng-container>
 
-              } @else {
-              <p class="item-description">
-                {{ item.producto?.descripcion || ('CART.NO_DESCRIPTION' | translate) | slice:0:100 }}
-              </p>
-              }
-            </div>
-          </td>
-        </ng-container>
+          <!-- Precio Columna -->
+          <ng-container matColumnDef="price">
+            <th mat-header-cell *matHeaderCellDef class="text-right">
+              {{ 'CART.UNIT_PRICE' | translate }}
+            </th>
+            <td mat-cell *matCellDef="let item" class="text-right">
+              <span class="price">
+                {{ item.personalizado ?
+                getPrecioCRC(item.personalizado.precioTotalPersonalizado) :
+                getPrecioCRC(item.precioUnitario) }}
+              </span>
+            </td>
+          </ng-container>
 
-        <!-- Precio Columna -->
-        <ng-container matColumnDef="price">
-          <th mat-header-cell *matHeaderCellDef class="text-right">
-            {{ 'CART.UNIT_PRICE' | translate }}
-          </th>
-          <td mat-cell *matCellDef="let item" class="text-right">
-            <span class="price">
-              {{ item.personalizado ?
-              getPrecioCRC(item.personalizado.precioTotalPersonalizado) :
-              getPrecioCRC(item.precioUnitario) }}
-            </span>
-          </td>
-        </ng-container>
+          <ng-container matColumnDef="quantity">
+            <th mat-header-cell *matHeaderCellDef class="text-center">
+              {{ 'CART.QUANTITY' | translate }}
+            </th>
+            <td mat-cell *matCellDef="let item" class="text-center">
+              <div class="quantity-control">
+                <button
+                  mat-icon-button
+                  (click)="updateQuantity(item.id, item.cantidad - 1)"
+                  [disabled]="item.cantidad <= 1"
+                  [attr.aria-label]="'CART.QUANTITY' | translate"
+                >
+                  <mat-icon>remove</mat-icon>
+                </button>
 
-        <ng-container matColumnDef="quantity">
-          <th mat-header-cell *matHeaderCellDef class="text-center">
-            {{ 'CART.QUANTITY' | translate }}
-          </th>
-          <td mat-cell *matCellDef="let item" class="text-center">
-            <div class="quantity-control">
-              <button
-                mat-icon-button
-                (click)="updateQuantity(item.id, item.cantidad - 1)"
-                [disabled]="item.cantidad <= 1"
-              >
-                <mat-icon>remove</mat-icon>
+                <mat-form-field appearance="outline" class="quantity-input">
+                  <input
+                    matInput
+                    type="number"
+                    [value]="cantidadInputs[item?.id] ?? item?.cantidad"
+                    (input)="onQuantityInputChange(item?.id!, $any($event.target).value)"
+                    (blur)="handleQuantityInput(item?.id!, $event)"
+                    (keyup.enter)="handleQuantityInput(item?.id!, $event)"
+                    placeholder="{{ 'CART.QUANTITY' | translate }}"
+                  />
+                </mat-form-field>
+
+                <button
+                  mat-icon-button
+                  (click)="updateQuantity(item.id, item.cantidad + 1)"
+                  [attr.aria-label]="'CART.QUANTITY' | translate"
+                >
+                  <mat-icon>add</mat-icon>
+                </button>
+              </div>
+            </td>
+          </ng-container>
+
+          <!-- Total Columna -->
+          <ng-container matColumnDef="total">
+            <th mat-header-cell *matHeaderCellDef class="text-right">{{ 'CART.SUBTOTAL' | translate }}</th>
+            <td mat-cell *matCellDef="let item" class="text-right">
+              {{ getPrecioCRC(getItemSubtotal(item)) }}
+            </td>
+          </ng-container>
+
+          <!-- Impuesto Columna -->
+          <ng-container matColumnDef="tax">
+            <th mat-header-cell *matHeaderCellDef class="text-right">{{ 'CART.TAX' | translate }}</th>
+            <td mat-cell *matCellDef="let item" class="text-right">
+              {{ getPrecioCRC(getItemTax(item)) }}
+            </td>
+          </ng-container>
+
+          <!-- Acciones Columna -->
+          <ng-container matColumnDef="actions">
+            <th mat-header-cell *matHeaderCellDef></th>
+            <td mat-cell *matCellDef="let item" class="actions-cell">
+              <button mat-icon-button color="warn" (click)="removeItem(item.id)" [attr.aria-label]="'CART.PRODUCT' | translate">
+                <mat-icon>delete</mat-icon>
               </button>
 
-              <mat-form-field appearance="outline" class="quantity-input">
-                <input
-                  matInput
-                  type="number"
-                  [value]="cantidadInputs[item?.id] ?? item?.cantidad"
-                  (input)="onQuantityInputChange(item?.id!, $any($event.target).value)"
-                  (blur)="handleQuantityInput(item?.id!, $event)"
-                  (keyup.enter)="handleQuantityInput(item?.id!, $event)"
-                  placeholder="{{ 'CART.QUANTITY' | translate }}"
-                />
-              </mat-form-field>
-
               <button
                 mat-icon-button
-                (click)="updateQuantity(item.id, item.cantidad + 1)"
+                color="primary"
+                *ngIf="item.personalizado"
+                (click)="editarProductoPersonalizado(item)"
+                [attr.aria-label]="'CART.CUSTOM_PRODUCT' | translate"
               >
-                <mat-icon>add</mat-icon>
+                <mat-icon>edit</mat-icon>
               </button>
-            </div>
-          </td>
-        </ng-container>
+            </td>
+          </ng-container>
 
-        <!-- Total Columna -->
-        <ng-container matColumnDef="total">
-          <th mat-header-cell *matHeaderCellDef class="text-right">{{ 'CART.SUBTOTAL' | translate }}</th>
-          <td mat-cell *matCellDef="let item" class="text-right">
-            {{ item.personalizado ? getPrecioCRC((item.personalizado.precioFinal
-            ?? 0) * item.cantidad) : getPrecioCRC((item.precioUnitario ?? 0) *
-            item.cantidad) }}
-          </td>
-        </ng-container>
-
-        <!-- Impuesto Columna -->
-        <ng-container matColumnDef="tax">
-          <th mat-header-cell *matHeaderCellDef class="text-right">{{ 'CART.TAX' | translate }}</th>
-          <td mat-cell *matCellDef="let item" class="text-right">
-            {{ item.personalizado ? getPrecioCRC((item.personalizado.precioFinal
-            ?? 0) * item.cantidad * 0.13) : getPrecioCRC((item.precioUnitario ?? 0) * item.cantidad * 0.13) }}
-          </td>
-        </ng-container>
-
-        <!-- Acciones Columna -->
-        <ng-container matColumnDef="actions">
-          <th mat-header-cell *matHeaderCellDef></th>
-          <td mat-cell *matCellDef="let item" class="actions-cell">
-            <button mat-icon-button color="warn" (click)="removeItem(item.id)">
-              <mat-icon>delete</mat-icon>
-            </button>
-
-            <button
-              mat-icon-button
-              color="primary"
-              *ngIf="item.personalizado"
-              (click)="editarProductoPersonalizado(item)"
-            >
-              <mat-icon>edit</mat-icon>
-            </button>
-          </td>
-        </ng-container>
-
-        <!-- Definición de filas -->
-        <tr
-          mat-header-row
-          *matHeaderRowDef="['image', 'product', 'price', 'quantity', 'total', 'tax', 'actions']"
-        ></tr>
-        <tr
-          mat-row
-          *matRowDef="let row; columns: ['image', 'product', 'price', 'quantity', 'total', 'tax', 'actions']"
-        ></tr>
-      </table>
-    </div>
-
-    <div class="cart-summary mat-elevation-z1">
-      <div class="summary-row">
-        <span>{{ 'CART.SUBTOTAL' | translate }}:</span>
-        <span>{{ getPrecioCRC(total) }}</span>
+          <!-- Definición de filas -->
+          <tr
+            mat-header-row
+            *matHeaderRowDef="['image', 'product', 'price', 'quantity', 'total', 'tax', 'actions']"
+          ></tr>
+          <tr
+            mat-row
+            *matRowDef="let row; columns: ['image', 'product', 'price', 'quantity', 'total', 'tax', 'actions']"
+          ></tr>
+        </table>
       </div>
-      <div class="summary-row">
-        <span>{{ 'CART.TAXES_13' | translate }}:</span>
-        <span>{{ getPrecioCRC(getImpuesto) }}</span>
+
+      <app-button variant="secondary" size="sm" (click)="agregarProductoPersonalizado()">
+        Agregar producto personalizado
+      </app-button>
+    </section>
+
+    <!-- Columna lateral: datos de envío + resumen + checkout -->
+    <aside class="cart-side">
+      <div class="cart-side__card" *ngIf="usuario">
+        <h2 class="cart-side__heading">{{ 'CART.CLIENT' | translate }}</h2>
+        <div class="customer-fields">
+          <div><strong>{{ usuario.nombre }}</strong></div>
+          <div>{{ usuario.correo }}</div>
+        </div>
+
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>{{ 'CART.SHIPPING_ADDRESS' | translate }}</mat-label>
+          <textarea matInput [(ngModel)]="direccionEnvio" required></textarea>
+        </mat-form-field>
+
+        <div class="payment-method">
+          <span class="cart-side__label">{{ 'CART.PAYMENT_METHOD' | translate }}</span>
+          <mat-radio-group [(ngModel)]="metodoPago">
+            <mat-radio-button [value]="'EFECTIVO'">{{ 'CART.PAY_CASH' | translate }}</mat-radio-button>
+            <mat-radio-button [value]="'TARJETA'">{{ 'CART.PAY_CARD' | translate }}</mat-radio-button>
+          </mat-radio-group>
+        </div>
+
+        <div class="order-status">
+          <strong>{{ 'CART.CURRENT_STATUS' | translate }}:</strong> {{ getEstadoLegible(estadoPedido) }}
+        </div>
       </div>
-      <mat-divider></mat-divider>
-      <div class="summary-row total">
-        <span>{{ 'CART.TOTAL_WITH_TAX' | translate }}:</span>
-        <span>{{ getPrecioCRC(total + getImpuesto) }}</span>
+
+      <div class="cart-side__card cart-summary">
+        <div class="summary-row">
+          <span>{{ 'CART.SUBTOTAL' | translate }}:</span>
+          <span>{{ getPrecioCRC(total) }}</span>
+        </div>
+        <div class="summary-row">
+          <span>{{ 'CART.TAXES_13' | translate }}:</span>
+          <span>{{ getPrecioCRC(getImpuesto) }}</span>
+        </div>
+        <mat-divider></mat-divider>
+        <div class="summary-row total">
+          <span>{{ 'CART.TOTAL_WITH_TAX' | translate }}:</span>
+          <span>{{ getPrecioCRC(total + getImpuesto) }}</span>
+        </div>
       </div>
-    </div>
-  </mat-card-content>
+
+      <div class="cart-side__actions">
+        <app-button
+          variant="primary"
+          size="lg"
+          [fullWidth]="true"
+          [disabled]="!carritoValido()"
+          (click)="crearPedido()"
+        >
+          {{ 'CART.REGISTER_ORDER' | translate }}
+        </app-button>
+
+        <app-button
+          variant="tertiary"
+          size="sm"
+          [fullWidth]="true"
+          [disabled]="!carritoValido()"
+          (click)="guardarCarrito()"
+        >
+          {{ 'CART.SAVE_CART' | translate }}
+        </app-button>
+
+        <app-button variant="tertiary" size="sm" [fullWidth]="true" (click)="clearCart()">
+          {{ 'CART.CLEAR_CART' | translate }}
+        </app-button>
+      </div>
+    </aside>
+  </div>
   } @else {
-  <mat-card-content class="empty-cart">
+  <div class="empty-cart">
     <mat-icon class="empty-icon">remove_shopping_cart</mat-icon>
-    <h3>{{ 'CART.EMPTY_TITLE' | translate }}</h3>
+    <h2>{{ 'CART.EMPTY_TITLE' | translate }}</h2>
     <p>{{ 'CART.EMPTY_TEXT' | translate }}</p>
-    <button mat-raised-button color="primary" routerLink="/producto">
-      <mat-icon>store</mat-icon>
-      {{ 'CART.VIEW_PRODUCTS' | translate }}
-    </button>
-  </mat-card-content>
-  }
-
-  <button
-    mat-raised-button
-    color="primary"
-    (click)="guardarCarrito()"
-    [disabled]="!carritoValido()"
-  >
-    <mat-icon>save</mat-icon>
-    {{ 'CART.SAVE_CART' | translate }}
-  </button>
-
-  <mat-card-actions class="cart-actions">
-    <button
-      mat-raised-button
-      color="accent"
-      (click)="agregarProductoPersonalizado()"
-    >
-      <mat-icon>build</mat-icon>
-      {{ 'CART.ADD_CUSTOM_PRODUCT' | translate }}
-    </button>
-
-    <button mat-stroked-button (click)="clearCart()">
-      <mat-icon>delete_sweep</mat-icon>
-      {{ 'CART.CLEAR_CART' | translate }}
-    </button>
-    <button
-      mat-raised-button
-      color="primary"
-      (click)="crearPedido()"
-      [disabled]="!carritoValido "
-    >
-      <mat-icon>check_circle</mat-icon>
-      {{ 'CART.REGISTER_ORDER' | translate }}
-    </button>
-  </mat-card-actions>
-  }
-</mat-card>
+    <div class="empty-cart__actions">
+      <app-button variant="primary" routerLink="/producto">
+        {{ 'CART.VIEW_PRODUCTS' | translate }}
+      </app-button>
+      <app-button variant="secondary" (click)="agregarProductoPersonalizado()">
+        Agregar producto personalizado
+      </app-button>
+    </div>
+  </div>
+  } }
+</div>

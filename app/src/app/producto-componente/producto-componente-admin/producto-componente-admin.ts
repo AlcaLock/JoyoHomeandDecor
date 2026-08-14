@@ -33,15 +33,16 @@ export class ProductoComponenteAdmin implements OnInit, OnDestroy {
     private translate: TranslateService
   ) {}
 
-  ngOnInit() {
+  ngOnInit() {}
+
+  ngAfterViewInit(): void {
+    // @ViewChild solo resuelve aquí, no en ngOnInit.
     this.paginator._intl.itemsPerPageLabel = 'Items por página';
     this.paginator._intl.nextPageLabel = 'Siguiente';
     this.paginator._intl.previousPageLabel = 'Anterior';
     this.paginator._intl.firstPageLabel = 'Primera página';
     this.paginator._intl.lastPageLabel = 'Última página';
-  }
 
-  ngAfterViewInit(): void {
     this.dataSource = new MatTableDataSource(this.relaciones);
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;

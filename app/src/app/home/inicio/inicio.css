@@ -1,182 +1,146 @@
-/* Contenedor full screen con fondo degradado moderno */
 .home-landing {
-  min-height: 100vh;
-  width: 100vw;
-background: linear-gradient(135deg, 
-  rgba(15, 32, 39, 0.5), 
-  rgba(32, 58, 67, 0.5), 
-  rgba(44, 83, 100, 0.5));
-
-  display: flex;
-  flex-direction: column;
+  width: min(1240px, 100%);
+  margin: 0 auto;
+  min-height: calc(100vh - 180px);
+  padding: clamp(1rem, 2.5vw, 2rem);
+  border-radius: 26px;
+  background:
+    radial-gradient(circle at 86% 16%, rgba(153, 114, 83, 0.24), transparent 34%),
+    radial-gradient(circle at 16% 84%, rgba(203, 176, 127, 0.2), transparent 38%),
+    linear-gradient(145deg, #f7eddf, #efe0cc 58%, #e7d4bc);
+  border: 1px solid rgba(140, 101, 72, 0.22);
+  box-shadow: 0 22px 34px rgba(83, 50, 30, 0.16);
+  display: grid;
+  grid-template-columns: 1.1fr 1.4fr;
   align-items: center;
-  justify-content: center;
-  padding: 3rem 1rem;
-  box-sizing: border-box;
-  color: #e0e7ff;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  text-align: center;
-  overflow-x: hidden;
+  gap: clamp(1.2rem, 3vw, 2.5rem);
+  position: relative;
+  overflow: hidden;
 }
 
-/* Banner con logo grande, centrado y con sombra */
+.home-landing::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    -28deg,
+    rgba(255, 240, 218, 0.26) 0,
+    rgba(255, 240, 218, 0.26) 11px,
+    rgba(255, 240, 218, 0.05) 11px,
+    rgba(255, 240, 218, 0.05) 28px
+  );
+  pointer-events: none;
+}
+
+.home-banner,
+.home-content {
+  position: relative;
+  z-index: 2;
+}
+
 .home-banner {
-  width: 100%;
-  max-width: 480px;
-  margin-bottom: 2rem;
-  filter: drop-shadow(0 8px 6px rgba(0, 188, 212, 0.6));
-  animation: fadeInDown 1s ease forwards;
+  margin: 0;
+  padding: clamp(1rem, 2vw, 1.5rem);
+  border-radius: 20px;
+  background: linear-gradient(155deg, rgba(255, 250, 241, 0.95), rgba(239, 224, 200, 0.82));
+  border: 1px solid rgba(122, 87, 61, 0.2);
+  box-shadow: 0 14px 30px rgba(88, 55, 35, 0.18);
+  animation: riseIn 650ms ease both;
 }
 
 .home-logo {
   width: 100%;
-  border-radius: 16px;
+  max-height: 300px;
   object-fit: contain;
-  box-shadow: 0 4px 25px rgba(0, 188, 212, 0.7);
-  border: 4px solid #00bcd4;
-  background: #061821;
+  border-radius: 14px;
 }
 
-/* Título principal con estilo y efecto */
+.home-content {
+  text-align: left;
+  animation: fadeIn 760ms ease 120ms both;
+}
+
 .home-title {
-  font-size: clamp(2rem, 6vw, 3.5rem);
-  font-weight: 900;
-  letter-spacing: 2px;
-  margin-bottom: 0.75rem;
-  text-transform: uppercase;
-  color: #00bcd4;
-  text-shadow: 0 0 8px #00bcd4aa;
-  animation: glowPulse 3s ease-in-out infinite;
+  margin: 0;
+  font-size: clamp(2rem, 4vw, 3.3rem);
+  line-height: 1.15;
+  color: #3a291d;
 }
 
 .home-title span {
-  color: #ffffff;
-  font-weight: 700;
+  display: block;
+  margin-top: 0.35rem;
+  color: #7a3527;
+  font-size: clamp(1.4rem, 3vw, 2.1rem);
 }
 
-/* Subtítulo descriptivo, claro pero suave */
 .home-subtitle {
-  font-size: clamp(1rem, 3vw, 1.3rem);
-  max-width: 600px;
-  margin: 0 auto 2rem;
-  line-height: 1.5;
-  color: #a0b8c9;
-  font-weight: 400;
-  letter-spacing: 0.5px;
-  animation: fadeInUp 1.2s ease forwards;
+  margin: 1.2rem 0 0;
+  color: #5e4a39;
+  font-size: clamp(1rem, 1.8vw, 1.2rem);
+  line-height: 1.8;
+  max-width: 56ch;
 }
 
-/* Línea divisoria decorativa animada */
 .divider {
-  width: 100px;
-  height: 5px;
-  margin: 1.5rem auto 2rem;
-  background: linear-gradient(90deg, #00bcd4, #004a62);
-  border-radius: 5px;
-  box-shadow: 0 0 10px #00bcd4aa;
-  animation: fadeInUp 1.5s ease forwards;
+  width: 150px;
+  height: 8px;
+  margin: 1.5rem 0 1.8rem;
+  border: 0;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #834233, #be8f4e, #d8c283);
+  box-shadow: 0 4px 12px rgba(112, 64, 39, 0.2);
 }
 
-/* Contenedor de botones con buen espacio y responsive */
 .home-actions {
   display: flex;
-  gap: 1.5rem;
-  justify-content: center;
+  gap: 0.9rem;
   flex-wrap: wrap;
-  animation: fadeInUp 1.8s ease forwards;
 }
 
-/* Botones con efecto moderno y transiciones suaves */
-.action-btn {
-  cursor: pointer;
-  padding: 0.9rem 2.5rem;
-  font-size: 1.1rem;
-  font-weight: 700;
-  border-radius: 30px;
-  text-transform: uppercase;
-  letter-spacing: 1.2px;
-  border: none;
-  transition: all 0.3s ease;
-  box-shadow: 0 5px 15px rgba(0, 188, 212, 0.4);
-  user-select: none;
-}
-
-.primary {
-  background: linear-gradient(45deg, #00bcd4, #008ba3);
-  color: #e0f7fa;
-  text-shadow: 0 0 5px #00bcd4bb;
-}
-
-.primary:hover {
-  background: linear-gradient(45deg, #008ba3, #00bcd4);
-  box-shadow: 0 8px 25px #00bcd4cc;
-  transform: scale(1.05);
-}
-
-.secondary {
-  background: transparent;
-  border: 2px solid #00bcd4;
-  color: #00bcd4;
-  text-shadow: none;
-}
-
-.secondary:hover {
-  background: #00bcd4;
-  color: #021f2f;
-  box-shadow: 0 8px 25px #00bcd4cc;
-  transform: scale(1.05);
-}
-
-/* Animaciones */
-@keyframes glowPulse {
-  0%, 100% {
-    text-shadow: 0 0 8px #00bcd4aa;
-  }
-  50% {
-    text-shadow: 0 0 20px #00e5ffdd;
-  }
-}
-
-@keyframes fadeInDown {
-  0% {
+@keyframes riseIn {
+  from {
     opacity: 0;
-    transform: translateY(-20px);
+    transform: translateY(12px) scale(0.98);
   }
-  100% {
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
     opacity: 1;
     transform: translateY(0);
   }
 }
 
-@keyframes fadeInUp {
-  0% {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* Responsive */
-@media (max-width: 768px) {
-  .home-title {
-    font-size: 2rem;
+@media (max-width: 920px) {
+  .home-landing {
+    grid-template-columns: 1fr;
+    padding: 1rem;
+    border-radius: 18px;
   }
 
-  .home-subtitle {
-    font-size: 1rem;
-    max-width: 90vw;
+  .home-content {
+    text-align: center;
   }
 
-  .home-banner {
-    max-width: 300px;
-    margin-bottom: 1.5rem;
+  .divider {
+    margin-left: auto;
+    margin-right: auto;
   }
 
-  .action-btn {
-    width: 100%;
-    max-width: 280px;
+  .home-actions {
+    justify-content: center;
+  }
+
+  .home-actions app-button {
+    width: min(320px, 100%);
   }
 }

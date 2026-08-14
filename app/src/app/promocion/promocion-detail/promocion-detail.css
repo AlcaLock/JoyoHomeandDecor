@@ -49,7 +49,7 @@
 .promotion-detail-card .mat-h1 {
   margin: 0;
   font-size: 1.5em;
-  color: #eeeded;
+  color: var(--color-ink);
 }
 
 .promotion-info {
@@ -67,13 +67,13 @@
 
 .field-label {
   font-weight: 500;
-  color: #d7d7d7;
+  color: var(--color-ink-soft);
   font-size: 0.9em;
 }
 
 .field-value {
   font-weight: 400;
-  color: #e8e5e5;
+  color: var(--color-ink);
 }
 
 /* Lista de productos */
@@ -101,14 +101,14 @@
 
 /* Encabezado */
 .card-header-secondary {
-  background-color: #1c1a1a;
+  background-color: var(--color-brand-dark);
   padding: 16px;
 }
 
 .product-card .mat-card-title {
   font-size: 1.2em;
   margin: 0;
-  color: #333;
+  color: var(--color-on-dark);
 }
 
 /* Imagen */
@@ -128,7 +128,7 @@
 }
 
 .product-description {
-  color: #e0dbdb;
+  color: var(--color-ink-soft);
   margin-bottom: 16px;
   font-size: 0.95em;
   line-height: 1.5;

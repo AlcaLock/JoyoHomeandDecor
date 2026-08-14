@@ -28,6 +28,7 @@ import { AsyncPipe } from '@angular/common';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 
 import { MatNativeDateModule } from '@angular/material/core';
+import { AppButton } from '../share/ui/button/button';
 import { TranslateModule } from '@ngx-translate/core';
 import { PagoTarjeta } from './pago-tarjeta/pago-tarjeta';
 import { PagoEfectivo } from './pago-efectivo/pago-efectivo';
@@ -57,7 +58,8 @@ import { PagoEfectivo } from './pago-efectivo/pago-efectivo';
     CarritoRoutingModule,
     MatDialogModule,
     MatSortModule,
-    MatMenuModule
+    MatMenuModule,
+    AppButton,
   ],
 })
 export class CarritoModule {}

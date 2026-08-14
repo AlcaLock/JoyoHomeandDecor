@@ -44,7 +44,10 @@ export function normalizeJsonAssetUrls(req: Request, payload: unknown): unknown 
     return payload.map((item) => normalizeJsonAssetUrls(req, item));
   }
 
-  if (payload && typeof payload === "object") {
+  // Solo reconstruye objetos planos: instancias de clase (Decimal, Date, etc.) se
+  // devuelven tal cual, o perderian su prototipo/toJSON (ej. precios Decimal de Prisma
+  // quedaban como {s,e,d} en vez del numero, rompiendo los calculos del carrito).
+  if (payload && typeof payload === "object" && Object.getPrototypeOf(payload) === Object.prototype) {
     const obj = payload as Record<string, unknown>;
     const normalized: Record<string, unknown> = {};
 

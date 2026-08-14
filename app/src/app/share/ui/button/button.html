@@ -1,0 +1,13 @@
+<button
+  [type]="type()"
+  class="app-btn"
+  [ngClass]="['app-btn--' + variant(), 'app-btn--' + size()]"
+  [class.app-btn--full]="fullWidth()"
+  [disabled]="disabled() || loading()"
+  [attr.aria-busy]="loading() || null"
+>
+  @if (loading()) {
+    <span class="app-btn__spinner" aria-hidden="true"></span>
+  }
+  <span class="app-btn__content"><ng-content /></span>
+</button>

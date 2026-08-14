@@ -29,6 +29,10 @@ import { ProductoCreate } from './producto-create/producto-create';
 import { ProductoUpdate } from './producto-update/producto-update';
 import { TranslateModule } from '@ngx-translate/core';
 import { ResenaModule } from '../resena/resena-module';
+import { AppProductGrid } from '../share/ui/product-grid/product-grid';
+import { AppProductFilters } from '../share/ui/product-filters/product-filters';
+import { AppButton } from '../share/ui/button/button';
+import { AppBadge } from '../share/ui/badge/badge';
 
 @NgModule({
   declarations: [
@@ -68,6 +72,10 @@ import { ResenaModule } from '../resena/resena-module';
     MatTooltipModule,
     ReactiveFormsModule,
     FormsModule,
+    AppProductGrid,
+    AppProductFilters,
+    AppButton,
+    AppBadge,
   ],
 })
 export class ProductoModule {}

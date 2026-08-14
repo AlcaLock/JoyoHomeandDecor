@@ -69,10 +69,7 @@ export class ProductoDetail implements OnInit, OnDestroy {
         console.error('Error al obtener usuario logueado:', error);
       },
     });
-
-    if (this.producto.imagenes?.length > 0) {
-      this.selectedImage = this.producto.imagenes[0].url;
-    }
+    // La imagen inicial se fija en obtenerProducto() una vez llega la respuesta async.
   }
 
   public isAdmin = computed(() => {

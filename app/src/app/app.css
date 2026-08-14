@@ -1,7 +1,22 @@
+/* Bloque simple: el componente enrutado (hijo din\u00e1mico de <router-outlet>) es
+   block-level por defecto y por lo tanto ya ocupa el 100% del ancho disponible.
+   No usar flex aqu\u00ed: un flex-item din\u00e1mico insertado por el Router no hereda
+   el ".body-container > *{width:100%}" de forma fiable (encapsulaci\u00f3n de Angular),
+   lo que encogia el contenido a su ancho m\u00ednimo y lo empujaba hacia la derecha. */
 .body-container {
-  padding-top: 64px; 
-  padding-bottom: 4.2rem;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  padding-top: 92px;
+  padding-bottom: 88px;
+  min-height: 100vh;
+  width: 100%;
+  padding-left: clamp(12px, 3vw, 36px);
+  padding-right: clamp(12px, 3vw, 36px);
+}
+
+@media (max-width: 768px) {
+  .body-container {
+    padding-top: 82px;
+    padding-bottom: 96px;
+    padding-left: 10px;
+    padding-right: 10px;
+  }
 }

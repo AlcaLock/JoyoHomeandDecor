@@ -11,6 +11,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { PedidoDetail } from './pedido-detail/pedido-detail';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { AppButton } from '../share/ui/button/button';
 
 @NgModule({
   declarations: [PedidoIndex, PedidoDetail, PedidoDiag, PedidoAdmin],
@@ -21,6 +22,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     PedidoRoutingModule,
     MatCardModule,
     MatIconModule,
+    AppButton,
   ],
 })
 export class PedidoModule {}

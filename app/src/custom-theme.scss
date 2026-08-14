@@ -1,173 +1,248 @@
 // Custom Theming for Angular Material
 // For more information: https://material.angular.dev/guide/theming
 @use '@angular/material' as mat;
-@use "./app/styles/theme-colors" as theme;
+@use './app/styles/theme-colors' as theme;
+@use './app/styles/tokens';
 @use 'sass:map';
 
-
 html {
-  color-scheme: dark;
-  //small
-  --mat-sys-body-small: 200 0.6rem / 1rem Roboto, sans-serif;
-  --mat-sys-body-small-font: Roboto, sans-serif;
-  --mat-sys-body-small-line-height: 1rem;
-  --mat-sys-body-small-size: 0.6rem;
-  --mat-sys-body-small-tracking: 0.016rem;
-  --mat-sys-body-small-weight: 200;
-  //medium
-  --mat-sys-body-medium: 400 0.875rem / 1.25rem Roboto, sans-serif;
-  --mat-sys-body-medium-font: Roboto, sans-serif;
-  --mat-sys-body-medium-line-height: 1.25rem;
-  --mat-sys-body-medium-size: 0.875rem;
-  --mat-sys-body-medium-tracking: 0.016rem;
-  --mat-sys-body-medium-weight: 400;
-  //large
-  --mat-sys-body-large: 600 1rem / 1.5rem Roboto, sans-serif;
-  --mat-sys-body-large-font: Roboto, sans-serif;
-  --mat-sys-body-large-line-height: 1.5rem;
-  --mat-sys-body-large-size: 1rem;
-  --mat-sys-body-large-tracking: 0.025rem;
-  --mat-sys-body-large-weight: 600;
+  color-scheme: light;
 
-  
+  // Tema raíz M3: sin esto, los componentes Material (mat-button, mat-select,
+  // mat-radio, mat-checkbox, mat-progress-spinner...) caen al indigo/rosa por
+  // defecto de Angular Material en vez de la paleta cálida de la marca.
+  @include mat.theme((
+    color: (
+      theme-type: light,
+      primary: theme.$primary-palette,
+      tertiary: theme.$tertiary-palette,
+    ),
+    typography: (
+      brand-family: 'Fraunces',
+      plain-family: 'Manrope',
+      regular-weight: 400,
+      medium-weight: 500,
+      bold-weight: 700,
+    ),
+    density: 0,
+  ));
+
   /*https://v19.material.angular.dev/components/toolbar/styling*/
-  @include mat.toolbar-overrides((container-background-color: map.get(theme.$primary-palette, 40),
-    ));
+  @include mat.toolbar-overrides((
+    container-background-color: var(--color-brand-dark),
+  ));
   //Menu desplegable
-  @include mat.menu-overrides((container-color: map.get(theme.$primary-palette, 50),
-    ));
+  @include mat.menu-overrides((
+    container-color: var(--color-surface),
+  ));
 
   .footer {
-    @include mat.toolbar-overrides((container-background-color: map.get(theme.$tertiary-palette, 40),
-      ));
+    @include mat.toolbar-overrides((
+      container-background-color: var(--color-ink),
+    ));
   }
 
   //desplegable select
-  @include mat.select-overrides((panel-background-color: rgba(0, 0, 0, 0.7)));
+  @include mat.select-overrides((panel-background-color: var(--color-surface)));
 
   .bg-primary {
-    background-color: #{map.get(theme.$primary-palette, 50)};
+    background-color: var(--color-brand);
   }
-  
 
   .bg-secondary {
-    background-color: #{map.get(theme.$secondary-palette, 50)};
+    background-color: var(--color-accent);
   }
 
   .bg-tertiary {
-    background-color: #{map.get(theme.$tertiary-palette, 50)};
+    background-color: var(--color-sage);
   }
 
   .active-link {
-    background-color: #{map.get(theme.$primary-palette, 10)};
-    color: #{map.get(theme.$secondary-palette, 90)};
+    background-color: var(--color-brand-soft);
+    color: var(--color-brand-dark);
   }
+
+  // CTA con jerarquía obvia: primario sólido, secundario tonal, terciario texto.
+  // Los tres definen estados hover/focus-visible/active/disabled explícitos.
   .btn-primary {
-    background-color: #{map.get(theme.$primary-palette, 50)};
-    border-radius: 20px;
+    background-color: var(--color-brand);
+    color: var(--color-brand-contrast);
+    border: 1px solid transparent;
+    border-radius: var(--radius-pill);
+    transition: background-color var(--duration-base) var(--ease-standard),
+      box-shadow var(--duration-base) var(--ease-standard),
+      transform var(--duration-fast) var(--ease-standard);
   }
+
+  .btn-primary:hover:not(:disabled) {
+    background-color: var(--color-brand-strong);
+    box-shadow: var(--shadow-2);
+    transform: translateY(-1px);
+  }
+
+  .btn-primary:active:not(:disabled) {
+    background-color: var(--color-brand-dark);
+    transform: translateY(0);
+  }
+
   .btn-secondary {
-    background-color: #{map.get(theme.$secondary-palette, 50)};
-    border-radius: 20px;
+    background-color: var(--color-accent-soft);
+    color: var(--color-accent-dark);
+    border: 1px solid var(--color-accent);
+    border-radius: var(--radius-pill);
+    transition: background-color var(--duration-base) var(--ease-standard),
+      box-shadow var(--duration-base) var(--ease-standard);
   }
+
+  .btn-secondary:hover:not(:disabled) {
+    background-color: var(--color-accent);
+    color: var(--color-accent-contrast);
+    box-shadow: var(--shadow-1);
+  }
+
+  .btn-secondary:active:not(:disabled) {
+    background-color: var(--color-accent-dark);
+    color: var(--color-accent-contrast);
+  }
+
   .btn-tertiary {
-    background-color: #{map.get(theme.$tertiary-palette, 50)};
-    border-radius: 20px;
+    background-color: transparent;
+    color: var(--color-sage);
+    border: 1px solid var(--color-sage);
+    border-radius: var(--radius-pill);
+    transition: background-color var(--duration-base) var(--ease-standard);
+  }
+
+  .btn-tertiary:hover:not(:disabled) {
+    background-color: var(--color-sage-soft);
+  }
+
+  .btn-tertiary:active:not(:disabled) {
+    background-color: var(--color-sage);
+    color: var(--color-sage-contrast);
+  }
+
+  .btn-primary:disabled,
+  .btn-secondary:disabled,
+  .btn-tertiary:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    box-shadow: none;
+    transform: none;
+  }
+
+  .btn-primary:focus-visible,
+  .btn-secondary:focus-visible,
+  .btn-tertiary:focus-visible {
+    outline: 3px solid var(--color-focus);
+    outline-offset: 2px;
   }
 
   .card-header-secondary {
-    background-color: #{map.get(theme.$secondary-palette, 60)};
-    color: white;
+    background-color: var(--color-accent-strong);
+    color: var(--color-accent-contrast);
     padding-bottom: 0.5em;
   }
 
   .ico-primary {
-    @include mat.icon-overrides((color: #{map.get(theme.$primary-palette, 70)},
-      ));
+    @include mat.icon-overrides((color: var(--color-brand)));
   }
 
   .ico-secondary {
-    @include mat.icon-overrides((color: #{map.get(theme.$secondary-palette, 70)},
-      ));
+    @include mat.icon-overrides((color: var(--color-accent)));
   }
 
   .ico-tertiary {
-    @include mat.icon-overrides((color: #{map.get(theme.$tertiary-palette, 70)},
-      ));
+    @include mat.icon-overrides((color: var(--color-sage)));
   }
 
   .primary-title {
-    background-color: #{map.get(theme.$primary-palette, 60)};
-    font-weight: bold;
+    background-color: var(--color-brand-soft);
+    color: var(--color-brand-dark);
+    font-weight: var(--weight-bold);
   }
 
   .secondary-title {
-    background-color: #{map.get(theme.$secondary-palette, 60)};
-    font-weight: bold;
+    background-color: var(--color-accent-soft);
+    color: var(--color-accent-dark);
+    font-weight: var(--weight-bold);
   }
 
   .tertiary-title {
-    background-color: #{map.get(theme.$tertiary-palette, 60)};
-    font-weight: bold;
-    
+    background-color: var(--color-sage-soft);
+    color: var(--color-sage);
+    font-weight: var(--weight-bold);
   }
-  .number-cart{
-@include mat.badge-overrides((
-    background-color: #{map.get(theme.$secondary-palette, 50)},
-    line-height: 1em,
-    container-shape: 10px,
-    container-padding:0.2em
-  ));
+
+  .number-cart {
+    @include mat.badge-overrides((
+      background-color: var(--color-accent),
+      text-color: var(--color-accent-contrast),
+      line-height: 1em,
+      container-shape: 10px,
+      container-padding: 0.2em,
+    ));
   }
- 
+
   .tabla {
-    @include mat.table-overrides((row-item-outline-color:#{map.get(theme.$tertiary-palette, 95)},
-        row-item-label-text-color: white,
-
-      ));
-
+    @include mat.table-overrides((
+      row-item-outline-color: var(--color-border),
+      row-item-label-text-color: var(--color-ink),
+    ));
   }
 
-  @include mat.tooltip-overrides((container-color: rgba(0, 0, 0, 0.6),
-      supporting-text-color: white));
+  @include mat.tooltip-overrides((
+    container-color: var(--color-ink),
+    supporting-text-color: var(--color-on-dark),
+  ));
 
   .chip-primary {
     @include mat.chips-overrides((
-       elevated-container-color:#{map.get(theme.$primary-palette, 70)},
-        hover-state-layer-color:#{map.get(theme.$primary-palette, 50)},
-        label-text-color:white,
-        outline-color: white,
-      ));
+      elevated-container-color: var(--color-brand),
+      hover-state-layer-color: var(--color-brand-strong),
+      label-text-color: var(--color-brand-contrast),
+      outline-color: var(--color-brand-contrast),
+    ));
   }
 
   .chip-secondary {
     @include mat.chips-overrides((
-      elevated-container-color:#{map.get(theme.$secondary-palette, 60)},
-        hover-state-layer-color:#{map.get(theme.$secondary-palette, 40)},
-        label-text-color:white,
-        outline-color: white,
-      ));
+      elevated-container-color: var(--color-accent),
+      hover-state-layer-color: var(--color-accent-dark),
+      label-text-color: var(--color-accent-contrast),
+      outline-color: var(--color-accent-contrast),
+    ));
   }
+
   .chip-tertiary {
     @include mat.chips-overrides((
-      elevated-container-color:#{map.get(theme.$tertiary-palette, 60)},
-        hover-state-layer-color:#{map.get(theme.$tertiary-palette, 40)},
-        label-text-color:white,
-        outline-color: white,
-      ));
+      elevated-container-color: var(--color-sage),
+      hover-state-layer-color: var(--color-sage-strong),
+      label-text-color: var(--color-sage-contrast),
+      outline-color: var(--color-sage-contrast),
+    ));
   }
+
   @include mat.dialog-overrides((
-    container-color: black,
-    subhead-color: #{map.get(theme.$primary-palette, 80)},
+    container-color: var(--color-surface),
+    subhead-color: var(--color-brand-dark),
     subhead-size: 1.5em,
-    supporting-text-color:white,
+    supporting-text-color: var(--color-ink),
     headline-padding: 0.5em,
-    supporting-text-line-height:1.5em,
-    content-padding:1em
+    supporting-text-line-height: 1.5em,
+    content-padding: 1em,
   ));
- @include mat.form-field-overrides((
-    error-text-color: #e74c3c,
-    filled-error-active-indicator-color:#cb4335,
-    container-text-size:1em,
+
+  @include mat.form-field-overrides((
+    error-text-color: var(--color-danger),
+    filled-error-active-indicator-color: var(--color-danger),
+    container-text-size: 1em,
   ));
+}
+
+// Anillo de foco visible global — cubre cualquier elemento interactivo que no
+// tenga un estado de foco propio definido (requisito WCAG 2.4.7).
+:focus-visible {
+  outline: 3px solid var(--color-focus);
+  outline-offset: 2px;
 }

@@ -57,11 +57,11 @@
 
   <!-- Botones -->
   <div class="actions">
-    <button mat-raised-button color="primary" type="submit" [disabled]="paymentForm.invalid">
-      {{ 'PAGO.PAGAR' | translate }}
-    </button>
-    <button mat-raised-button type="button" (click)="onCancel()">
+    <app-button variant="tertiary" type="button" (click)="onCancel()">
       {{ 'PAGO.CANCELAR' | translate }}
-    </button>
+    </app-button>
+    <app-button variant="primary" type="submit" [disabled]="paymentForm.invalid">
+      {{ 'PAGO.PAGAR' | translate }}
+    </app-button>
   </div>
 </form>

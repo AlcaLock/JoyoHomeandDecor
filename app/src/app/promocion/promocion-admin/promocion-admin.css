@@ -1,309 +1,191 @@
-/* Estilos globales */
-body {
-  background-color: white !important;
-}
-
-/* Estilos para la tarjeta principal */
 mat-card {
-  border-radius: 12px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-  margin: 16px;
-  padding: 24px;
-  transition: all 0.3s ease;
-  background-color: white;
+  width: min(1200px, 100%);
+  margin: 0 auto;
+  border-radius: 20px;
+  border: 1px solid rgba(136, 98, 69, 0.22);
+  background:
+    radial-gradient(circle at 88% 16%, rgba(162, 120, 83, 0.16), transparent 35%),
+    linear-gradient(150deg, #fff8ef, #f3e1c8 66%, #ead5b6) !important;
+  box-shadow: 0 14px 28px rgba(82, 50, 30, 0.14);
 }
 
-mat-card:hover {
-  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.12);
-}
-
-/* Encabezado de la tarjeta */
 mat-card-header {
-  margin-bottom: 24px;
-  padding: 0;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  margin-bottom: 1rem;
 }
 
 mat-card-title {
-  font-size: 24px;
-  font-weight: 600;
-  color: #3f51b5;
+  font-size: clamp(1.4rem, 2vw, 2rem);
+  color: #4f3324;
   margin: 0;
 }
 
-mat-card-subtitle {
-  margin-top: 8px;
-}
-
-/* Botón de añadir */
 button[mat-mini-fab] {
-  box-shadow: 0 2px 8px rgba(63, 81, 181, 0.3);
-  transition: all 0.2s ease;
-  background-color: #3f51b5;
-  color: white;
+  background: linear-gradient(130deg, #8a4332, #6f3024) !important;
+  color: #fff5eb !important;
+  box-shadow: 0 10px 18px rgba(110, 48, 35, 0.24);
 }
 
-button[mat-mini-fab]:hover {
-  transform: scale(1.1);
-  box-shadow: 0 4px 12px rgba(63, 81, 181, 0.4);
-}
-
-/* Campo de búsqueda */
 .search-field {
   width: 100%;
-  margin-bottom: 24px;
-  color: black;
+  margin-bottom: 0.85rem;
 }
 
-.search-field .mat-form-field-outline {
-  color: rgba(0, 0, 0, 0.1);
-}
-
-.search-field .mat-form-field-appearance-outline .mat-form-field-outline-thick {
-  color: #3f51b5;
-}
-
-.search-field .mat-input-element {
-  color: #333;
-}
-
-/* Estilos para la tabla */
-.mat-elevation-z8 {
-  border-radius: 8px;
-  overflow: hidden;
-  margin-bottom: 16px;
-  background-color: white;
-}
-
-table {
-  width: 100%;
-  border-collapse: collapse;
-  background-color: white;
-}
-
-th.mat-header-cell {
-  background-color: #f5f5f5;
-  font-weight: 600;
-  color: #3f51b5;
-  font-size: 14px;
-  padding: 12px 16px;
-}
-
-td.mat-cell {
-  padding: 12px 16px;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.04);
-  color: #333;
-}
-
-tr.mat-row:hover {
-  background-color: rgba(63, 81, 181, 0.03);
-}
-
-/* Estilos para los estados de promoción */
-.estado-container {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 4px 8px;
-}
-
-.estado-texto {
-  font-size: 14px;
-}
-
-.estado-activa {
-  color: #FF4D4D;
-}
-
-.estado-vencida {
-  color: #D3D3D3;
-}
-
-.estado-proxima {
-  color: #4ac4ec;
-}
-/* Asegurar espaciado consistente entre botones */
-.mat-column-acciones {
-  display: flex;
-  gap: 8px;
-}
-
-
-/* Estilos para el cuadro informativo de íconos */
 .icon-info-box {
   display: flex;
-  justify-content: end;
-  gap: 1.5rem;
-  padding: 12px 16px;
-  margin-bottom: 16px;
-  background-color: #f5f5f5;
-  border-radius: 4px;
+  justify-content: flex-end;
+  gap: 1rem;
+  padding: 0.65rem 0.8rem;
+  margin-bottom: 0.8rem;
+  border-radius: 12px;
+  border: 1px solid rgba(136, 98, 68, 0.2);
+  background: rgba(251, 241, 226, 0.9);
   flex-wrap: wrap;
 }
 
 .icon-info-item {
   display: flex;
   align-items: center;
-  gap: 8px;
-  font-size: 0.9rem;
-  color: #555;
+  gap: 0.4rem;
+  color: #5c4736;
+  font-size: 0.88rem;
 }
 
 .icon-info-item mat-icon {
-  font-size: 1.1rem;
-  width: auto;
-  height: auto;
-  color: #5c6bc0; /* Puedes personalizar este color */
+  color: #845138;
 }
 
-/* Estilo para botón deshabilitado */
+.mat-elevation-z8 {
+  border-radius: 14px;
+  overflow: hidden;
+  border: 1px solid rgba(137, 101, 72, 0.2);
+  background: rgba(255, 251, 245, 0.92);
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th.mat-header-cell {
+  background: linear-gradient(120deg, #5d3b28, #85533a);
+  color: #fff2e4;
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  padding: 0.75rem 0.85rem;
+}
+
+td.mat-cell {
+  color: #4d3b2e;
+  padding: 0.72rem 0.85rem;
+  border-bottom: 1px solid rgba(165, 130, 100, 0.18);
+  background: rgba(255, 248, 239, 0.95);
+}
+
+tr.mat-row:nth-child(even) td.mat-cell {
+  background: rgba(249, 238, 223, 0.95);
+}
+
+tr.mat-row:hover td.mat-cell {
+  background: rgba(238, 221, 201, 0.88);
+}
+
+.estado-container {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.2rem 0;
+  flex-wrap: wrap;
+}
+
+.mat-column-acciones {
+  white-space: nowrap;
+}
+
+.estado-activa {
+  color: #7a3527;
+}
+
+.estado-vencida {
+  color: #8f8278;
+}
+
+.estado-proxima {
+  color: #6d5a2c;
+}
+
+.dias-chip {
+  margin-left: auto;
+  font-size: 0.72rem;
+  font-weight: 700;
+  background: #ebd7a9;
+  color: #5f4224;
+}
+
+.aplicacion-item {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin: 0.2rem 0;
+  font-size: 0.84rem;
+  color: #4d3a2d !important;
+}
+
+.aplicacion-item mat-icon {
+  color: #8d593f;
+}
+
+button[mat-icon-button] {
+  margin: 0 0.1rem;
+}
+
+button[mat-icon-button][color="primary"] {
+  color: #6f3024;
+}
+
+button[mat-icon-button][color="accent"] {
+  color: #8f5c2f;
+}
+
+button[mat-icon-button][color="warn"] {
+  color: #9a3d2e;
+}
+
 button[disabled] {
   opacity: 0.6;
   cursor: not-allowed;
 }
 
-/* Chips de días restantes */
-.dias-chip {
-  margin-left: auto;
-  font-size: 12px;
-  font-weight: 500;
-  background-color: #e8f5e9;
-  color: #2e7d32;
-}
-
-/* Iconos de estado */
-.estado-icon {
-  font-size: 20px;
-  width: 20px;
-  height: 20px;
-}
-/* Estilos para el estado bloqueado */
-button[disabled] {
-  cursor: not-allowed;
-  opacity: 0.7;
-}
-
-/* Animación para el icono de prohibido */
-@keyframes pulse {
-  0% { transform: scale(1); }
-  50% { transform: scale(1.1); }
-  100% { transform: scale(1); }
-}
-
-mat-icon[matTooltip] {
-  transition: all 0.3s ease;
-}
-
-mat-icon[matTooltip]:hover {
-  animation: pulse 1s infinite;
-}
-
-
-/* Items de aplicación */
-.aplicacion-item {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  margin: 4px 0;
-  font-size: 14px;
-  color: #1e1e1e !important;
-}
-
-.aplicacion-item mat-icon {
-  font-size: 18px;
-  height: 18px;
-  width: 18px;
-  color: #3f51b5;
-}
-
-/* Botones de acción */
-button[mat-icon-button] {
-  transition: all 0.2s ease;
-  margin: 0 4px;
-}
-
-button[mat-icon-button]:hover {
-  transform: scale(1.1);
-}
-
-button[mat-icon-button][color="primary"] {
-  color: #3f51b5;
-}
-
-button[mat-icon-button][color="warn"] {
-  color: #f44336;
-}
-
-/* Paginador */
 mat-paginator {
-  background-color: transparent;
-  border-top: 1px solid rgba(0, 0, 0, 0.04);
-  background-color: white;
-  color: black;
+  background: rgba(255, 248, 239, 0.96);
+  color: #4e3b2c;
+  border-top: 1px solid rgba(160, 126, 97, 0.2);
 }
 
-.mat-paginator-page-size,
-.mat-paginator-range-actions {
-  color: #333;
-}
-
-/* Filas alternas */
-tr.mat-row:nth-child(even) {
-  background-color: rgba(0, 0, 0, 0.01);
-}
-
-tr.mat-row:nth-child(even):hover {
-  background-color: rgba(63, 81, 181, 0.03);
-}
-
-/* Responsividad */
-@media (max-width: 768px) {
+@media (max-width: 860px) {
   mat-card {
-    margin: 8px;
-    padding: 16px;
+    border-radius: 14px;
   }
 
-  mat-card-title {
-    font-size: 20px;
+  table {
+    display: block;
+    overflow-x: auto;
   }
 
   th.mat-header-cell,
   td.mat-cell {
-    padding: 8px 12px;
-    font-size: 13px;
+    white-space: nowrap;
+  }
+
+  .icon-info-box {
+    justify-content: flex-start;
   }
 
   .estado-container {
-    flex-direction: column;
     align-items: flex-start;
-    gap: 4px;
   }
 
   .dias-chip {
     margin-left: 0;
-    align-self: flex-end;
-  }
-
-  button[mat-icon-button] {
-    margin: 0 2px;
-    transform: scale(0.9);
-  }
-}
-
-/* Ajustes para dark mode (opcional) */
-@media (prefers-color-scheme: dark) {
-  mat-card {
-    color: #ffffff;
-  }
-
-  td.mat-cell,
-  .aplicacion-item {
-    color: #e0e0e0;
-  }
-
-  .mat-elevation-z8 {
-    background-color: #1e1e1e;
   }
 }

@@ -34,17 +34,19 @@ export class ComponenteAdmin implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
-    this.paginator._intl.itemsPerPageLabel = 'Items por página';
-    this.paginator._intl.nextPageLabel = 'Siguiente';
-    this.paginator._intl.previousPageLabel = 'Anterior';
-    this.paginator._intl.firstPageLabel = 'Primera página';
-    this.paginator._intl.lastPageLabel = 'Última página';
-    
     // Configurar el filtro personalizado
     this.dataSource.filterPredicate = this.createFilter();
   }
 
   ngAfterViewInit(): void {
+    // @ViewChild solo resuelve aqu\u00ed, no en ngOnInit -- accederlo antes lanzaba
+    // "Cannot read properties of undefined (reading '_intl')" y rompia la pantalla.
+    this.paginator._intl.itemsPerPageLabel = 'Items por página';
+    this.paginator._intl.nextPageLabel = 'Siguiente';
+    this.paginator._intl.previousPageLabel = 'Anterior';
+    this.paginator._intl.firstPageLabel = 'Primera página';
+    this.paginator._intl.lastPageLabel = 'Última página';
+
     // Asignar el paginador y ordenamiento al dataSource existente
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;

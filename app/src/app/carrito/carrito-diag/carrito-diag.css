@@ -92,15 +92,11 @@
 }
 
 .error-visible {
-  font-size: 18px;
-  font-weight: 400;
-  color: #b71c1c;
-  background-color: #000000;
-  padding: 6px 10px;
-  border-radius: 6px;
+  font-size: var(--text-sm);
+  font-weight: var(--weight-medium);
+  color: var(--color-danger);
   display: block;
   margin-top: 4px;
-  text-align: center; /* opcional */
 }
 
 
@@ -119,7 +115,8 @@
 
 .price-final {
   font-size: 22px;
-  font-weight: 700;
+  font-weight: var(--weight-bold);
+  color: var(--color-brand);
   margin: 4px 0;
 }
 

@@ -1,35 +1,58 @@
-mat-form-field.mat-form-field {
-    font-size: 16px;
+.full-width {
+  width: 100%;
+}
+
+form {
+  width: min(680px, 100%);
+  margin: 0 auto;
+}
+
+.card-content {
+  width: 100%;
+  margin: 0 auto;
+  padding: clamp(1rem, 2.2vw, 1.8rem);
+  border-radius: 22px;
+  background:
+    radial-gradient(circle at 88% 18%, rgba(173, 126, 82, 0.16), transparent 38%),
+    linear-gradient(160deg, #fff8ef, #f1e2cd 60%, #ecd8be) !important;
+  border: 1px solid rgba(130, 92, 64, 0.24);
+}
+
+.title {
+  margin: 0;
+  font-size: clamp(1.4rem, 2vw, 1.9rem);
+  color: #3e2c20;
+}
+
+.row {
+  display: flex;
+  flex-direction: row;
+  gap: 0.8rem;
+}
+
+.col {
+  flex: 1;
+}
+
+mat-card-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+  padding: 0.5rem 0 0.25rem;
+}
+
+mat-card-actions button {
+  border-radius: 12px;
+  padding-inline: 1rem;
+  font-weight: 600;
+}
+
+@media (max-width: 720px) {
+  .card-content {
+    border-radius: 16px;
   }
-  .full-width {
+
+  mat-card-actions button {
     width: 100%;
   }
-  .title {
-    font-weight: bold;
-    font-size: 1.2em;
-    padding: 0.5em;
-  }
-  .card-content {
-    min-width: 600px;
-    margin: 20px auto;
-  }
-  
-  .mat-radio-button {
-    display: block;
-    margin: 5px 0;
-  }
-  
-  .row {
-    display: flex;
-    flex-direction: row;
-  }
-  
-  .col {
-    flex: 1;
-    margin-right: 20px;
-  }
-  
-  .col:last-child {
-    margin-right: 0;
-  }
-  
+}

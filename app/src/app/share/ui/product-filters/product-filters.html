@@ -1,0 +1,119 @@
+<div class="product-filters">
+  <div class="product-filters__header">
+    <h2 class="product-filters__title">Filtrar</h2>
+    <button
+      type="button"
+      class="product-filters__toggle"
+      (click)="toggle()"
+      [attr.aria-expanded]="expanded()"
+      aria-controls="product-filters-panel"
+    >
+      {{ expanded() ? 'Ocultar' : 'Mostrar' }} filtros
+    </button>
+  </div>
+
+  <div class="product-filters__panel" id="product-filters-panel" [hidden]="!expanded()">
+    <app-input
+      label="Buscar"
+      placeholder="Ej. sofá, mesa de centro..."
+      [ngModel]="search()"
+      (ngModelChange)="search.set($event)"
+    />
+
+    @if (categoryOptions().length) {
+      <fieldset class="product-filters__group">
+        <legend class="product-filters__group-title">{{ categoryLabel() }}</legend>
+        <div class="product-filters__chips">
+          @for (option of categoryOptions(); track option.id) {
+            <button
+              type="button"
+              class="product-filters__chip"
+              [class.product-filters__chip--active]="isSelected(selectedCategories(), option.id)"
+              [attr.aria-pressed]="isSelected(selectedCategories(), option.id)"
+              (click)="toggleCategory(option.id)"
+            >
+              {{ option.label }}
+            </button>
+          }
+        </div>
+      </fieldset>
+    }
+
+    @if (materialOptions().length) {
+      <fieldset class="product-filters__group">
+        <legend class="product-filters__group-title">{{ materialLabel() }}</legend>
+        <div class="product-filters__chips">
+          @for (option of materialOptions(); track option.id) {
+            <button
+              type="button"
+              class="product-filters__chip"
+              [class.product-filters__chip--active]="isSelected(selectedMaterials(), option.id)"
+              [attr.aria-pressed]="isSelected(selectedMaterials(), option.id)"
+              (click)="toggleMaterial(option.id)"
+            >
+              {{ option.label }}
+            </button>
+          }
+        </div>
+      </fieldset>
+    }
+
+    @if (colorOptions().length) {
+      <fieldset class="product-filters__group">
+        <legend class="product-filters__group-title">Color</legend>
+        <div class="product-filters__swatches">
+          @for (option of colorOptions(); track option.id) {
+            <button
+              type="button"
+              class="product-filters__swatch"
+              [class.product-filters__swatch--active]="isSelected(selectedColors(), option.id)"
+              [style.background-color]="option.hex"
+              [attr.aria-pressed]="isSelected(selectedColors(), option.id)"
+              [attr.aria-label]="option.label"
+              [title]="option.label"
+              (click)="toggleColor(option.id)"
+            ></button>
+          }
+        </div>
+      </fieldset>
+    }
+
+    <fieldset class="product-filters__group">
+      <legend class="product-filters__group-title">Precio</legend>
+      <div class="product-filters__price-values">
+        <span>{{ formatPrice(priceMin()) }}</span>
+        <span>{{ formatPrice(priceMax()) }}</span>
+      </div>
+      <div class="product-filters__range">
+        <div class="product-filters__range-track"></div>
+        <div
+          class="product-filters__range-fill"
+          [style.left.%]="fillPercent().left"
+          [style.width.%]="fillPercent().width"
+        ></div>
+        <input
+          type="range"
+          class="product-filters__range-input"
+          [min]="priceBounds().min"
+          [max]="priceBounds().max"
+          [value]="priceMin()"
+          (input)="onMinPriceInput($any($event.target).value)"
+          aria-label="Precio mínimo"
+        />
+        <input
+          type="range"
+          class="product-filters__range-input"
+          [min]="priceBounds().min"
+          [max]="priceBounds().max"
+          [value]="priceMax()"
+          (input)="onMaxPriceInput($any($event.target).value)"
+          aria-label="Precio máximo"
+        />
+      </div>
+    </fieldset>
+
+    <app-button variant="tertiary" size="sm" [fullWidth]="true" (click)="clearAll()">
+      Limpiar filtros
+    </app-button>
+  </div>
+</div>

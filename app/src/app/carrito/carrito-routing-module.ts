@@ -5,7 +5,7 @@ import { authGuard } from '../share/auth.guard';
 
 const routes: Routes = [
   {
-    path: 'carrito',
+    path: '',
     component: CarritoIndex,
     canActivate: [authGuard],
     data: { roles: ['CLIENTE'] },

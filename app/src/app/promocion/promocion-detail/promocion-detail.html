@@ -30,7 +30,7 @@
         <div class="promotion-field">
           <span class="field-label">{{ 'promoDetail.discount_label' | translate }}</span>
           <span class="field-value">
-            {{ promocion?.tipoDescuento === 'PORCENTAJE' ? (promocion.descuento + '%') : getPrecioConSimboloAdelante(promocion.descuento) }}
+            {{ promocion?.tipoDescuento === 'PORCENTAJE' ? (promocion?.descuento + '%') : getPrecioConSimboloAdelante(promocion?.descuento) }}
           </span>
         </div>
         <div class="promotion-field">

@@ -1,24 +1,35 @@
 .header {
   position: fixed;
   top: 0;
+  left: 0;
   width: 100%;
-  background: linear-gradient(90deg, #2C3E50, #4CA1AF); /* degradado elegante */
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  background:
+    linear-gradient(100deg, rgba(57, 35, 24, 0.96), rgba(119, 71, 44, 0.92)),
+    repeating-linear-gradient(-35deg, rgba(255, 228, 179, 0.08) 0 14px, rgba(255, 228, 179, 0.02) 14px 28px);
+  box-shadow: 0 8px 20px rgba(49, 25, 14, 0.28);
   display: flex;
   align-items: center;
-  padding: 0.75em 1.5em;
+  padding: 0.75em 1.2em;
   z-index: 1000;
-  color: #fff;
-  height: 64px;
+  color: #fff6ec;
+  height: 72px;
+  border-bottom: 1px solid rgba(255, 224, 190, 0.25);
+}
+
+.header,
+.header .mat-mdc-icon-button,
+.header .mat-icon {
+  color: var(--color-on-dark) !important;
 }
 
 .logo-button {
   padding: 0;
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
+  width: 48px;
+  height: 48px;
+  border-radius: 14px;
   overflow: hidden;
-  background-color: transparent;
+  background: rgba(255, 241, 223, 0.16);
+  border: 1px solid rgba(255, 227, 184, 0.42);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -33,6 +44,9 @@
 
 /* Espaciador para distribuir el contenido */
 .example-spacer {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
   flex: 1 1 auto;
 }
 
@@ -51,29 +65,54 @@
 
 /* Texto pequeño con mejor legibilidad */
 .small-text {
-  font-size: 0.85rem;
-  color: #e0e0e0;
-  letter-spacing: 0.5px;
+  max-width: 220px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 0.8rem;
+  color: #ffecd7;
+  letter-spacing: 0.45px;
+  margin-right: 0.2rem;
 }
 .cart-button {
-  margin: 0 10px;
+  margin: 0 6px;
   position: relative;
-  transition: transform 0.2s ease;
+  transition: transform 0.2s ease, background-color 0.2s ease;
+  border-radius: 10px;
 }
 
 .cart-button:hover {
-  transform: scale(1.1);
+  transform: scale(1.05);
+  background-color: rgba(255, 226, 182, 0.14);
 }
 
 .cart-button .mat-badge-content {
-  background: #ff4081; /* Color de acento */
-  color: white;
+  background: #d9b96f;
+  color: #3d2416;
   top: -8px;
   right: -8px;
   font-size: 0.7em;
+  font-weight: 700;
 }
 
 /* Ocultar badge cuando el carrito está vacío */
 .cart-button .mat-badge-hidden {
   display: none;
+}
+
+@media (max-width: 900px) {
+  .header {
+    height: auto;
+    min-height: 70px;
+    padding: 0.6em 0.7em;
+  }
+
+  .small-text {
+    display: none;
+  }
+
+  .logo-button {
+    width: 42px;
+    height: 42px;
+  }
 }

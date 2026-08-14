@@ -1,0 +1,31 @@
+<div class="app-field" [class.app-field--invalid]="!!error()" [class.app-field--disabled]="disabled()">
+  @if (label()) {
+    <label class="app-field__label" [for]="inputId">
+      {{ label() }}
+      @if (required()) {
+        <span class="app-field__required" aria-hidden="true">*</span>
+      }
+    </label>
+  }
+
+  <input
+    class="app-field__control"
+    [id]="inputId"
+    [type]="type()"
+    [placeholder]="placeholder()"
+    [attr.maxlength]="maxlength()"
+    [disabled]="disabled()"
+    [required]="required()"
+    [value]="value()"
+    [attr.aria-invalid]="!!error() || null"
+    [attr.aria-describedby]="hint() || error() ? inputId + '-desc' : null"
+    (input)="handleInput($event.target)"
+    (blur)="onTouched()"
+  />
+
+  @if (error()) {
+    <p class="app-field__message app-field__message--error" [id]="inputId + '-desc'">{{ error() }}</p>
+  } @else if (hint()) {
+    <p class="app-field__message" [id]="inputId + '-desc'">{{ hint() }}</p>
+  }
+</div>

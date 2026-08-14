@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { environment } from '../../environments/environment';
 import { UsuarioModel } from './models/UsuarioModel';
 import { Observable, of } from 'rxjs';
-import { catchError, map, tap } from 'rxjs/operators';
+import { catchError, map, shareReplay, tap } from 'rxjs/operators';
 import { CarritoService } from './services/carrito.service';
 import { CarritoProductoService } from './services/carrito-producto.service';
 
@@ -21,6 +21,9 @@ export class AuthenticationService {
   authenticated = computed(() => !!this.tokenUser());
   usuario = signal<UsuarioModel | null>(null);
 
+  // Se resuelve una sola vez con la carga inicial del perfil (si había token al arrancar).
+  private initialProfileLoad$: Observable<UsuarioModel | null> | null = null;
+
   constructor(
     private http: HttpClient,
     private router: Router,
@@ -35,8 +38,21 @@ export class AuthenticationService {
     }
 
     if (this.tokenUser()) {
-      this.getUserProfile().subscribe();
+      this.initialProfileLoad$ = this.getUserProfile().pipe(shareReplay(1));
+      this.initialProfileLoad$.subscribe();
     }
+  }
+
+  /**
+   * Se resuelve cuando la carga inicial del perfil terminó (éxito o error).
+   * Evita que los guards de ruta decidan roles contra un `usuario` aún en null
+   * justo después de un refresh de página (carga asíncrona vs. evaluación del guard).
+   */
+  ensureProfileLoaded(): Observable<UsuarioModel | null> {
+    if (!this.tokenUser()) {
+      return of(null);
+    }
+    return this.initialProfileLoad$ ?? of(this.usuario());
   }
 
   get isAuthenticatedSignal() {

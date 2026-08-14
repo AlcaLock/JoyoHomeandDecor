@@ -197,6 +197,8 @@
     "cliente": "Cliente",
     "fecha": "Fecha",
     "verDetalle": "Ver detalle",
+    "entregar": "Marcar como entregado",
+    "pagar": "Pagar pedido",
     "na": "N/A"
   },
   "factura": {

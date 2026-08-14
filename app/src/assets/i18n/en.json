@@ -199,6 +199,8 @@
     "cliente": "Client",
     "fecha": "Date",
     "verDetalle": "View details",
+    "entregar": "Mark as delivered",
+    "pagar": "Pay order",
     "na": "N/A"
   },
   "factura": {

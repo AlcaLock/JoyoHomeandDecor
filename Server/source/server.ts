@@ -6,6 +6,14 @@ import path from 'path'
 import { ErrorMiddleware } from './middleware/error.middleware';
 import { AppRoutes } from './routes/routes';
 import { normalizeJsonAssetUrls } from './utils/url.utils';
+import { Decimal } from '../generated/prisma/runtime/library';
+
+// Los campos Decimal de Prisma (precioUnitario, precioFinal, subtotal, total...) no
+// serializan como numero plano por defecto: sin esto, res.json() manda el objeto interno
+// {s,e,d} en vez del valor, rompiendo cualquier calculo numerico en el frontend.
+(Decimal.prototype as unknown as { toJSON: () => number }).toJSON = function (this: Decimal) {
+  return this.toNumber();
+};
 
 const rootDir = __dirname;
 
