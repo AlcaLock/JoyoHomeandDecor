@@ -710,10 +710,11 @@ export class CarritoIndex implements OnInit, OnDestroy {
     }
 
     dialogRef.afterClosed().subscribe((pagoAceptado: boolean) => {
-      // Si el usuario cerró el diálogo sin pagar, aún se crea el pedido como pendiente
-      const estadoPedido = pagoAceptado
-        ? EstadoPedidoModel.PAGADO
-        : EstadoPedidoModel.PENDIENTE_PAGO;
+      if (!pagoAceptado) {
+        return;
+      }
+
+      const estadoPedido = EstadoPedidoModel.PAGADO;
 
       const carritoValue =
         this.carritoProductoService.currentCart() ||
@@ -766,13 +767,9 @@ export class CarritoIndex implements OnInit, OnDestroy {
         )
         .subscribe({
           next: (pedidoCreado: PedidoModel) => {
-            const mensaje = pagoAceptado
-              ? this.translate.instant('NOTIFICATIONS.ORDER_CREATED')
-              : this.translate.instant('NOTIFICATIONS.ORDER_PENDING_PAYMENT');
-
             this.noti.success(
               this.translate.instant('NOTIFICATIONS.SUCCESS'),
-              mensaje
+              this.translate.instant('NOTIFICATIONS.ORDER_CREATED')
             );
             this.loading = false;
             this.router.navigate(['/producto']);

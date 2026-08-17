@@ -9,6 +9,7 @@
     "start:prod": "npm run prisma:generate && ts-node source/server.ts",
     "prisma:generate": "prisma generate",
     "prisma:migrate": "prisma migrate deploy",
+    "db:seed-demo-promotions": "ts-node scripts/seed-demo-promotions.ts",
     "deploy:prepare": "npm run prisma:generate && npm run prisma:migrate",
     "db:up": "docker compose -f ..\\docker-compose.yml up -d --wait mysql",
     "db:down": "docker compose -f ..\\docker-compose.yml down",

@@ -2,24 +2,23 @@
 .grid-container {
   display: flex;
   flex-direction: column;
-  gap: 20px;
-  padding: 20px;
-  max-width: 1400px;
+  gap: var(--space-5);
+  width: min(1400px, 100%);
+  padding: var(--space-4);
   margin: 0 auto;
 }
 
 /* Lista de reseñas */
 .reviews-list {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 20px;
-  justify-content: flex-start;
-  align-items: stretch;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
+  gap: var(--space-5);
 }
 
 /* Tarjeta de reseña */
 .review-card {
-  width: calc(25% - 20px); /* 4 columnas con espacio entre ellas */
+  width: 100%;
+  min-width: 0;
   transition: all 0.3s ease;
 }
 
@@ -46,12 +45,17 @@
 .review-card mat-card-header .mat-card-title {
   font-size: 1.2em;
   margin: 0;
-  color: #f5f5f5;
+  color: var(--color-on-dark) !important;
 }
 
-.review-card mat-card-header .mat-card-subtitle {
+.review-card mat-card-header .mat-card-subtitle,
+.review-card mat-card-header .mat-mdc-card-subtitle {
   font-size: 0.9em;
-  color: #f5f5f5;
+  color: var(--color-on-dark) !important;
+}
+
+.review-card mat-card-header .mat-mdc-card-title {
+  color: var(--color-on-dark) !important;
 }
 
 /* Contenido */
@@ -71,26 +75,33 @@
 /* Valoración en estrellas */
 .review-card .review-rating {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
+  gap: 0.35rem 0.65rem;
   margin-bottom: 10px;
 }
 
 .review-card .review-rating .section-title {
   font-size: 1em;
   font-weight: 600;
-  margin-right: 10px;
+  margin: 0;
   color: var(--color-ink);
 }
 
 .review-card .stars {
   display: flex;
-  gap: 4px;
-  
+  flex: 0 1 auto;
+  gap: 2px;
+  min-width: 0;
 }
 
 .review-card .stars mat-icon {
+  width: 20px;
+  height: 20px;
+  flex: 0 0 20px;
   font-size: 20px;
-    color: #efbb1f;
+  line-height: 20px;
+  color: #efbb1f;
 }
 
 /* Pie de tarjeta */
@@ -108,19 +119,17 @@
   gap: 8px;
 }
 
-/* Responsive */
-@media (max-width: 768px) {
-  .review-card {
-    width: calc(50% - 20px); /* 2 columnas con espacio entre ellas */
-  }
-}
-
 @media (max-width: 480px) {
-  .review-card {
-    width: 100%; /* 1 columna */
+  .grid-container {
+    padding: var(--space-3);
   }
 
   .review-card mat-card-actions {
+    justify-content: center;
+  }
+
+  .review-card mat-card-actions button {
+    width: 100%;
     justify-content: center;
   }
 }

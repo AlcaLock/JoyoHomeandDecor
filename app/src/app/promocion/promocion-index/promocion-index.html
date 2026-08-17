@@ -16,10 +16,10 @@
           <mat-card-content class="promotion-content">
             <div class="promotion-details">
               <p class="promotion-date">
-                {{ 'promotions.start' | translate }}: {{ promocion.inicio | date:'fullDate' }}
+                {{ 'promotions.start' | translate }}: {{ promocion.inicio | date:'fullDate':'UTC' }}
               </p>
               <p class="promotion-date">
-                {{ 'promotions.end' | translate }}: {{ promocion.fin | date:'fullDate' }}
+                {{ 'promotions.end' | translate }}: {{ promocion.fin | date:'fullDate':'UTC' }}
               </p>
             </div>
           </mat-card-content>

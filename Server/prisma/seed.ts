@@ -56,7 +56,21 @@ async function seed() {
 
     // 2. Modelos que dependen de los anteriores
     await prisma.componente.createMany({ data: componentes, skipDuplicates: true });
-    await prisma.producto.createMany({ data: productos, skipDuplicates: true });
+    for (const producto of productos) {
+      const existente = await prisma.producto.findFirst({
+        where: { nombre: producto.nombre },
+        select: { id: true },
+      });
+
+      if (existente) {
+        await prisma.producto.update({
+          where: { id: existente.id },
+          data: producto,
+        });
+      } else {
+        await prisma.producto.create({ data: producto });
+      }
+    }
 
     // 3. Relaciones muchos-a-muchos
     await prisma.productoEtiqueta.createMany({ data: productoEtiqueta, skipDuplicates: true });
@@ -72,9 +86,11 @@ async function seed() {
     // 5. Flujo de compra
     await prisma.carrito.createMany({ data: carritos, skipDuplicates: true });
     await prisma.carritoProducto.createMany({ data: carritoProducto, skipDuplicates: true });
-    await prisma.pedido.createMany({ data: pedidos, skipDuplicates: true });
-    await prisma.pedidoProducto.createMany({ data: pedidoProducto, skipDuplicates: true });
-    await prisma.estadoTransicion.createMany({ data: estadoTransicion, skipDuplicates: true });
+    if ((await prisma.pedido.count()) === 0) {
+      await prisma.pedido.createMany({ data: pedidos });
+      await prisma.pedidoProducto.createMany({ data: pedidoProducto });
+      await prisma.estadoTransicion.createMany({ data: estadoTransicion });
+    }
 
     // 6. Moderación
     await prisma.reporteResena.createMany({ data: reporteResena, skipDuplicates: true });

@@ -38,10 +38,10 @@
       </thead>
       <tbody>
         <tr *ngFor="let prod of productosNormales">
-          <td>{{ prod.nombre }}</td>
-          <td class="left">{{ prod.cantidad }}</td>
-          <td class="left">{{ getPrecioCRC(prod.precioUnitario) }}</td>
-          <td class="left">{{ getPrecioCRC(prod.subtotal) }}</td>
+          <td [attr.data-label]="'factura.productos.producto' | translate">{{ prod.nombre }}</td>
+          <td class="left" [attr.data-label]="'factura.productos.cantidad' | translate">{{ prod.cantidad }}</td>
+          <td class="left" [attr.data-label]="'factura.productos.precioUnitario' | translate">{{ getPrecioCRC(prod.precioUnitario) }}</td>
+          <td class="left" [attr.data-label]="'factura.productos.subtotal' | translate">{{ getPrecioCRC(prod.subtotal) }}</td>
         </tr>
       </tbody>
     </table>

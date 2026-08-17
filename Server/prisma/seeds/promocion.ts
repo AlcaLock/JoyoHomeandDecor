@@ -2,27 +2,27 @@ import { TipoDescuento } from "../../generated/prisma";
 
 export const promociones = [
   {
-    nombre: 'Junio para Estrenar en Casa',
+    nombre: 'Renueva tu Oficina',
     tipo: TipoDescuento.MONTO_FIJO,
-    descuento: 7500.0, // ₡7.500
-    inicio: new Date('2025-06-01'),
-    fin: new Date('2025-06-30'),
-    productoId: 1, // Silla de oficina
+    descuento: 7500.0,
+    inicio: new Date('2026-08-16'),
+    fin: new Date('2034-08-16'),
+    productoId: 1,
   },
   {
-    nombre: 'Reinventa tu Espacio -20%',
+    nombre: 'Mesas para Compartir -20%',
     tipo: TipoDescuento.PORCENTAJE,
-    descuento: 20.0, // 20%
-    inicio: new Date('2025-07-01'),
-    fin: new Date('2025-07-31'),
-    categoriaId: 2, // Mesas
+    descuento: 20.0,
+    inicio: new Date('2026-08-16'),
+    fin: new Date('2034-08-16'),
+    categoriaId: 2,
   },
   {
-    nombre: 'Agosto de Confort',
+    nombre: 'Confort para tu Sala',
     tipo: TipoDescuento.MONTO_FIJO,
-    descuento: 10000.0, // ₡10.000
-    inicio: new Date('2025-08-01'),
-    fin: new Date('2025-08-31'),
-    productoId: 3, // Sofá
+    descuento: 10000.0,
+    inicio: new Date('2026-08-16'),
+    fin: new Date('2034-08-16'),
+    productoId: 3,
   },
 ];
