@@ -64,6 +64,8 @@ joyohyd-main/
     │   ├── schema.prisma   # Database schema
     │   ├── seed.ts         # Database seeder
     │   └── seeds/          # Seed data modules
+      ├── scripts/
+      │   └── seed-demo-promotions.ts # Idempotent portfolio promotion sync
     ├── assets/uploads/     # Uploaded product images
     └── package.json
 ```
@@ -156,13 +158,15 @@ npx prisma migrate dev
 npx prisma generate
 ```
 
-### 3. Seed the database (optional)
+### 3. Seed a local database (optional)
 
 Populates the database with sample data including categories, products, users, reviews, orders, and promotions:
 
 ```bash
 npx prisma db seed
 ```
+
+> **Important:** `prisma db seed` writes to the database in `Server/.env`. Use it only with a local or disposable database. It is not run automatically by Render deployments.
 
 **Sample seed data includes:**
 - 5 product categories: Sillas, Mesas, Sofás, Decoración, Iluminación
@@ -185,6 +189,12 @@ You can use any of the seeded client accounts if you want to test the buyer flow
 - `valeria.mendez@ejemplo.com` / `valeria123`
 - `luis.navarro@ejemplo.com` / `luis123`
 - `sofia.gonzalez@ejemplo.com` / `sofia123`
+
+For the portfolio demo, the database also contains three active promotions valid through August 16, 2034. To synchronize them safely by name without creating duplicates, run this command from `Server/`:
+
+```bash
+npm run db:seed-demo-promotions
+```
 
 ---
 
@@ -232,6 +242,8 @@ npm run db:down
 npm run db:init
 ```
 
+Use this local Docker flow only when `DATABASE_URL` points to the local MySQL container. Do not run it against the production TiDB URL.
+
 ### 2. Start backend (from `Server/`)
 
 ```bash
@@ -259,6 +271,8 @@ npm start -- --port 4201
 
 - Client (public demo): `camila.rojas@ejemplo.com` / `camila123`
 - Admin credentials: keep private (do not share publicly)
+
+The public demo client can browse products, promotions, reviews, the cart, orders, and the responsive order invoice. Cancelling a card or cash payment closes only the payment dialog and leaves the cart unchanged.
 
 ### 6. Minimum secure setup before sharing publicly
 
@@ -378,6 +392,13 @@ Remove-Item Env:DATABASE_URL
 
 This avoids deploy failures caused by startup-time migration issues and keeps the service boot path stable.
 
+For an existing portfolio database, do not run the full seed during every deploy. Run only the idempotent promotion sync when the demo promotions need to be restored:
+
+```bash
+cd Server
+npm run db:seed-demo-promotions
+```
+
 ---
 
 ## Available Scripts
@@ -387,6 +408,7 @@ This avoids deploy failures caused by startup-time migration issues and keeps th
 | Script | Command | Description |
 |--------|---------|-------------|
 | `dev` | `nodemon source/server.ts` | Start development server with auto-restart |
+| `db:seed-demo-promotions` | `ts-node scripts/seed-demo-promotions.ts` | Synchronize the active portfolio promotions without duplicates |
 
 ### Frontend (`app/`)
 
